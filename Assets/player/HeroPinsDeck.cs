@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class HeroPinsDeck : MonoBehaviour
 {
-    private pinType pinsDeck;
-    public pinType getAllPinsDeck() {  return pinsDeck; }
+    public enum pinType//‰¼’u‚«AŒ‹‡ŒãÁ‚·
+    {
+
+    }
+    private pinType[] pinsDeck;
+    public pinType[] getAllPinsDeck() {  return this.pinsDeck; }
     public void addPinsDeck(string pinType)
     {
         
