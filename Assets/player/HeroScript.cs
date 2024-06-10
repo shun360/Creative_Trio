@@ -12,6 +12,7 @@ public enum BattleCmd
 }
 public class NewBehaviourScript : MonoBehaviour
 {
+
     private Vector2 currentPosi;
     [SerializeField] private Transform moveTarget;
     [SerializeField] private float smoothTime = 10f;
@@ -20,15 +21,8 @@ public class NewBehaviourScript : MonoBehaviour
     void Start()
     {
         Debug.Log("Start");
-        transform.position = new Vector2(0, 0);
-        currentPosi = new Vector2(transform.position.x, transform.position.y);
-        transform.position = Vector2.SmoothDamp(
-            currentPosi,
-            new Vector2(200, 200),
-            ref currentSpeed,
-            smoothTime
-        
-        );
+        transform.position = new Vector3(7, 7, 0);
+
     }
 
 
