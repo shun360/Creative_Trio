@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class monsterAttack: MonoBehaviour
+public class staticVars : MonoBehaviour
 {
-    
+    public static int stageNo = 0;
     // Start is called before the first frame update
     void Start()
     {

@@ -4,24 +4,32 @@ using UnityEngine;
 
 using System;
 
-public enum BattleCmd
+public enum CommandType
 {
-    attack,
-    defence,
-    fireboll
+    Attack,
+    Defense,
+    Fireboll
 }
 public class NewBehaviourScript : MonoBehaviour
 {
-
+    private int heroHP = 100;
+    private int heroATK = 8;
+    private int heroDEF = 5;
+    private int heroMagiATK = 15;
     private Vector2 currentPosi;
     [SerializeField] private Transform moveTarget;
-    [SerializeField] private float smoothTime = 10f;
+    [SerializeField] private float smoothTime;
     private Vector2 currentSpeed;
+    
+    public int getHeroHP() {  return heroHP; }
+    public int getHeroATK() {  return heroATK; }
+    public void setHeroHP(int hp) {  heroHP = hp; }
+    public void setHeroATK(int atk) {  heroATK = atk; }
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Start");
-        transform.position = new Vector3(7, 7, 0);
+        transform.position = new Vector3(15, 15, 0);
 
     }
 
