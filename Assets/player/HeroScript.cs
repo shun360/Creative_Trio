@@ -12,39 +12,91 @@ public enum CommandType
 }
 public class NewBehaviourScript : MonoBehaviour
 {
-    private int heroHP = 100;
-    private int heroATK = 8;
-    private int heroDEF = 5;
-    private int heroMagiATK = 15;
-    private int heroBlock = 0;
-
-    private Vector2 currentPosi;
-    [SerializeField] private Transform moveTarget;
-    [SerializeField] private float smoothTime;
-    private Vector2 currentSpeed;
-    
+    //status
+    private int heroMaxHP = 100;
+    private int heroNowHP = 100;
+    private readonly int heroOriATK = 8;//setterなし
+    private int heroNowATK;
+    private readonly int heroOriDEF = 5;//防御ピンから得られるブロック、setterなし
+    private int heroNowDEF;
+    private readonly int heroOriMagiATK = 15;
+    private int heroNowMagiATK;
+    private int heroBlock = 0; //ダメージを防御ブロックできる値
     //getter, setter
-    public int getHeroHP() {  return heroHP; }
-    public int getHeroATK() {  return heroATK; }
-    public int getHeroDEF() {  return heroDEF; }
-    public int getHeroMagiATK() { return heroMagiATK; }
-    public int getHeroBlock() {  return heroBlock; }
-    public void setHeroHP(int hp) {  heroHP = hp; }
-    public void setHeroATK(int atk) {  heroATK = atk; }
-    public void setHeroDEF(int def) {  heroDEF = def; }
-    public void setHeroMagiATK(int magiATK) { heroMagiATK= magiATK; }
-    public void setHeroBlock(int block) {  heroBlock = block; }
+    public int HeroMaxHP
+    {
+        get { return heroMaxHP; }
+        set { heroMaxHP = value; }
+    }
+    public int HeroNowHP
+    {
+        get { return heroNowHP; }
+        set { heroNowHP = value; }
+    }
+    public int HeroOriATK
+    {
+        get { return heroOriATK;}
+    }
+    public int HeroNowATK
+    {
+        get { return heroNowATK; }
+        set { heroNowATK = value; }
+    }
+    public int HeroOriDEF
+    {
+        get { return heroOriDEF; }
+    }
+    public int HeroNowDEF
+    {
+        get { return heroNowDEF; }
+        set { heroNowDEF = value; }
+    }
+    public int HeroOriMagiATK
+    {
+        get { return heroOriMagiATK; }
+    }
+    public int HeroNowMagiATK
+    {
+        get { return heroNowMagiATK; }
+        set { heroNowMagiATK = value; }
+    }
+    public int HeroBlock
+    {
+        get { return heroBlock; }
+        set { heroBlock = value; }
+    }
     //other method
-    public void addHeroBlock() { heroBlock += heroDEF; }//ブロック値をプラスする
-    public void beAttacked(int damage) { 
-
-        //heroHP -= (damage - ); 
-    }//攻撃を受ける
+    public void AddHeroBlock() { HeroBlock += HeroNowDEF; }//ブロック値をプラスする
+    public void BeAttacked(int damage) //攻撃を受ける
+    { 
+        if (HeroBlock >= damage) 
+        {
+            HeroBlock -= damage;
+            Debug.Log(damage + "ダメージをすべてブロックした");
+        }
+        else if (HeroBlock <= 0)
+        {
+            HeroNowHP -= damage;
+            Debug.Log(damage + "ダメージを受けた");
+        }
+        else
+        {
+            int oriDamage = damage;//デバッグ用
+            damage -= HeroBlock;
+            HeroNowHP -= damage;
+            Debug.Log(oriDamage + "ダメージのうち、" + damage + "ダメージを受けた");
+        }
+        
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Start");
+        HeroNowHP = HeroMaxHP;
+        HeroNowATK = HeroOriATK;
+        HeroNowDEF = HeroOriDEF;
+        HeroNowMagiATK = HeroOriMagiATK;
         transform.position = new Vector3(15, 15, 0);
 
     }
@@ -54,6 +106,9 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
 
-
+        if(HeroNowHP <= 0)
+        {
+            //ゲームオーバー処理を書く
+        }
     }
 }
