@@ -13,15 +13,15 @@ public enum CommandType
 public class NewBehaviourScript : MonoBehaviour
 {
     //status
-    private int heroMaxHP = 100;
-    private int heroNowHP = 100;
-    private readonly int heroOriATK = 8;//setterなし
-    private int heroNowATK;
-    private readonly int heroOriDEF = 5;//防御ピンから得られるブロック、setterなし
-    private int heroNowDEF;
-    private readonly int heroOriMagiATK = 15;
-    private int heroNowMagiATK;
-    private int heroBlock = 0; //ダメージを防御ブロックできる値
+    [SerializeField]private int heroMaxHP = 100;
+    [SerializeField]private int heroNowHP = 100;
+    [SerializeField] private readonly int heroOriATK = 8;//setterなし
+    [SerializeField] private int heroNowATK;
+    [SerializeField] private readonly int heroOriDEF = 5;//防御ピンから得られるブロック、setterなし
+    [SerializeField] private int heroNowDEF;
+    [SerializeField] private readonly int heroOriMagiATK = 15;
+    [SerializeField] private int heroNowMagiATK;
+    [SerializeField] private int heroBlock = 0; //ダメージを防御ブロックできる値
     //getter, setter
     public int HeroMaxHP
     {

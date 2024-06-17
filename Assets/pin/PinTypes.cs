@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroPinsDeck : MonoBehaviour
+public class PinTypes : MonoBehaviour
 {
-    public enum pinType//âºíuÇ´ÅAåãçáå„è¡Ç∑
+    public enum PinType
     {
-
-    }
-    private pinType[] pinsDeck;
-    public pinType[] getAllPinsDeck() {  return this.pinsDeck; }
-    public void addPinsDeck(string pinType)
-    {
-        
+        attackPin,
+        blockPin,
+        magicPin
     }
     // Start is called before the first frame update
     void Start()
