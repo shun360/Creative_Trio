@@ -16,7 +16,7 @@ public class TesterScript : MonoBehaviour
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.P))
         {
             int i = 0;
-            if (HeroPinDeck.PinDeck == null)
+            if (HeroPinDeck.PinDeck is null)
             {
                 Debug.Log("デッキにはピンがありません");
             }

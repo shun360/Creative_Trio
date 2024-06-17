@@ -211,6 +211,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f95ab6e8d1e7f47afc4bc2236793ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heroMaxHP: 100
+  heroNowHP: 100
+  heroNowATK: 0
+  heroNowDEF: 0
+  heroNowMagiATK: 0
+  heroBlock: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +454,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -797,6 +803,50 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1451208796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1451208798}
+  - component: {fileID: 1451208797}
+  m_Layer: 0
+  m_Name: Tester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1451208797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451208796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab9abbf97c9b7304eada0e74d8512520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1451208798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451208796}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -90.97043, y: -20.013885, z: 55.60679}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1569433660
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,6 +858,7 @@ GameObject:
   - component: {fileID: 1569433662}
   - component: {fileID: 1569433661}
   - component: {fileID: 1569433663}
+  - component: {fileID: 1569433664}
   m_Layer: 3
   m_Name: Hero
   m_TagString: Untagged
@@ -892,6 +943,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89f95ab6e8d1e7f47afc4bc2236793ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroMaxHP: 100
+  heroNowHP: 100
+  heroNowATK: 0
+  heroNowDEF: 0
+  heroNowMagiATK: 0
+  heroBlock: 0
+--- !u!114 &1569433664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569433660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba34a5c03a26a484cb9a69d851ea9c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1790711255
@@ -1090,7 +1159,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947880541}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1947880543
 Camera:
   m_ObjectHideFlags: 0
@@ -1181,3 +1250,4 @@ SceneRoots:
   - {fileID: 1928620414}
   - {fileID: 1190938888}
   - {fileID: 1569433662}
+  - {fileID: 1451208798}
