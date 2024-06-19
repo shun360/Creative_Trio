@@ -29,6 +29,7 @@ public class CommandQueue : MonoBehaviour
                 break;
             case CommandType.Fireboll:
                 Debug.Log("ファイアボール実行");
+                //魔法を実行
                 break;
         }
     }

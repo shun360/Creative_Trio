@@ -10,7 +10,7 @@ public enum CommandType
     Defense,
     Fireboll
 }
-public class NewBehaviourScript : MonoBehaviour
+public class HeroScript : MonoBehaviour
 {
     //status
     [SerializeField]private int heroMaxHP = 100;
@@ -88,6 +88,11 @@ public class NewBehaviourScript : MonoBehaviour
         }
         
     }
+    public void HeroMove(Vector3 target)
+    {
+        Vector3 velocity = Vector3.zero;
+        Vector3.SmoothDamp(transform.position, target, ref velocity, 0.7f);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -105,7 +110,7 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         if(HeroNowHP <= 0)
         {
             //ゲームオーバー処理を書く

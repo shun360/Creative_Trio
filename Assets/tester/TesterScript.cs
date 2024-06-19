@@ -31,11 +31,26 @@ public class TesterScript : MonoBehaviour
             }
             
         }
+        //デッキにピン追加
         if(Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.A))
         {
             HeroPinDeck.AddPinDeck(PinTypes.PinType.attackPin);
-            
         }
 
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.B))
+        {
+            HeroPinDeck.AddPinDeck(PinTypes.PinType.blockPin);
+        }
+
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.M))
+        {
+            HeroPinDeck.AddPinDeck(PinTypes.PinType.magicPin);
+        }
+        //
+        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.M))
+        {
+            Vector3 target = new Vector3(10, 10, 0);
+            //GameObject.Find("Hero").HeroScript.HeroMove(target);
+        }
     }
 }
