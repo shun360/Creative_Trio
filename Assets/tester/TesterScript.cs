@@ -52,5 +52,6 @@ public class TesterScript : MonoBehaviour
             Vector3 target = new Vector3(10, 10, 0);
             //GameObject.Find("Hero").HeroScript.HeroMove(target);
         }
+        
     }
 }
