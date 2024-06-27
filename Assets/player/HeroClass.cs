@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
-public class HeroClass : MonoBehaviour
+public class HeroClass
 {
 
     //status
@@ -74,7 +74,7 @@ public class HeroClass : MonoBehaviour
     }
     //other method
     public void AddHeroBlock() { HeroBlock += HeroNowDEF; }//ブロック値をプラスする
-    public void BeAttacked(int damage) //攻撃を受ける
+    public void TakeAttacked(int damage) //攻撃を受ける
     {
         if (HeroBlock >= damage)
         {
@@ -95,10 +95,6 @@ public class HeroClass : MonoBehaviour
         }
 
     }
-    public void HeroMove(Vector3 target)//未テスト
-    {
-        Vector3 velocity = Vector3.zero;
-        Vector3.SmoothDamp(transform.position, target, ref velocity, 0.7f);
-    }
+    
     
 }
