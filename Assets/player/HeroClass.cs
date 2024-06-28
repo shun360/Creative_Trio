@@ -15,6 +15,7 @@ public class HeroClass
     [SerializeField] private readonly int heroOriMagiATK;
     [SerializeField] private int heroNowMagiATK;
     [SerializeField] private int heroBlock; //ダメージを防御ブロックできる値
+    [SerializeField] private int targetNumber;
     //コンストラクタ
     public HeroClass()
     {
@@ -26,7 +27,8 @@ public class HeroClass
         heroNowDEF = heroOriDEF;
         heroOriMagiATK = 15;
         heroNowMagiATK = heroOriMagiATK;
-        HeroBlock = 0;
+        heroBlock = 0;
+        targetNumber = 0;
     }
     
     //getter, setter
@@ -71,6 +73,11 @@ public class HeroClass
     {
         get { return heroBlock; }
         set { heroBlock = value; }
+    }
+    public int TargetNumber
+    {
+        get { return targetNumber; }
+        set { targetNumber = value; }
     }
     //other method
     public void AddHeroBlock() { HeroBlock += HeroNowDEF; }//ブロック値をプラスする

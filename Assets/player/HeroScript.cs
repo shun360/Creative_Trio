@@ -21,11 +21,12 @@ public class HeroScript : MonoBehaviour
         targetPosition = target;
         shouldMove = true;
     }
-    public void goAttack(GameObject enemy, PinTypes.PinType pin)
+    public void goAttack(GameObject enemy)
     {
-        Vector3 origin = new Vector3(transform.position);
+        Vector3 origin = transform.position;
         HeroMove(new Vector3(enemy.transform.position.x - 5, enemy.transform.position.y, 0));
         //enemy‚Épin‚ÌUŒ‚ˆ—
+
         HeroMove(origin);
     }
 

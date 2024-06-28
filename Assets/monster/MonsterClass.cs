@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[System.Serializable]
 
-public class MonsterClass : MonoBehaviour
+public class MonsterClass
 {
-
-    // Start is called before the first frame update
-    void Start()
+    public static List<GameObject> existMonsters = new List<GameObject>();
+    private int hp;
+    private int atk;
+    private int cycle;
+    //[SerializeField] 
+    public MonsterClass()
     {
-        
+        //MonsterClass(10, 3, 1);
     }
-
-    // Update is called once per frame
-    void Update()
+    public MonsterClass(int hp, int atk, int cycle) 
     {
-        
+        this.hp = hp;
+        this.atk = atk;
+        this.cycle = cycle;
     }
 }
