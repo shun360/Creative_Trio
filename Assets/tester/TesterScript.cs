@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class TesterScript : MonoBehaviour
 {
+    private HeroScript heroScript;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(heroScript == null)
+        {
+            heroScript = FindObjectOfType<HeroScript>();
+        }
     }
 
     // Update is called once per frame
@@ -47,10 +51,17 @@ public class TesterScript : MonoBehaviour
             HeroPinDeck.AddPinDeck(PinType.magicPin);
         }
         //
-        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.A))
         {
-            Vector3 target = new Vector3(10, 10, 0);
-            //GameObject.Find("Hero").HeroScript.HeroMove(target);
+            Debug.Log("H&M");
+            if (heroScript != null)
+            { 
+                heroScript.HeroMove(10, 10);
+            }
+            else
+            {
+                Debug.Log("HeroScriptのインスタンスがありません");
+            }
         }
         
     }

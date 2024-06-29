@@ -5,8 +5,9 @@ using UnityEngine;
 public enum MonsterType
 {
     slime,
-    skeleton,
-    mummy
+    bat,
+    mummy,
+    gargoyle
 }
 public class slime : MonsterClass
 {

@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 45772123}
   - component: {fileID: 45772125}
   - component: {fileID: 45772124}
-  - component: {fileID: 45772126}
   m_Layer: 5
   m_Name: none
   m_TagString: Player
@@ -199,18 +198,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45772122}
   m_CullTransparentMesh: 1
---- !u!114 &45772126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45772122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89f95ab6e8d1e7f47afc4bc2236793ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,7 +822,7 @@ Transform:
   m_GameObject: {fileID: 1451208796}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90.97043, y: -20.013885, z: 55.60679}
+  m_LocalPosition: {x: -10, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -939,6 +926,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f95ab6e8d1e7f47afc4bc2236793ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hero:
+    heroMaxHP: 100
+    heroNowHP: 100
+    heroNowATK: 8
+    heroNowDEF: 5
+    heroNowMagiATK: 15
+    heroBlock: 0
+    targetNumber: 0
 --- !u!114 &1569433664
 MonoBehaviour:
   m_ObjectHideFlags: 0
