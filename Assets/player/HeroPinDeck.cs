@@ -7,10 +7,10 @@ using UnityEngine;
 
 public class HeroPinDeck : MonoBehaviour
 {
-    public static List<PinType> PinDeck = new List<PinType>();
+    public static List<CommandType> PinDeck = new List<CommandType>();
     
-    public static List<PinType> GetAllPinDeck() { return PinDeck; }
-    public static void AddPinDeck(PinType pin)
+    public static List<CommandType> GetAllPinDeck() { return PinDeck; }
+    public static void AddPinDeck(CommandType pin)
     {
         PinDeck.Add(pin);
         Debug.Log("デッキに" + pin + "追加");
@@ -21,8 +21,8 @@ public class HeroPinDeck : MonoBehaviour
     {
         for(int i = 0;i < 3; i++)//初期デッキ(attack*3, block*3)
         {
-            AddPinDeck(PinType.attackPin);
-            AddPinDeck(PinType.blockPin);
+            AddPinDeck(CommandType.Attack);
+            AddPinDeck(CommandType.Block);
         }
     }
 

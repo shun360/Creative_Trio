@@ -26,8 +26,8 @@ public class TesterScript : MonoBehaviour
             }
             else
             {
-                List<PinType> deck = HeroPinDeck.GetAllPinDeck();
-                foreach (PinType pin in deck)
+                List<CommandType> deck = HeroPinDeck.GetAllPinDeck();
+                foreach (CommandType pin in deck)
                 {
                     i++;
                     Debug.Log("デッキ" + i + "番目:" + pin);
@@ -38,17 +38,17 @@ public class TesterScript : MonoBehaviour
         //デッキにピン追加
         if(Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.A))
         {
-            HeroPinDeck.AddPinDeck(PinType.attackPin);
+            HeroPinDeck.AddPinDeck(CommandType.Attack);
         }
 
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.B))
         {
-            HeroPinDeck.AddPinDeck(PinType.blockPin);
+            HeroPinDeck.AddPinDeck(CommandType.Block);
         }
 
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.M))
         {
-            HeroPinDeck.AddPinDeck(PinType.magicPin);
+            HeroPinDeck.AddPinDeck(CommandType.Fireboll);
         }
         //
         if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.A))
@@ -56,7 +56,7 @@ public class TesterScript : MonoBehaviour
             Debug.Log("H&M");
             if (heroScript != null)
             { 
-                heroScript.HeroMove(10, 10);
+                heroScript.HeroAttackMotion();
             }
             else
             {

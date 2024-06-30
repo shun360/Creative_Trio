@@ -7,7 +7,7 @@ using System;
 public enum CommandType
 {
     Attack,
-    Defense,
+    Block,
     Fireboll
 }
 public class HeroScript : MonoBehaviour
@@ -19,13 +19,16 @@ public class HeroScript : MonoBehaviour
     private bool isReturning = false;
     Vector3 originPosition;
 
-    public void HeroMove(float x, float y)
+    private void HeroMove(float x, float y)
     {
         shouldMove = true;
         targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
         Debug.Log($"HeroMove‚ªŒÄ‚Î‚ê‚½Žž‚ÌtargetPosition: {targetPosition}");
     }
-
+    public void HeroAttackMotion()
+    {
+        HeroMove(10, 10);
+    }
 
     
     private void Awake()
@@ -73,27 +76,7 @@ public class HeroScript : MonoBehaviour
                     transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, 0.1f);
                 }
             }
-            /*Debug.Log($"{transform.position} ‚©‚ç {targetPosition}‚ÖˆÚ“®");
-            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, 0.1f);
-            if(Vector3.Distance(transform.position, targetPosition) < 0.1f)
-            {
-                if (isReturning)
-                {
-                    if (Vector3.Distance(transform.position, originPosition) < 0.1f)
-                    {
-                        shouldMove = false;
-                        velocity = Vector3.zero;
-                        isReturning = false;
-                        Debug.Log("originPosition‚É–ß‚Á‚½");
-                    }
-                }
-                else
-                {
-                    isReturning = true;
-                    targetPosition = originPosition;
-                    Debug.Log("Uƒ^[ƒ“‚·‚é");
-                }
-            }*/
+            
         }
         if(hero.HeroNowHP <= 0)
         {
