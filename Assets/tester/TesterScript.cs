@@ -50,7 +50,7 @@ public class TesterScript : MonoBehaviour
         {
             HeroPinDeck.AddPinDeck(CommandType.Fireboll);
         }
-        //
+        //Hero
         if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.A))
         {
             Debug.Log("H&M");
@@ -63,6 +63,20 @@ public class TesterScript : MonoBehaviour
                 Debug.Log("HeroScriptのインスタンスがありません");
             }
         }
-        
+        //Pin
+        if(Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.A))
+        {
+            GameObject.Find("Super Pin").GetComponent<PinScript>().ArrangePins();
+        }
+        //GameManager
+        if(Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.S))
+        {
+            GameManager.Instance.PlayStart();
+        }
+        if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.E))
+        {
+            GameManager.Instance.PlayEnd();
+        }
+
     }
 }

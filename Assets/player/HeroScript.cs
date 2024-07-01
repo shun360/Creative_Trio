@@ -4,12 +4,7 @@ using UnityEngine;
 
 using System;
 
-public enum CommandType
-{
-    Attack,
-    Block,
-    Fireboll
-}
+
 public class HeroScript : MonoBehaviour
 {
     public HeroClass hero;

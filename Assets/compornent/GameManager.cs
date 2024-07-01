@@ -8,7 +8,19 @@ public class GameManager : MonoBehaviour
 
     public int stageNo = 0;
     public GameObject targetEnemy;
+    public bool isPlaying = false;
 
+    public void PlayStart()//ボウリング開始
+    {
+        GameObject.Find("Super Pin").GetComponent<PinScript>().ArrangePins();
+        isPlaying = true;
+        Debug.Log("ボウリングスタート");
+    }
+    public void PlayEnd()
+    {
+        isPlaying = false;
+        Debug.Log("ボウリング終了");
+    }
     private void Awake()
     {
         if (Instance == null)

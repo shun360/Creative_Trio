@@ -6,26 +6,20 @@ public class PinClass : MonoBehaviour
 {
     private bool isKnockDown = false; //倒れたかどうか
     private bool sentCommand = false; //コマンドを送ったかどうか
-    //private static Vector3 fp = new Vector3(-100, 1, 70);//基準の位置・使わないかも
-    private static Vector3[] positions =
+    public CommandType Type;
+    private PinClass()
     {
-        new Vector3(0, 0, 0),
-        new Vector3(-0.5f, 0, 1),
-        new Vector3(0.5f, 0, 1),
-        new Vector3(-1, 0, 2),
-        new Vector3(0, 0, 2),
-        new Vector3(1, 0, 2),
-        new Vector3(-1.5f, 0, 3),
-        new Vector3(-0.5f, 0, 3),
-        new Vector3(0.5f, 0, 3),
-        new Vector3(1.5f, 0, 3),
-    };
-    public CommandType Type {  get; private set; }
-    public PinClass(CommandType type)
+        
+    }
+    private PinClass(CommandType type)
+    {
+        SetType(type);
+    }
+    public void SetType(CommandType type)
     {
         this.Type = type;
+        Debug.Log($"ピンに{type}をセット");
     }
-
     // Start is called before the first frame update
     void Start()
     {
