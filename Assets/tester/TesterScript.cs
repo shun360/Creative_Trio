@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TesterScript : MonoBehaviour
 {
-    private HeroScript heroScript;
+    private HeroScript hero;
     // Start is called before the first frame update
     void Start()
     {
-        if(heroScript == null)
+        if(hero == null)
         {
-            heroScript = FindObjectOfType<HeroScript>();
+            hero = FindObjectOfType<HeroScript>();
         }
     }
 
@@ -35,7 +35,7 @@ public class TesterScript : MonoBehaviour
             }
             
         }
-        //デッキにピン追加
+        //Deck
         if(Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.A))
         {
             HeroPinDeck.AddPinDeck(CommandType.Attack);
@@ -50,13 +50,17 @@ public class TesterScript : MonoBehaviour
         {
             HeroPinDeck.AddPinDeck(CommandType.Fireboll);
         }
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.S))
+        {
+            HeroPinDeck.Shuffle();
+        }
         //Hero
         if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.A))
         {
             Debug.Log("H&M");
-            if (heroScript != null)
+            if (hero != null)
             { 
-                heroScript.HeroAttackMotion();
+                hero.AttackMotion();
             }
             else
             {

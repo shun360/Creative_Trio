@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
     public int stageNo = 0;
     public GameObject targetEnemy;
     public bool isPlaying = false;
-
+    
     public void PlayStart()//ボウリング開始
     {
         GameObject.Find("Super Pin").GetComponent<PinScript>().ArrangePins();

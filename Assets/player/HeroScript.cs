@@ -7,7 +7,7 @@ using System;
 
 public class HeroScript : MonoBehaviour
 {
-    public HeroClass hero;
+    public static HeroClass hero = new HeroClass();
     private Vector3 velocity = Vector3.zero;
     private Vector3 targetPosition;
     private bool shouldMove = false;
@@ -20,7 +20,7 @@ public class HeroScript : MonoBehaviour
         targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
         Debug.Log($"HeroMove‚ªŒÄ‚Î‚ê‚½Žž‚ÌtargetPosition: {targetPosition}");
     }
-    public void HeroAttackMotion()
+    public void AttackMotion()
     {
         HeroMove(10, 10);
     }
@@ -28,7 +28,6 @@ public class HeroScript : MonoBehaviour
     
     private void Awake()
     {
-        hero = new HeroClass();
         originPosition = new Vector3(15, 15, 0);
     }
     // Start is called before the first frame update

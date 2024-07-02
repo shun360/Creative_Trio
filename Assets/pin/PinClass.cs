@@ -6,20 +6,17 @@ public class PinClass : MonoBehaviour
 {
     private bool isKnockDown = false; //倒れたかどうか
     private bool sentCommand = false; //コマンドを送ったかどうか
-    public CommandType Type;
-    private PinClass()
+    public CommandType Type { get; private set; }
+    public PinClass()
     {
         
     }
-    private PinClass(CommandType type)
-    {
-        SetType(type);
-    }
-    public void SetType(CommandType type)
+    public void Init(CommandType type)
     {
         this.Type = type;
         Debug.Log($"ピンに{type}をセット");
     }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +32,7 @@ public class PinClass : MonoBehaviour
 
         if(isKnockDown && !sentCommand)
         {
-            CommandQueue.AddCommand(Type);
+            FindObjectOfType<CommandQueue>().AddCommand(Type);
             sentCommand = true;
             Debug.Log($"{Type}をコマンドキューに送った");
         }

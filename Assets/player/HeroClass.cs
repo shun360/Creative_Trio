@@ -80,7 +80,7 @@ public class HeroClass
         set { targetNumber = value; }
     }
     //other method
-    public void AddHeroBlock() { HeroBlock += HeroNowDEF; }//ブロック値をプラスする
+    public void AddBlock() { HeroBlock += HeroNowDEF; }//ブロック値をプラスする
     public void TakeAttacked(int damage) //攻撃を受ける
     {
         if (HeroBlock >= damage)
