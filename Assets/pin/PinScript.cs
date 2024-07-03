@@ -7,19 +7,19 @@ public class PinScript : MonoBehaviour
 {
     private static List<GameObject> pinInstances;
     private static Vector3 p = new Vector3(-100, 1, 70);//äÓèÄÇÃà íu
-    
+    private static float m = 1.5f;
     private static readonly Vector3[] positions =
     {
         p,
-        new Vector3(p.x - 1, p.y, p.z + 1.75f),
-        new Vector3(p.x + 1, p.y, p.z + 1.75f),
-        new Vector3(p.x - 2, p.y, p.z + 3.5f),
-        new Vector3(p.x + 0, p.y, p.z + 3.5f),
-        new Vector3(p.x + 2, p.y, p.z + 3.5f),
-        new Vector3(p.x - 3, p.y, p.z + 5.25f),
-        new Vector3(p.x - 1, p.y, p.z + 5.25f),
-        new Vector3(p.x + 1, p.y, p.z + 5.25f),
-        new Vector3(p.x + 3, p.y, p.z + 5.25f),
+        new Vector3(p.x - m, p.y, p.z + 1.75f * m),
+        new Vector3(p.x + m, p.y, p.z + 1.75f * m),
+        new Vector3(p.x - 2 * m, p.y, p.z + 3.5f * m),
+        new Vector3(p.x, p.y, p.z + 3.5f * m),
+        new Vector3(p.x + 2 * m, p.y, p.z + 3.5f * m),
+        new Vector3(p.x - 3 * m, p.y, p.z + 5.25f * m),
+        new Vector3(p.x - m, p.y, p.z + 5.25f * m),
+        new Vector3(p.x + m, p.y, p.z + 5.25f * m),
+        new Vector3(p.x + 3 * m, p.y, p.z + 5.25f * m),
     };
     
     public void ArrangePins()

@@ -81,6 +81,17 @@ public class TesterScript : MonoBehaviour
         {
             GameManager.Instance.PlayEnd();
         }
+        //ball
+
+        //Queue
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            List<CommandType> cmds = GameObject.Find("CommandQueue").GetComponent<CommandQueue>().commandQueue;
+            for (int i = 0; i < cmds.Count; i++)
+            {
+                Debug.Log($"コマンドキューの{i}番目：{cmds[i]}");
+            }
+        }
 
     }
 }

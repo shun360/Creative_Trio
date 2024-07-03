@@ -6,7 +6,7 @@ public class PinClass : MonoBehaviour
 {
     private bool isKnockDown = false; //倒れたかどうか
     private bool sentCommand = false; //コマンドを送ったかどうか
-    public CommandType Type { get; private set; }
+    [SerializeField] public CommandType Type { get; private set; }
     public PinClass()
     {
         
@@ -16,7 +16,16 @@ public class PinClass : MonoBehaviour
         this.Type = type;
         Debug.Log($"ピンに{type}をセット");
     }
-    
+    private void send()
+    {
+        if (!sentCommand)
+        {
+            GameObject.Find("CommandQueue").GetComponent<CommandQueue>().AddCommand(Type);
+            sentCommand = true;
+            Debug.Log($"{Type}をコマンドキューに送った");
+        }
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -30,13 +39,15 @@ public class PinClass : MonoBehaviour
 
 
 
-        if(isKnockDown && !sentCommand)
+        if(isKnockDown)
         {
-            FindObjectOfType<CommandQueue>().AddCommand(Type);
-            sentCommand = true;
-            Debug.Log($"{Type}をコマンドキューに送った");
+            send();
         }
-
+        if(transform.position.y < -10)
+        {
+            send();
+            Destroy(this.gameObject);
+        }
 
     }
 }

@@ -16,11 +16,14 @@ public class GameManager : MonoBehaviour
         GameObject.Find("Super Pin").GetComponent<PinScript>().ArrangePins();
         isPlaying = true;
         Debug.Log("ボウリングスタート");
+        //ここにボールを初期位置に戻すコード
     }
     public void PlayEnd()
     {
         isPlaying = false;
         Debug.Log("ボウリング終了");
+        //ここにボールを初期位置に戻すコード
+        //FindObjectOfType<CommandQueue>().AllCommandsExe();
     }
     private void Awake()
     {

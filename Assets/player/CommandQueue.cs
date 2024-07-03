@@ -5,14 +5,19 @@ using UnityEngine;
 public class CommandQueue : MonoBehaviour
 {
     private HeroScript hero;
-    private Queue<CommandType> commandQueue;
-    public void AddCommand(CommandType cmd) {  commandQueue.Enqueue(cmd); }
-    public CommandType dequeueCommand() { return commandQueue.Dequeue(); }
+    public List<CommandType> commandQueue;
+    public void AddCommand(CommandType cmd) {  commandQueue.Add(cmd); }
+    public CommandType DequeueCommand() 
+    {
+        CommandType c = commandQueue[0];
+        commandQueue.RemoveAt(0);
+        return c; 
+    }
     public void AllCommandsExe()
     {
         while(commandQueue.Count > 0)
         {
-            CommandType cmd = commandQueue.Dequeue();
+            CommandType cmd = DequeueCommand();
             ExecuteCommand(cmd);
         }
     }
@@ -37,20 +42,16 @@ public class CommandQueue : MonoBehaviour
                 Debug.Log("ファイアボール実行");
                 //魔法を実行
                 break;
-        }
+        }//コルーチンを書く
+        
     }
 
     public void ClearCommand() { commandQueue.Clear(); }
     private void Awake()
     {
-        if(commandQueue == null)
-        {
-            commandQueue = new Queue<CommandType>();
-        }
-        else
-        {
-            Destroy(this);
-        }
+        commandQueue = new List<CommandType>();
+        Debug.Log("キュー生成");
+        
     }
     // Start is called before the first frame update
     void Start()
