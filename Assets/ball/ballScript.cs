@@ -7,7 +7,7 @@ public class BallScript : MonoBehaviour
     private Vector3 startPos = new Vector3(-100, 2, 5);
     
     public Rigidbody rb;
-    public void set()
+    public void Set()
     {
         transform.position = startPos;
         rb.velocity = Vector3.zero;
@@ -18,7 +18,7 @@ public class BallScript : MonoBehaviour
     }
     void Start()
     {
-        set();
+        Set();
     }
 
     void Update()

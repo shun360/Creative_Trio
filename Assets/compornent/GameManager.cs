@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public int stageNo = 0;
-    public GameObject targetEnemy;
     public bool isPlaying = false;
     
     public void PlayStart()//ボウリング開始
@@ -19,6 +18,8 @@ public class GameManager : MonoBehaviour
             isPlaying = true;
             Debug.Log("ボウリングスタート");
             //ここにボールを初期位置に戻すコード
+            //テスト
+            FindObjectOfType<BallScript>().Set();
         }
         else
         {
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviour
             isPlaying = false;
             Debug.Log("ボウリング終了");
             //ここにボールを初期位置に戻すコード
+            //テスト
+            FindObjectOfType<BallScript>().Set();
             //FindObjectOfType<CommandQueue>().AllCommandsExe();
         }
         else

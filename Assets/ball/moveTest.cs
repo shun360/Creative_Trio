@@ -5,8 +5,8 @@ using UnityEngine;
 public class MoveTest : MonoBehaviour
 {
     [SerializeField] private Vector3 acce = new Vector3(0, 0, 20);
-    [SerializeField] private Vector3 left = new Vector3(-5, 0, 0);
-    [SerializeField] private Vector3 right = new Vector3(5, 0, 0);
+    [SerializeField] private Vector3 left = new Vector3(-20, 0, 0);
+    [SerializeField] private Vector3 right = new Vector3(20, 0, 0);
     private Rigidbody rb;
     private void Awake()
     {

@@ -84,7 +84,7 @@ public class TesterScript : MonoBehaviour
         //ball
         if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S))
         {
-            FindObjectOfType<BallScript>().set();
+            FindObjectOfType<BallScript>().Set();
         }
         //Queue
         if (Input.GetKeyDown(KeyCode.Q))
