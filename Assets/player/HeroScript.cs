@@ -72,7 +72,7 @@ public class HeroScript : MonoBehaviour
             }
             
         }
-        if(hero.HeroNowHP <= 0)
+        if(hero.NowHP <= 0)
         {
             Debug.Log("GAME OVER!");
             //ゲームオーバー処理を書く

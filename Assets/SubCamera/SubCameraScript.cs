@@ -5,7 +5,7 @@ using UnityEngine;
 public class SubCameraScript : MonoBehaviour
 {
     private GameObject ball;
-    private Vector3 plusPosi = new Vector3(0, 2, -8);
+    private Vector3 plusPosi = new Vector3(0, 4, -12);
     // Start is called before the first frame update
     void Start()
     {

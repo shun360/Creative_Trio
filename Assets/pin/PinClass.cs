@@ -16,7 +16,7 @@ public class PinClass : MonoBehaviour
         this.Type = type;
         Debug.Log($"ピンに{type}をセット");
     }
-    private void send()
+    private void Send()
     {
         if (!sentCommand)
         {
@@ -41,11 +41,11 @@ public class PinClass : MonoBehaviour
 
         if(isKnockDown)
         {
-            send();
+            Send();
         }
         if(transform.position.y < -10)
         {
-            send();
+            Send();
             Destroy(this.gameObject);
         }
 

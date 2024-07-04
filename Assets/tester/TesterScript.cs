@@ -20,13 +20,13 @@ public class TesterScript : MonoBehaviour
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.P))
         {
             int i = 0;
-            if (HeroPinDeck.PinDeck is null)
+            if (PinDeck.Deck is null)
             {
                 Debug.Log("デッキにはピンがありません");
             }
             else
             {
-                List<CommandType> deck = HeroPinDeck.GetAllPinDeck();
+                List<CommandType> deck = PinDeck.GetAllPinDeck();
                 foreach (CommandType pin in deck)
                 {
                     i++;
@@ -38,21 +38,21 @@ public class TesterScript : MonoBehaviour
         //Deck
         if(Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.A))
         {
-            HeroPinDeck.AddPinDeck(CommandType.Attack);
+            PinDeck.AddPinDeck(CommandType.Attack);
         }
 
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.B))
         {
-            HeroPinDeck.AddPinDeck(CommandType.Block);
+            PinDeck.AddPinDeck(CommandType.Block);
         }
 
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.M))
         {
-            HeroPinDeck.AddPinDeck(CommandType.Fireboll);
+            PinDeck.AddPinDeck(CommandType.Fireboll);
         }
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.S))
         {
-            HeroPinDeck.Shuffle();
+            PinDeck.Shuffle();
         }
         //Hero
         if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.A))
@@ -82,15 +82,26 @@ public class TesterScript : MonoBehaviour
             GameManager.Instance.PlayEnd();
         }
         //ball
-
+        if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S))
+        {
+            FindObjectOfType<BallScript>().set();
+        }
         //Queue
         if (Input.GetKeyDown(KeyCode.Q))
         {
             List<CommandType> cmds = GameObject.Find("CommandQueue").GetComponent<CommandQueue>().commandQueue;
-            for (int i = 0; i < cmds.Count; i++)
+            if (cmds.Count == 0)
             {
-                Debug.Log($"コマンドキューの{i}番目：{cmds[i]}");
+                Debug.Log("セットされているコマンドはありません。");
             }
+            else
+            {
+                for (int i = 0; i < cmds.Count; i++)
+                {
+                    Debug.Log($"コマンドキューの{i}番目：{cmds[i]}");
+                }
+            }
+            
         }
 
     }

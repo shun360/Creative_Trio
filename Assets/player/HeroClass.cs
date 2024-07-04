@@ -6,73 +6,73 @@ public class HeroClass
 {
 
     //status
-    [SerializeField] private int heroMaxHP;
-    [SerializeField] private int heroNowHP;
-    [SerializeField] private readonly int heroOriATK;//setterなし
-    [SerializeField] private int heroNowATK;
-    [SerializeField] private readonly int heroOriDEF;//防御ピンから得られるブロック、setterなし
-    [SerializeField] private int heroNowDEF;
-    [SerializeField] private readonly int heroOriMagiATK;
-    [SerializeField] private int heroNowMagiATK;
-    [SerializeField] private int heroBlock; //ダメージを防御ブロックできる値
+    [SerializeField] private int maxHP;
+    [SerializeField] private int nowHP;
+    [SerializeField] private readonly int oriATK;//setterなし
+    [SerializeField] private int nowATK;
+    [SerializeField] private readonly int oriDEF;//防御ピンから得られるブロック、setterなし
+    [SerializeField] private int nowDEF;
+    [SerializeField] private readonly int oriMagiATK;
+    [SerializeField] private int nowMagiATK;
+    [SerializeField] private int block; //ダメージを防御ブロックできる値
     [SerializeField] private int targetNumber;
     //コンストラクタ
     public HeroClass()
     {
-        heroMaxHP = 100;
-        heroNowHP = 100;
-        heroOriATK = 8;
-        heroNowATK = heroOriATK;
-        heroOriDEF = 5;
-        heroNowDEF = heroOriDEF;
-        heroOriMagiATK = 15;
-        heroNowMagiATK = heroOriMagiATK;
-        heroBlock = 0;
+        maxHP = 100;
+        nowHP = 100;
+        oriATK = 8;
+        nowATK = oriATK;
+        oriDEF = 5;
+        nowDEF = oriDEF;
+        oriMagiATK = 15;
+        nowMagiATK = oriMagiATK;
+        block = 0;
         targetNumber = 0;
     }
     
     //getter, setter
-    public int HeroMaxHP
+    public int MaxHP
     {
-        get { return heroMaxHP; }
-        set { heroMaxHP = value; }
+        get { return maxHP; }
+        set { maxHP = value; }
     }
-    public int HeroNowHP
+    public int NowHP
     {
-        get { return heroNowHP; }
-        set { heroNowHP = value; }
+        get { return nowHP; }
+        set { nowHP = value; }
     }
-    public int HeroOriATK
+    public int OriATK
     {
-        get { return heroOriATK; }
+        get { return oriATK; }
     }
-    public int HeroNowATK
+    public int NowATK
     {
-        get { return heroNowATK; }
-        set { heroNowATK = value; }
+        get { return nowATK; }
+        set { nowATK = value; }
     }
-    public int HeroOriDEF
+    public int OriDEF
     {
-        get { return heroOriDEF; }
+        get { return oriDEF; }
     }
-    public int HeroNowDEF
+    public int NowDEF
     {
-        get { return heroNowDEF; }
-        set { heroNowDEF = value; }
+        get { return nowDEF; }
+        set { nowDEF = value; }
     }
-    public int HeroOriMagiATK
+    public int OriMagiATK
     {
-        get { return heroOriMagiATK; }
+        get { return oriMagiATK; }
     }
-    public int HeroNowMagiATK
+    public int NowMagiATK
     {
-        get { return heroNowMagiATK; }
-        set { heroNowMagiATK = value; }
+        get { return nowMagiATK; }
+        set { nowMagiATK = value; }
     }
-    public int HeroBlock
+    public int Block
     {
-        get { return heroBlock; }
-        set { heroBlock = value; }
+        get { return block; }
+        set { block = value; }
     }
     public int TargetNumber
     {
@@ -80,24 +80,24 @@ public class HeroClass
         set { targetNumber = value; }
     }
     //other method
-    public void AddBlock() { HeroBlock += HeroNowDEF; }//ブロック値をプラスする
+    public void AddBlock() { block += nowDEF; }//ブロック値をプラスする
     public void TakeAttacked(int damage) //攻撃を受ける
     {
-        if (HeroBlock >= damage)
+        if (block >= damage)
         {
-            HeroBlock -= damage;
+            block -= damage;
             Debug.Log(damage + "ダメージをすべてブロックした");
         }
-        else if (HeroBlock <= 0)
+        else if (block <= 0)
         {
-            HeroNowHP -= damage;
+            nowHP -= damage;
             Debug.Log(damage + "ダメージを受けた");
         }
         else
         {
             int oriDamage = damage;//デバッグ用
-            damage -= HeroBlock;
-            HeroNowHP -= damage;
+            damage -= block;
+            nowHP -= damage;
             Debug.Log(oriDamage + "ダメージのうち、" + damage + "ダメージを受けた");
         }
 

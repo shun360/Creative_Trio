@@ -2,19 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class boll : MonoBehaviour
+public class BallScript : MonoBehaviour
 {
-    Vector3 startPosition, targetPosition;
-    private Vector3 velocity = Vector3.zero;
-    public float time = 80F;
-
+    private Vector3 startPos = new Vector3(-100, 2, 5);
+    
+    public Rigidbody rb;
+    public void set()
+    {
+        transform.position = startPos;
+        rb.velocity = Vector3.zero;
+    }
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     void Start()
     {
-        targetPosition = new Vector3(-1, 0, 1);
+        set();
     }
 
     void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, time);
+        
     }
 }
