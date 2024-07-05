@@ -26,7 +26,7 @@ public class PinScript : MonoBehaviour
     {
         if (!GameManager.Instance.isPlaying)
         {
-            for (int i = 0; i < PinDeck.    Deck.Count && i < positions.Length; i++)
+            for (int i = 0; i < PinDeck.Deck.Count && i < positions.Length; i++)
             {
                 GameObject pinPrefab = (GameObject)Resources.Load("Pin");
                 GameObject pinstance = Instantiate(pinPrefab, positions[i], Quaternion.identity);
@@ -48,6 +48,10 @@ public class PinScript : MonoBehaviour
             Debug.Log("1プレイが終わっていないため、ピンを生成しませんでした。");
         }
         
+    }
+    public void AllRemovePin()
+    {
+        pinInstances.Clear();
     }
     private void Awake()
     {

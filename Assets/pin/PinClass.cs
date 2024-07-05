@@ -26,6 +26,11 @@ public class PinClass : MonoBehaviour
         }
         
     }
+    public void Remove()
+    {
+        //Á‚¦‚é‰‰o‚ğ’Ç‰ÁH
+        Destroy(this);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -43,10 +48,10 @@ public class PinClass : MonoBehaviour
         {
             Send();
         }
-        if(transform.position.y < -10)
+        if(transform.position.y < -5)
         {
             Send();
-            Destroy(this.gameObject);
+            Remove();
         }
 
     }

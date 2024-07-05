@@ -38,7 +38,7 @@ public class CommandQueue : MonoBehaviour
                 //防御を実装
                 
                 break;
-            case CommandType.Fireboll:
+            case CommandType.Fireball:
                 Debug.Log("ファイアボール実行");
                 //魔法を実行
                 break;
