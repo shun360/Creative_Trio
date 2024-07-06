@@ -55,6 +55,10 @@ public class TesterScript : MonoBehaviour
             PinDeck.Shuffle();
         }
         //Hero
+        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.D))
+        {
+            HeroScript.hero.TakeAttacked(50);
+        }
         if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.A))
         {
             Debug.Log("H&M");

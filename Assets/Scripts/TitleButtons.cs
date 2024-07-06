@@ -2,14 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TitleButtons : MonoBehaviour
 {
-    public class GameOver : MonoBehaviour
+
+    private void Start()
     {
-        public void ReturnToTitle()
+
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    public void ReturnToTitle()
         {
+        Debug.Log("Start");
             SceneManager.LoadScene("title");
         }
-    }
+
 }
