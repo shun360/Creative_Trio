@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using System;
+using UnityEngine.SceneManagement;
 
 
 public class HeroScript : MonoBehaviour
@@ -76,6 +76,12 @@ public class HeroScript : MonoBehaviour
         {
             Debug.Log("GAME OVER!");
             //ゲームオーバー処理を書く
+            GameOver();
         }
     }
+   void GameOver()
+    {
+        SceneManager.LoadScene("GameOverScene");
+    }
+    
 }
