@@ -72,6 +72,10 @@ public class TesterScript : MonoBehaviour
         {
             GameObject.Find("Super Pin").GetComponent<PinScript>().ArrangePins();
         }
+        if(Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.R))
+        {
+            FindObjectOfType<PinScript>().AllRemovePin();
+        }
         //GameManager
         if(Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.S))
         {

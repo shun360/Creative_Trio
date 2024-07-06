@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PinScript : MonoBehaviour
 {
-    private static List<GameObject> pinInstances;
+    public static List<GameObject> pinInstances;
     private static Vector3 p = new Vector3(-100, 1, 70);//äÓèÄÇÃà íu
-    private static float m = 1.5f;
+    private static float m = 2f;
     private static readonly Vector3[] positions =
     {
         p,
@@ -51,8 +51,13 @@ public class PinScript : MonoBehaviour
     }
     public void AllRemovePin()
     {
-        pinInstances.Clear();
+        for(int i = 0;i < pinInstances.Count;i++)
+        {
+            Destroy(pinInstances[i]);
+        }
+        Debug.Log("Ç∑Ç◊ÇƒÇÃÉsÉìÇçÌèúÇµÇ‹ÇµÇΩ");
     }
+
     private void Awake()
     {
         pinInstances = new List<GameObject>();

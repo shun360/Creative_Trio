@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
             GameObject.Find("Super Pin").GetComponent<PinScript>().ArrangePins();
             isPlaying = true;
             Debug.Log("ボウリングスタート");
-            FindAnyObjectByType<PinScript>().AllRemovePin();
             //ここにボールを初期位置に戻すコード
             //テスト
             FindObjectOfType<BallScript>().Set();
@@ -34,6 +33,8 @@ public class GameManager : MonoBehaviour
         {
             isPlaying = false;
             Debug.Log("ボウリング終了");
+
+            FindAnyObjectByType<PinScript>().AllRemovePin();
             //ここにボールを初期位置に戻すコード
             //テスト
             FindObjectOfType<BallScript>().Set();

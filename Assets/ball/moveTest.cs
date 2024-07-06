@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MoveTest : MonoBehaviour
 {
-    [SerializeField] private Vector3 acce = new Vector3(0, 0, 1000);
-    [SerializeField] private Vector3 left = new Vector3(-20, 0, 0);
-    [SerializeField] private Vector3 right = new Vector3(20, 0, 0);
+    [SerializeField] private Vector3 acce = new Vector3(0, 0, 30000);
+    [SerializeField] private Vector3 left = new Vector3(-50, 0, 0);
+    [SerializeField] private Vector3 right = new Vector3(50, 0, 0);
     private Rigidbody rb;
     private void Awake()
     {
@@ -31,12 +31,16 @@ public class MoveTest : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             Ahead();
         }
+    }
+    void FixedUpdate()
+    {
+        
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             CurveLeft();
