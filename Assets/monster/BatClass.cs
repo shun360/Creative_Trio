@@ -8,14 +8,6 @@ public class BatClass : MonsterClass
     {
         StatusSet(mt.Bat, 65, 14, 0);
     }
-    protected override void LoadSprite(mt t)
-    {
-        sprite = Resources.Load<Sprite>(t.ToString());
-        if (sprite == null)
-        {
-            Debug.LogError($"{t}‚ÌƒCƒ[ƒW‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½");
-        }
-    }
     protected override List<List<mc>> ActSet()
     {
         List<List<mc>> actPattern = new List<List<mc>>();

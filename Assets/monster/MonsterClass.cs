@@ -5,7 +5,7 @@ using MonsterSet;
 using UnityEngine.UI;
 [System.Serializable]
 
-public abstract class MonsterClass : MonoBehaviour
+public class MonsterClass : MonoBehaviour
 {
 
     public static List<GameObject> existMonsters = new List<GameObject>();
@@ -100,8 +100,14 @@ public abstract class MonsterClass : MonoBehaviour
 
     }
 
-    protected abstract void LoadSprite(mt t);//抽象メソッド
-
+    protected void LoadSprite(mt t)
+    {
+        sprite = Resources.Load<Sprite>(t.ToString());
+        if (sprite == null)
+        {
+            Debug.LogError($"{t}のイメージが見つかりませんでした");
+        }
+    }
 
     public void AddBlock() { block += nowDEF; }
     public void TakeAttacked(int damage) //攻撃を受ける
@@ -129,6 +135,7 @@ public abstract class MonsterClass : MonoBehaviour
     {
         targetPosition = GameObject.Find("Hero").transform.position;
         originPosition = transform.position;
+        actPattern = ActSet();
         isLiving = true;
     }
     
@@ -169,7 +176,7 @@ public abstract class MonsterClass : MonoBehaviour
         if (nowHP <= 0 && isLiving)
         {
             isLiving = false;
-            MonsterScript.monInstances.Remove(this);
+            MonsterScript.monInstances.Remove(this.gameObject);
             //ここに消える演出？
             Destroy(this.gameObject);
         }

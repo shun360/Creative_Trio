@@ -5,7 +5,7 @@ using MonsterSet;
 
 public class ReturnMonsters : MonoBehaviour
 {
-    public static List<List<mt>> monsters = new(); //stageごとに出現するモンスターを格納
+    public static List<List<mt>> monsters; //stageごとに出現するモンスターを格納
     
     public List<mt> StageMonsters(int stageNo) //stage番号(そのまま)を入れるとそのステージに出すモンスターlistを返す
     {
@@ -15,12 +15,12 @@ public class ReturnMonsters : MonoBehaviour
         }
         else
         {
-            return new List<mt> { mt.Slime };
+            return new List<mt> { mt.NoneMonster };
         }
     }
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        monsters = new List<List<mt>>();
         monsters.Add(new List<mt> { mt.Slime, mt.Slime}); //stage1
         monsters.Add(new List<mt> { mt.Bat, mt.Slime});
         monsters.Add(new List<mt> { mt.Mummy });
