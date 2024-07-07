@@ -2,14 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MonsterType
-{
-    slime,
-    bat,
-    mummy,
-    gargoyle
-}
-public class slime : MonsterClass
-{
-
+namespace MonsterSet{ //using MonsterSet; を記述して、MonsterTypeをmt、MonsterCommandをmcで使用可能に
+    public enum mt
+    {
+        Slime,
+        Bat,
+        Mummy,
+        Gargoyle
+    }
+    public enum mc //使わないかも
+    {
+        Attack,
+        Block,
+        Buff,
+        Debuff,
+        Obstruction
+    }
+    public enum bd //buff,debuff 
+    {
+        atk,
+        def
+    }
 }

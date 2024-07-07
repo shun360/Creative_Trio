@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using System;
+[System.Serializable]
 
 
 public class HeroScript : MonoBehaviour
 {
-    public static HeroClass hero = new HeroClass();
+    [SerializeField]public static HeroClass hero;
     private Vector3 velocity = Vector3.zero;
     private Vector3 targetPosition;
     private bool shouldMove = false;
@@ -28,6 +29,7 @@ public class HeroScript : MonoBehaviour
     
     private void Awake()
     {
+        hero = new HeroClass();
         originPosition = new Vector3(15, 15, 0);
     }
     // Start is called before the first frame update
@@ -35,7 +37,8 @@ public class HeroScript : MonoBehaviour
     {
         Debug.Log("Start");
         transform.position = originPosition;
-        HeroMove(10,10);
+        AttackMotion();
+        //HeroMove(10,10);
     }
 
     // Update is called once per frame
