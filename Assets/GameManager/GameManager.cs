@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public int stageNo = 0;
     public bool isPlaying = false;
+    public int turn = 0;
     
     public void PlayStart()//ボウリング開始
     {
@@ -45,6 +46,11 @@ public class GameManager : MonoBehaviour
             Debug.LogError("プレイ中ではありません。");
         }
 
+    }
+    public void StageClear()
+    {
+        stageNo++;
+        turn = 0;
     }
     private void Awake()
     {

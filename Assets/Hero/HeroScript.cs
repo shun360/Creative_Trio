@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class HeroScript : MonoBehaviour
 {
-    public static HeroClass hero = new HeroClass();
+    [SerializeField]public static HeroClass hero;
     private Vector3 velocity = Vector3.zero;
     private Vector3 targetPosition;
     private bool shouldMove = false;
@@ -18,7 +18,7 @@ public class HeroScript : MonoBehaviour
     {
         shouldMove = true;
         targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
-        Debug.Log($"HeroMove‚ªŒÄ‚Î‚ê‚½‚ÌtargetPosition: {targetPosition}");
+        Debug.Log($"HeroMoveï¿½ï¿½ï¿½Ä‚Î‚ê‚½ï¿½ï¿½ï¿½ï¿½targetPosition: {targetPosition}");
     }
     public void AttackMotion()
     {
@@ -28,6 +28,7 @@ public class HeroScript : MonoBehaviour
     
     private void Awake()
     {
+        hero = new HeroClass();
         originPosition = new Vector3(15, 15, 0);
     }
     // Start is called before the first frame update
@@ -35,7 +36,8 @@ public class HeroScript : MonoBehaviour
     {
         Debug.Log("Start");
         transform.position = originPosition;
-        HeroMove(10,10);
+        AttackMotion();
+        //HeroMove(10,10);
     }
 
     // Update is called once per frame
@@ -50,7 +52,7 @@ public class HeroScript : MonoBehaviour
                     shouldMove = false;
                     velocity = Vector3.zero;
                     isReturning = false;
-                    Debug.Log("originPosition‚É–ß‚Á‚½");
+                    Debug.Log("originPositionï¿½É–ß‚ï¿½ï¿½ï¿½");
                 }
                 else
                 {
@@ -63,7 +65,7 @@ public class HeroScript : MonoBehaviour
                 { 
                     isReturning = true;
                     targetPosition = originPosition;
-                    Debug.Log("Uƒ^[ƒ“‚·‚é");
+                    Debug.Log("Uï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                 }
                 else
                 {
@@ -75,7 +77,7 @@ public class HeroScript : MonoBehaviour
         if(hero.NowHP <= 0)
         {
             Debug.Log("GAME OVER!");
-            //ƒQ[ƒ€ƒI[ƒo[ˆ—‚ğ‘‚­
+            //ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½[ï¿½oï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             GameOver();
         }
     }
