@@ -5,6 +5,7 @@ using UnityEngine;
 namespace MonsterSet{ //using MonsterSet; を記述して、MonsterTypeをmt、MonsterCommandをmcで使用可能に
     public enum mt
     {
+        NoneMonster,
         Slime,
         Bat,
         Mummy,

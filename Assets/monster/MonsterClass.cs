@@ -31,13 +31,12 @@ public abstract class MonsterClass : MonoBehaviour
     {
 
     }
-    public virtual void Init(mt type)
+    public virtual void Init()
     {
-        StatusSet(type, 30, 11, 6);
+        StatusSet(mt.NoneMonster, 30, 11, 6);
     }
-    protected void StatusSet(mt type, int hp, int atk, int def) 
+    protected void StatusSet(mt type,int hp, int atk, int def) 
     {
-        this.type = type;
         LoadSprite(type);
         this.maxHP = hp;
         this.nowHP = hp;
@@ -46,7 +45,7 @@ public abstract class MonsterClass : MonoBehaviour
         this.oriDEF = def;
         this.nowDEF = def;
     }
-    protected virtual List<List<mc>> ActSet()
+    protected virtual List<List<mc>> ActSet()//行動パターン設定
     {
         List<List<mc>> actPattern = new List<List<mc>>();
         int cycle = 2;
@@ -83,7 +82,7 @@ public abstract class MonsterClass : MonoBehaviour
     {
         Move(-10, -10);
     }
-    public void ChangeStaust(bd target, int turn, int amount)
+    public virtual void ChangeStatus(bd target, int turn, int amount)
     {
         switch (target)
         {
@@ -132,6 +131,7 @@ public abstract class MonsterClass : MonoBehaviour
         originPosition = transform.position;
         isLiving = true;
     }
+    
     
     protected virtual void Update()
     {
