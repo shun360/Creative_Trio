@@ -13,37 +13,40 @@ public class CommandQueue : MonoBehaviour
         commandQueue.RemoveAt(0);
         return c; 
     }
-    public void AllCommandsExe()
+    public IEnumerator AllCommandsExe()
     {
+        Debug.Log("コマンドキュー実行開始");
+        yield return new WaitForSeconds(1);
+        
         while(commandQueue.Count > 0)
         {
             CommandType cmd = DequeueCommand();
             ExecuteCommand(cmd);
         }
     }
-    public void ExecuteCommand(CommandType cmd)
+    public IEnumerator ExecuteCommand(CommandType cmd)
     {
         switch (cmd)
         {
             case CommandType.Attack:
                 Debug.Log("アタック実行");
-                //攻撃を実装
+                //TODO：攻撃を実装
                 if(hero != null)
                 {
-                    hero.AttackMotion();
+                    hero.Attack();
                 }
                 break;
             case CommandType.Block:
                 Debug.Log("防御実行");
-                //防御を実装
-                
+                //TODO：防御を実装
+                hero.AddBlock();
                 break;
             case CommandType.Fireball:
                 Debug.Log("ファイアボール実行");
-                //魔法を実行
+                //TODO:魔法を実行
                 break;
-        }//コルーチンを書く
-        
+        }
+        yield return new WaitForSeconds(1);
     }
 
     public void ClearCommand() { commandQueue.Clear(); }

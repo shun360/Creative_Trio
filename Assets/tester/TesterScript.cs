@@ -57,19 +57,12 @@ public class TesterScript : MonoBehaviour
         //Hero
         if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.D))
         {
-            HeroScript.hero.TakeAttacked(50);
+            hero.TakeAttacked(50);
         }
-        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.A))
+        
+        if(Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.C))
         {
-            Debug.Log("H&M");
-            if (hero != null)
-            { 
-                hero.AttackMotion();
-            }
-            else
-            {
-                Debug.Log("HeroScriptのインスタンスがありません");
-            }
+            hero.NowATK = 300;
         }
         //Pin
         if(Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.A))
@@ -89,10 +82,18 @@ public class TesterScript : MonoBehaviour
         {
             GameManager.Instance.PlayEnd();
         }
+        if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.P))
+        {
+            GameManager.Instance.GamePlay();
+        }
         //ball
         if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S))
         {
             FindObjectOfType<BallScript>().Set();
+        }
+        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.E))
+        {
+            GameManager.Instance.throwEnd = true;
         }
         //Queue
         if (Input.GetKeyDown(KeyCode.Q))

@@ -51,8 +51,20 @@ public class MonsterScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("1プレイが終わっていないため、ピンを生成しませんでした。");
+            Debug.Log("ボウリングが終わっていないため、モンスターを生成しませんでした。");
         }
+    }
+
+    public IEnumerator MonsterActs()
+    {
+        Debug.Log("モンスター行動開始");
+        yield return new WaitForSeconds(1);//FixMe：モンスター行動実行、もしモンスターがいなければyield return null;
+        Debug.Log("モンスター行動終了");
+    }
+
+    private void Awake()
+    {
+        monInstances = new List<GameObject> ();
     }
     // Start is called before the first frame update
     void Start()

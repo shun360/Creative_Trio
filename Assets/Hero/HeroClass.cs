@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]
-public class HeroClass
+
+public class HeroClass : MonoBehaviour
 {
 
     //status
@@ -15,7 +15,7 @@ public class HeroClass
     [SerializeField] private readonly int oriMagiATK;
     [SerializeField] private int nowMagiATK;
     [SerializeField] private int block; //ダメージを防御ブロックできる値
-    [SerializeField] private int targetNumber;
+    
     //コンストラクタ
     public HeroClass()
     {
@@ -28,9 +28,8 @@ public class HeroClass
         oriMagiATK = 15;
         nowMagiATK = oriMagiATK;
         block = 0;
-        targetNumber = 0;
     }
-    
+
     //getter, setter
     public int MaxHP
     {
@@ -74,12 +73,9 @@ public class HeroClass
         get { return block; }
         set { block = value; }
     }
-    public int TargetNumber
-    {
-        get { return targetNumber; }
-        set { targetNumber = value; }
-    }
+   
     //other method
+
     public void AddBlock() { block += nowDEF; }//ブロック値をプラスする
     public void TakeAttacked(int damage) //攻撃を受ける
     {
@@ -102,6 +98,6 @@ public class HeroClass
         }
 
     }
-    
-    
+
+
 }
