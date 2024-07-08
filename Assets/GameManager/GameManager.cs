@@ -10,7 +10,23 @@ public class GameManager : MonoBehaviour
     public int stageNo = 0;
     public bool isPlaying = false;
     public int turn = 0;
+    private Display disp = FindObjectOfType<Display>();
+    public void GamePlay()
+    {
+
+    }
     
+    IEnumerator TurnPlay()
+    {
+        turn++;
+        yield return disp.Turn();
+        
+    }
+    public void StageClear()
+    {
+        stageNo++;
+        turn = 0;
+    }
     public void PlayStart()//ボウリング開始
     {
         if (!isPlaying)
@@ -47,11 +63,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    public void StageClear()
-    {
-        stageNo++;
-        turn = 0;
-    }
+    
     private void Awake()
     {
         if (Instance == null)
