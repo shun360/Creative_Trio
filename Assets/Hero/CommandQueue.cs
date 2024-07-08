@@ -1,49 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CommandType;
 
 public class CommandQueue : MonoBehaviour
 {
     private HeroScript hero;
-    public List<CommandType> commandQueue;
-    public void AddCommand(CommandType cmd) {  commandQueue.Add(cmd); }
-    public CommandType DequeueCommand() 
+    public List<ct> commandQueue;
+    public void AddCommand(ct cmd) {  commandQueue.Add(cmd); }
+    public ct DequeueCommand() 
     {
-        CommandType c = commandQueue[0];
+        ct c = commandQueue[0];
         commandQueue.RemoveAt(0);
         return c; 
     }
     public IEnumerator AllCommandsExe()
     {
-        Debug.Log("ƒRƒ}ƒ“ƒhƒLƒ…[ÀsŠJn");
+        Debug.Log("ï¿½Rï¿½}ï¿½ï¿½ï¿½hï¿½Lï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½sï¿½Jï¿½n");
         yield return new WaitForSeconds(1);
         
         while(commandQueue.Count > 0)
         {
-            CommandType cmd = DequeueCommand();
+            ct cmd = DequeueCommand();
             ExecuteCommand(cmd);
         }
     }
-    public IEnumerator ExecuteCommand(CommandType cmd)
+    public IEnumerator ExecuteCommand(ct cmd)
     {
         switch (cmd)
         {
-            case CommandType.Attack:
-                Debug.Log("ƒAƒ^ƒbƒNÀs");
-                //TODOFUŒ‚‚ğÀ‘•
+            case ct.Attack:
+                Debug.Log("ï¿½Aï¿½^ï¿½bï¿½Nï¿½ï¿½ï¿½s");
+                //TODOï¿½Fï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if(hero != null)
                 {
                     hero.Attack();
                 }
                 break;
-            case CommandType.Block:
-                Debug.Log("–hŒäÀs");
-                //TODOF–hŒä‚ğÀ‘•
+            case ct.Block:
+                Debug.Log("ï¿½hï¿½ï¿½ï¿½ï¿½s");
+                //TODOï¿½Fï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 hero.AddBlock();
                 break;
-            case CommandType.Fireball:
-                Debug.Log("ƒtƒ@ƒCƒAƒ{[ƒ‹Às");
-                //TODO:–‚–@‚ğÀs
+            case ct.Fireball:
+                Debug.Log("ï¿½tï¿½@ï¿½Cï¿½Aï¿½{ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½s");
+                //TODO:ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½s
                 break;
         }
         yield return new WaitForSeconds(1);
@@ -52,8 +53,8 @@ public class CommandQueue : MonoBehaviour
     public void ClearCommand() { commandQueue.Clear(); }
     private void Awake()
     {
-        commandQueue = new List<CommandType>();
-        Debug.Log("ƒLƒ…[¶¬");
+        commandQueue = new List<ct>();
+        Debug.Log("ï¿½Lï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½");
         
     }
     // Start is called before the first frame update

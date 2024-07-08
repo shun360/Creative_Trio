@@ -1,6 +1,10 @@
-public enum CommandType
+namespace CommandType
 {
-    Attack,
-    Block,
-    Fireball
+    public enum ct
+    {
+        Attack,
+        Block,
+        Fireball
+    }
+
 }
