@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CommandType;
 
 public class TesterScript : MonoBehaviour
 {
@@ -26,8 +27,8 @@ public class TesterScript : MonoBehaviour
             }
             else
             {
-                List<CommandType> deck = PinDeck.GetAllPinDeck();
-                foreach (CommandType pin in deck)
+                List<ct> deck = PinDeck.GetAllPinDeck();
+                foreach (ct pin in deck)
                 {
                     i++;
                     Debug.Log("デッキ" + i + "番目:" + pin);
@@ -38,17 +39,17 @@ public class TesterScript : MonoBehaviour
         //Deck
         if(Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.A))
         {
-            PinDeck.AddPinDeck(CommandType.Attack);
+            PinDeck.AddPinDeck(ct.Attack);
         }
 
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.B))
         {
-            PinDeck.AddPinDeck(CommandType.Block);
+            PinDeck.AddPinDeck(ct.Block);
         }
 
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.M))
         {
-            PinDeck.AddPinDeck(CommandType.Fireball);
+            PinDeck.AddPinDeck(ct.Fireball);
         }
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.S))
         {
@@ -93,7 +94,7 @@ public class TesterScript : MonoBehaviour
         //Queue
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            List<CommandType> cmds = GameObject.Find("CommandQueue").GetComponent<CommandQueue>().commandQueue;
+            List<ct> cmds = GameObject.Find("CommandQueue").GetComponent<CommandQueue>().commandQueue;
             if (cmds.Count == 0)
             {
                 Debug.Log("セットされているコマンドはありません。");

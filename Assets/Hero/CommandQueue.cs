@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CommandType;
 
 public class CommandQueue : MonoBehaviour
 {
     private HeroScript hero;
-    public List<CommandType> commandQueue;
-    public void AddCommand(CommandType cmd) {  commandQueue.Add(cmd); }
-    public CommandType DequeueCommand() 
+    public List<ct> commandQueue;
+    public void AddCommand(ct cmd) {  commandQueue.Add(cmd); }
+    public ct DequeueCommand() 
     {
-        CommandType c = commandQueue[0];
+        ct c = commandQueue[0];
         commandQueue.RemoveAt(0);
         return c; 
     }
@@ -17,15 +18,15 @@ public class CommandQueue : MonoBehaviour
     {
         while(commandQueue.Count > 0)
         {
-            CommandType cmd = DequeueCommand();
+            ct cmd = DequeueCommand();
             ExecuteCommand(cmd);
         }
     }
-    public void ExecuteCommand(CommandType cmd)
+    public void ExecuteCommand(ct cmd)
     {
         switch (cmd)
         {
-            case CommandType.Attack:
+            case ct.Attack:
                 Debug.Log("アタック実行");
                 //攻撃を実装
                 if(hero != null)
@@ -33,12 +34,12 @@ public class CommandQueue : MonoBehaviour
                     hero.AttackMotion();
                 }
                 break;
-            case CommandType.Block:
+            case ct.Block:
                 Debug.Log("防御実行");
                 //防御を実装
                 
                 break;
-            case CommandType.Fireball:
+            case ct.Fireball:
                 Debug.Log("ファイアボール実行");
                 //魔法を実行
                 break;
@@ -49,7 +50,7 @@ public class CommandQueue : MonoBehaviour
     public void ClearCommand() { commandQueue.Clear(); }
     private void Awake()
     {
-        commandQueue = new List<CommandType>();
+        commandQueue = new List<ct>();
         Debug.Log("キュー生成");
         
     }

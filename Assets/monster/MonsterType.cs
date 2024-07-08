@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MonsterSet{ //using MonsterSet; を記述して、MonsterTypeをmt、MonsterCommandをmcで使用可能に
-    public enum mt
+    public enum mt //Monster Type
     {
         NoneMonster,
         Slime,
@@ -11,7 +11,7 @@ namespace MonsterSet{ //using MonsterSet; を記述して、MonsterTypeをmt、MonsterCo
         Mummy,
         Gargoyle
     }
-    public enum mc //使わないかも
+    public enum mc //Monster Command
     {
         Attack,
         Block,

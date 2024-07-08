@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CommandType;
 
 public class PinClass : MonoBehaviour
 {
     private float knockDownAngle = 60.0f;
     private bool isKnockDown = false; //倒れたかどうか
     private bool sentCommand = false; //コマンドを送ったかどうか
-    [SerializeField] public CommandType Type { get; private set; }
+    [SerializeField] public ct Type { get; private set; }
     public PinClass()
     {
         
     }
-    public void Init(CommandType type)
+    public void Init(ct type)
     {
         this.Type = type;
         Debug.Log($"ピンに{type}をセット");
