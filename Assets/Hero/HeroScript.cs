@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using System.Data.SqlTypes;
+using UnityEditor.Search;
 
 
-public class HeroScript : MonoBehaviour
+public class HeroScript : HeroClass
 {
-    [SerializeField]public static HeroClass hero;
     private Vector3 velocity = Vector3.zero;
+    private int targetNumber = 0;
     private Vector3 targetPosition;
     private bool shouldMove = false;
     private bool isReturning = false;
@@ -18,17 +20,29 @@ public class HeroScript : MonoBehaviour
     {
         shouldMove = true;
         targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
-        Debug.Log($"HeroMove���Ă΂ꂽ����targetPosition: {targetPosition}");
+        Debug.Log($"HeroMoveが呼ばれた時のtargetPosition: {targetPosition}");
     }
-    public void AttackMotion()
+    public IEnumerator Attack()
+    {
+        AttackMotion();
+        MonsterClass t = MonsterScript.monInstances[targetNumber].GetComponent<MonsterClass>();
+        t.TakeAttacked(NowATK);
+        yield return new WaitForSeconds(0.1f);
+        t.KnockBack();
+    }
+    private void AttackMotion()
     {
         HeroMove(10, 10);
     }
+    public void KnockBack()
+    {
+        HeroMove(-5, -5);
+    }
 
-    
+
     private void Awake()
     {
-        hero = new HeroClass();
+        
         originPosition = new Vector3(15, 15, 0);
     }
     // Start is called before the first frame update
@@ -36,23 +50,21 @@ public class HeroScript : MonoBehaviour
     {
         Debug.Log("Start");
         transform.position = originPosition;
-        AttackMotion();
-        //HeroMove(10,10);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(shouldMove)
+        if (shouldMove)
         {
-            if(isReturning)
+            if (isReturning)
             {
                 if (Vector3.Distance(transform.position, originPosition) < 0.1f)
                 {
                     shouldMove = false;
                     velocity = Vector3.zero;
                     isReturning = false;
-                    Debug.Log("originPosition�ɖ߂���");
+                    Debug.Log("originPositionに戻った");
                 }
                 else
                 {
@@ -60,30 +72,29 @@ public class HeroScript : MonoBehaviour
                 }
             }
             else
-            { 
+            {
                 if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-                { 
+                {
                     isReturning = true;
                     targetPosition = originPosition;
-                    Debug.Log("U�^�[������");
+                    Debug.Log("Uターン");
                 }
                 else
                 {
                     transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, 0.1f);
                 }
             }
-            
+
         }
-        if(hero.NowHP <= 0)
+        if (NowHP <= 0)
         {
             Debug.Log("GAME OVER!");
-            //�Q�[���I�[�o�[����������
+            //ゲームオーバー処理を書く
             GameOver();
         }
     }
-   void GameOver()
+    void GameOver()
     {
         SceneManager.LoadScene("GameOverScene");
     }
-    
 }

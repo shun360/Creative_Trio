@@ -76,11 +76,15 @@ public class MonsterClass : MonoBehaviour
     public void Attack()
     {
         AttackMotion();
-        HeroScript.hero.TakeAttacked(nowATK);
+        FindObjectOfType<HeroScript>().TakeAttacked(nowATK);
     }
     public void AttackMotion()
     {
         Move(-10, -10);
+    }
+    public void KnockBack()
+    {
+        Move(5, 5);
     }
     public virtual void ChangeStatus(bd target, int turn, int amount)
     {
