@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int stageNo;
     public bool isPlaying;
     public int turn;
+    public bool throwStart;
     public bool throwEnd;
     private Display disp;
     private HeroScript hero;
@@ -17,7 +18,8 @@ public class GameManager : MonoBehaviour
     private PinScript pin;
     private CommandQueue queue;
     private MonsterScript mons;
-    public void GamePlay()
+
+    public IEnumerator GamePlay()
     {
         disp = FindObjectOfType<Display>();
         ball = FindObjectOfType<BallScript>();
@@ -28,20 +30,26 @@ public class GameManager : MonoBehaviour
         stageNo = 1;
         isPlaying = false;
         turn = 0;
+        throwStart = false;
         throwEnd = false;
+        Debug.Log("GamePlay開始");
         for (int i = 2; i < ReturnMonsters.monsters.Count + 2;i++)
         {
-            StartCoroutine(disp.StageStart());
+            Debug.Log($"ステージ{i - 1}を開始します");
+
+            yield return disp.StageStart();
+            
             mons.SetMonster();
             while (stageNo < i)
             {
-                StartCoroutine(TurnPlay());
+                yield return TurnPlay();
                 if(MonsterScript.monInstances.Count == 0)
                 {
                     StageClear();
                 }
             }
         }
+        Debug.Log("ゲームクリア!!");//TODO:ゲームクリア処理
     }
     IEnumerator TurnPlay()
     {
@@ -57,6 +65,7 @@ public class GameManager : MonoBehaviour
     }
     public void StageClear()
     {
+        Debug.Log("ステージクリア！");
         stageNo++;
         turn = 0;
         StartCoroutine(disp.Clear());
@@ -68,6 +77,7 @@ public class GameManager : MonoBehaviour
     {
         if (!isPlaying)
         {
+            throwStart = false;
             throwEnd = false;
             pin.ArrangePins();
             isPlaying = true;

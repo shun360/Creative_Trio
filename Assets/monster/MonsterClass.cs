@@ -22,7 +22,7 @@ public class MonsterClass : MonoBehaviour
     protected Vector3 originPosition;
     protected Vector3 velocity = Vector3.zero;
     protected Vector3 targetPosition;
-    protected Sprite sprite;
+    
     protected bool isLiving = false;
     protected List<List<mc>> actPattern;
 
@@ -33,6 +33,7 @@ public class MonsterClass : MonoBehaviour
     }
     public virtual void Init()
     {
+        Debug.Log("MonsterClassのInit()");
         thistype = mt.NoneMonster;
         StatusSet(thistype, 30, 11, 6);
     }
@@ -107,11 +108,9 @@ public class MonsterClass : MonoBehaviour
 
     protected void LoadSprite(mt t)
     {
-        sprite = Resources.Load<Sprite>(t.ToString());
-        if (sprite == null)
-        {
-            Debug.LogError($"{t}のイメージが見つかりませんでした");
-        }
+        Debug.Log($"{t}の画像を読み込みます");
+        GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>($"{t}");
+        
     }
 
     public void AddBlock() { block += nowDEF; }
@@ -144,7 +143,18 @@ public class MonsterClass : MonoBehaviour
         isLiving = true;
     }
     
-    
+    public void Dead()
+    {
+        isLiving = false;
+        MonsterScript.monInstances.Remove(this.gameObject);
+        //ここに消える演出？
+        Destroy(this.gameObject);
+    }
+    public IEnumerator YieldDead()
+    {
+        yield return null;
+        Dead();
+    }
     protected virtual void Update()
     {
         if (shouldMove)
@@ -180,10 +190,7 @@ public class MonsterClass : MonoBehaviour
         }
         if (nowHP <= 0 && isLiving)
         {
-            isLiving = false;
-            MonsterScript.monInstances.Remove(this.gameObject);
-            //ここに消える演出？
-            Destroy(this.gameObject);
+            Dead();
         }
     }
 }

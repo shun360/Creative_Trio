@@ -85,7 +85,7 @@ public class TesterScript : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.P))
         {
-            GameManager.Instance.GamePlay();
+            StartCoroutine(GameManager.Instance.GamePlay());
         }
         //ball
         if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S))
@@ -112,6 +112,11 @@ public class TesterScript : MonoBehaviour
                 }
             }
             
+        }
+        //Monster
+        if (Input.GetKey(KeyCode.M) && Input.GetKeyDown(KeyCode.D))
+        {
+            FindAnyObjectByType<MonsterScript>().DeleteMonsters();
         }
 
     }

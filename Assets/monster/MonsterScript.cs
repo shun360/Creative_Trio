@@ -56,7 +56,13 @@ public class MonsterScript : MonoBehaviour
         yield return new WaitForSeconds(1);//FixMe：モンスター行動実行、もしモンスターがいなければyield return null;
         Debug.Log("モンスター行動終了");
     }
-
+    public void DeleteMonsters()
+    {
+        for (int i = 0; i < monInstances.Count; i++)
+        {
+            StartCoroutine(monInstances[i].GetComponent<MonsterClass>().YieldDead());
+        }
+    }
     private void Awake()
     {
         monInstances = new List<GameObject> ();

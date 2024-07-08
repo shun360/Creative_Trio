@@ -8,6 +8,8 @@ public class MummyClass : MonsterClass
     public override void Init()
     {
         thistype = mt.Mummy;
+        Debug.Log("Mummy Init()");
+        transform.localScale = new Vector3(8, 8, 1);
         StatusSet(thistype, 150, 25, 10);
     }
     public override void Obstruction()

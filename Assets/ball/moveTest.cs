@@ -14,15 +14,48 @@ public class MoveTest : MonoBehaviour
     }
     public void Ahead()
     {
-        rb.AddForce(acce);
+        if (GameManager.Instance.isPlaying && !GameManager.Instance.throwStart)
+        {
+            GameManager.Instance.throwStart = true;
+            rb.AddForce(acce);
+        }
     }
     public void CurveLeft()
     {
-        rb.AddForce(left);
+        if (GameManager.Instance.throwStart)
+        {
+            rb.AddForce(left);
+        }
+        else
+        {
+            if (transform.position.x > -106)
+            {
+                transform.Translate(-0.1f, 0, 0);
+            }
+            else
+            {
+                Debug.Log("Ç±ÇÍà»è„ÇÕóéÇøÇ‹Ç∑");
+            }
+        }
+        
     }
     public void CurveRight()
     {
-        rb.AddForce(right);
+        if(GameManager.Instance.throwStart)
+        {
+            rb.AddForce(right);
+        }
+        else
+        {
+            if (transform.position.x < -94)
+            {
+                transform.Translate(0.1f, 0, 0);
+            }
+            else
+            {
+                Debug.Log("Ç±ÇÍà»è„ÇÕóéÇøÇ‹Ç∑");
+            }
+        }
     }
     // Start is called before the first frame update
     void Start()
