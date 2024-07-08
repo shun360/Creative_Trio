@@ -16,7 +16,7 @@ public class CommandQueue : MonoBehaviour
     }
     public IEnumerator AllCommandsExe()
     {
-        Debug.Log("�R�}���h�L���[���s�J�n");
+        Debug.Log("コマンド実行開始");
         yield return new WaitForSeconds(1);
         
         while(commandQueue.Count > 0)
@@ -30,21 +30,21 @@ public class CommandQueue : MonoBehaviour
         switch (cmd)
         {
             case ct.Attack:
-                Debug.Log("�A�^�b�N���s");
-                //TODO�F�U��������
+                Debug.Log("攻撃を実行");
+                //TODO:攻撃を実装
                 if(hero != null)
                 {
-                    hero.Attack();
+                    StartCoroutine(hero.Attack());
                 }
                 break;
             case ct.Block:
-                Debug.Log("�h����s");
-                //TODO�F�h�������
+                Debug.Log("防御を実行");
+                //TODO:防御を実装
                 hero.AddBlock();
                 break;
             case ct.Fireball:
-                Debug.Log("�t�@�C�A�{�[�����s");
-                //TODO:���@�����s
+                Debug.Log("炎魔法を実行");
+                //TODO:魔法を実装
                 break;
         }
         yield return new WaitForSeconds(1);
@@ -54,7 +54,7 @@ public class CommandQueue : MonoBehaviour
     private void Awake()
     {
         commandQueue = new List<ct>();
-        Debug.Log("�L���[����");
+        
         
     }
     // Start is called before the first frame update

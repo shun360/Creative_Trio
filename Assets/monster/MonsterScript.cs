@@ -15,44 +15,35 @@ public class MonsterScript : MonoBehaviour
     };
     public void ArrangeMonsters(List<mt> mts)
     {
-        if (!GameManager.Instance.isPlaying)
+        
+        for (int i = 0; i < mts.Count; i++)
         {
-            for (int i = 0; i < PinDeck.Deck.Count && i < positions.Length; i++)
-            {
-                GameObject monPrefab = (GameObject)Resources.Load("Monster");
-                GameObject monstance = Instantiate(monPrefab, positions[i], Quaternion.identity);
-                Debug.Log("モンスター生成");
-                MonsterClass monCls = new MonsterClass();
-                switch (mts[i]){
-                    case mt.Slime:
-                        monCls = new SlimeClass();
-                        break;
-                    case mt.Bat:
-                        monCls = new BatClass();
-                        break;
-                    case mt.Mummy:
-                        monCls = new MummyClass();
-                        break;
-                    case mt.Gargoyle:
-                        monCls = new GargoyleClass();
-                        break;
+            GameObject monPrefab = (GameObject)Resources.Load("MonsterPrefab");//TODO:Prefabの設定をする
+            GameObject monstance = Instantiate(monPrefab, positions[i], Quaternion.identity);
+            Debug.Log("モンスター生成");
+                
+            switch (mts[i]){
+                case mt.Slime:
+                    monstance.AddComponent<SlimeClass>().Init();
+                    break;
+                case mt.Bat:
+                    monstance.AddComponent<BatClass>().Init();
+                    break;
+                case mt.Mummy:
+                    monstance.AddComponent<MummyClass>().Init();
+                    break;
+                case mt.Gargoyle:
+                    monstance.AddComponent<GargoyleClass>().Init();
+                    break;
+                default:
+                    monstance.AddComponent<MonsterClass>().Init();
+                    break;
                     
-                }
-                if (monCls != null)
-                {
-                    monCls.Init();
-                }
-                else
-                {
-                    Debug.LogError("MonsterPrefabがアタッチされていません。");
-                }
-                monInstances.Add(monstance);
             }
+            monInstances.Add(monstance);
         }
-        else
-        {
-            Debug.Log("ボウリングが終わっていないため、モンスターを生成しませんでした。");
-        }
+        
+        
     }
 
     public IEnumerator MonsterActs()
