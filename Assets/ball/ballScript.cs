@@ -9,8 +9,11 @@ public class BallScript : MonoBehaviour
     public Rigidbody rb;
     public void Set()
     {
+        rb.isKinematic = true;
         transform.position = startPos;
         rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = false;
     }
     private void Awake()
     {

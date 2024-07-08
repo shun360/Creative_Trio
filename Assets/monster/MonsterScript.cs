@@ -21,7 +21,7 @@ public class MonsterScript : MonoBehaviour
             GameObject monPrefab = (GameObject)Resources.Load("MonsterPrefab");//TODO:Prefab‚Ìİ’è‚ğ‚·‚é
             GameObject monstance = Instantiate(monPrefab, positions[i], Quaternion.identity);
             Debug.Log("ƒ‚ƒ“ƒXƒ^[¶¬");
-                
+            
             switch (mts[i]){
                 case mt.Slime:
                     monstance.AddComponent<SlimeClass>().Init();
@@ -44,6 +44,10 @@ public class MonsterScript : MonoBehaviour
         }
         
         
+    }
+    public void SetMonster()
+    {
+        ArrangeMonsters(FindObjectOfType<ReturnMonsters>().StageMonsters(GameManager.Instance.stageNo));
     }
 
     public IEnumerator MonsterActs()

@@ -15,17 +15,20 @@ public class ReturnMonsters : MonoBehaviour
         }
         else
         {
+            Debug.LogError("範囲外のステージが読み込まれました");
             return new List<mt> { mt.NoneMonster };
         }
     }
     void Awake()
     {
-        monsters = new List<List<mt>>();
-        monsters.Add(new List<mt> { mt.Slime, mt.Slime}); //stage1
-        monsters.Add(new List<mt> { mt.Bat, mt.Slime});
-        monsters.Add(new List<mt> { mt.Mummy });
-        monsters.Add(new List<mt> { mt.Bat, mt.Bat, mt.Bat});
-        monsters.Add(new List<mt> { mt.Gargoyle}); //stage5(ボス)
+        monsters = new List<List<mt>>
+        {
+            new() { mt.Slime, mt.Slime }, //stage1
+            new() { mt.Bat, mt.Slime },
+            new() { mt.Mummy },
+            new() { mt.Bat, mt.Bat, mt.Bat },
+            new() { mt.Gargoyle } //stage5(ボス)
+        };
     }
 
     // Update is called once per frame

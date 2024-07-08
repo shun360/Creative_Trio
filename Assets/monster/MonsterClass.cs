@@ -16,7 +16,7 @@ public class MonsterClass : MonoBehaviour
     protected int oriDEF;
     protected int nowDEF;
     protected int block;
-    protected mt type;
+    protected mt thistype;
     protected bool shouldMove = false;
     protected bool isReturning = false;
     protected Vector3 originPosition;
@@ -33,7 +33,8 @@ public class MonsterClass : MonoBehaviour
     }
     public virtual void Init()
     {
-        StatusSet(mt.NoneMonster, 30, 11, 6);
+        thistype = mt.NoneMonster;
+        StatusSet(thistype, 30, 11, 6);
     }
     protected void StatusSet(mt type,int hp, int atk, int def) 
     {

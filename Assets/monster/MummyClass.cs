@@ -7,7 +7,8 @@ public class MummyClass : MonsterClass
 {
     public override void Init()
     {
-        StatusSet(mt.Mummy, 150, 25, 10);
+        thistype = mt.Mummy;
+        StatusSet(thistype, 150, 25, 10);
     }
     public override void Obstruction()
     {

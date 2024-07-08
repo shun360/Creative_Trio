@@ -7,7 +7,8 @@ public class GargoyleClass : MonsterClass
 {
     public override void Init()
     {
-        StatusSet(mt.Gargoyle, 300, 30, 20);
+        thistype = mt.Gargoyle;
+        StatusSet(thistype, 300, 30, 20);
     }
     public override void Obstruction()
     {

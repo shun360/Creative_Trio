@@ -7,11 +7,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public int stageNo = 1;
-    public bool isPlaying = false;
-    public int turn = 0;
-    public bool throwEnd = false;
+    public int stageNo;
+    public bool isPlaying;
+    public int turn;
+    public bool throwEnd;
     private Display disp;
+    private HeroScript hero;
     private BallScript ball;
     private PinScript pin;
     private CommandQueue queue;
@@ -23,10 +24,15 @@ public class GameManager : MonoBehaviour
         pin = FindObjectOfType<PinScript>();
         queue = FindObjectOfType<CommandQueue>();
         mons = FindObjectOfType<MonsterScript>();
+        hero = FindObjectOfType<HeroScript>();
+        stageNo = 1;
+        isPlaying = false;
+        turn = 0;
+        throwEnd = false;
         for (int i = 2; i < ReturnMonsters.monsters.Count + 2;i++)
         {
             StartCoroutine(disp.StageStart());
-            //TODO：stageNoのモンスターを出す
+            mons.SetMonster();
             while (stageNo < i)
             {
                 StartCoroutine(TurnPlay());
@@ -54,7 +60,8 @@ public class GameManager : MonoBehaviour
         stageNo++;
         turn = 0;
         StartCoroutine(disp.Clear());
-        //TODO：LevelUp!攻撃力+1、防御力+1する
+        hero.LevelUp();
+        //FixMe：LevelUp演出
         //TODO：報酬を選ぶ
     }
     public void PlayStart()//ボウリング開始
@@ -65,7 +72,7 @@ public class GameManager : MonoBehaviour
             pin.ArrangePins();
             isPlaying = true;
             Debug.Log("ボウリングスタート");
-            //FixMe：ボールを初期位置に戻すコード
+            //FixMe：ボールを初期位置に戻すコード・移動し続ける
             ball.Set();
         }
         else
@@ -80,9 +87,9 @@ public class GameManager : MonoBehaviour
         {
             isPlaying = false;
             Debug.Log("ボウリング終了");
-            FindObjectOfType<PinScript>().AllRemovePin();
-            //FixMe：ボールを初期位置に戻すコード
-            FindObjectOfType<BallScript>().Set();
+            pin.AllRemovePin();
+            //FixMe：ボールを初期位置に戻すコード・移動し続ける
+            ball.Set();
             
         }
         else

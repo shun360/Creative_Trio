@@ -38,7 +38,12 @@ public class HeroScript : HeroClass
     {
         HeroMove(-5, -5);
     }
-
+    public void LevelUp()
+    {
+        NowATK += 1;
+        NowDEF += 1;
+        Debug.Log("LevelUp! 攻撃力と防御力が1上がった");
+    }
 
     private void Awake()
     {
