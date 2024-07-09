@@ -17,7 +17,7 @@ public class HeroClass : MonoBehaviour
     private int nowMagiATK;
     private int block; //ダメージを防御ブロックできる値
     protected Vector3 velocity = Vector3.zero;
-    protected int targetNumber = 0;
+    public int targetNumber = 0;
     protected Vector3 targetPosition;
     protected bool shouldMove = false;
     protected bool isReturning = false;

@@ -42,7 +42,7 @@ public class MonsterScript : MonoBehaviour
             }
             monList.Add(monstance);
         }
-        
+        FindObjectOfType<TargetDisplay>().DispTarget();
         
     }
     public void SetMonster()
@@ -62,6 +62,7 @@ public class MonsterScript : MonoBehaviour
         {
             StartCoroutine(monList[i].GetComponent<MonsterClass>().YieldDead());
         }
+        FindObjectOfType<HeroScript>().targetNumber = 0;
     }
     private void Awake()
     {
