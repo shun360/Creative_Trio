@@ -28,26 +28,37 @@ public class CommandQueue : MonoBehaviour
     }
     public IEnumerator ExecuteCommand(ct cmd)
     {
-        switch (cmd)
+        if(MonsterScript.monList.Count > 0) 
         {
-            case ct.Attack:
-                Debug.Log("攻撃を実行");
-                //FixMe:攻撃を実装
-                StartCoroutine(hero.Attack());
-                
-                break;
-            case ct.Block:
-                Debug.Log("防御を実行");
-                //FixMe:防御を実装
-                hero.AddBlock();
-                break;
-            case ct.Fireball:
-                Debug.Log("炎魔法を実行");
-                //TODO:魔法を実装
-                yield return hero.Fireball();
-                break;
+            switch (cmd)
+            {
+                case ct.Attack:
+                    Debug.Log("攻撃を実行");
+                    //FixMe:攻撃を実装
+                    StartCoroutine(hero.Attack());
+
+                    break;
+                case ct.Block:
+                    Debug.Log("防御を実行");
+                    //FixMe:防御を実装
+                    hero.AddBlock();
+                    break;
+                case ct.Fireball:
+                    Debug.Log("炎魔法を実行");
+                    //TODO:魔法を実装
+                    yield return hero.Fireball();
+                    break;
+            }
+            yield return new WaitForSeconds(1);
+
         }
-        yield return new WaitForSeconds(1);
+        else
+        {
+            Debug.Log("モンスターが全滅しました");
+            ClearCommand();
+            yield return null;
+        }
+        
     }
 
     public void ClearCommand() { commandQueue.Clear(); }

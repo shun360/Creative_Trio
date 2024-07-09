@@ -26,6 +26,7 @@ public class HeroScript : MonoBehaviour
     protected bool shouldMove = false;
     protected bool isReturning = false;
     protected Vector3 originPosition;
+    private MonsterScript mons;
 
     public void Init()//初期化
     {
@@ -44,9 +45,10 @@ public class HeroScript : MonoBehaviour
         Debug.Log("Heroの攻撃");
         AttackMotion();
         MonsterClass t = MonsterScript.monList[targetNumber].GetComponent<MonsterClass>();
+        yield return new WaitForSeconds(0.2f);
         t.TakeAttacked(nowATK);
-        yield return new WaitForSeconds(0.1f);
         t.KnockBack();
+        yield return new WaitForSeconds(0.8f);
     }
     public IEnumerator AddBlock()
     {
@@ -56,6 +58,7 @@ public class HeroScript : MonoBehaviour
     }//ブロック値をプラスする
     public IEnumerator Fireball()
     {
+        
         yield return new WaitForSeconds(1);//TODO:魔法
     }
     public void TakeAttacked(int damage) //攻撃を受ける
@@ -113,12 +116,27 @@ public class HeroScript : MonoBehaviour
         oriMagiATK += 3;
         Debug.Log("LevelUp! 攻撃力と防御力が1上がった 魔法攻撃力が3上がった");
     }
-    protected virtual void Awake()
+    public void ChangeTarget()
     {
-        Init();
-        originPosition = new Vector3(15, 15, 0);
-        transform.position = originPosition;
+        if (targetNumber < MonsterScript.monList.Count - 1)
+        {
+            targetNumber++;
+
+        }
+        else
+        {
+            targetNumber = 0;
+        }
+        FindObjectOfType<TargetDisplay>().DispTarget();
+        Debug.Log($"ターゲットを{targetNumber}のモンスターに変更");
     }
+    public IEnumerator ResetTarget()
+    {
+        yield return new WaitForSeconds(0.01f);
+        targetNumber = 0;
+        FindObjectOfType<TargetDisplay>().DispTarget();
+    }
+    
     public void Heal(int amount)
     {
         if (nowHP + amount > maxHP)
@@ -130,6 +148,7 @@ public class HeroScript : MonoBehaviour
             nowHP += amount;
         }
     }
+
     //報酬
 
     public void FullHeal()
@@ -148,15 +167,20 @@ public class HeroScript : MonoBehaviour
     {
         oriMagiATK += 25;
     }
-
-
+    //MonoBehaviour
+    protected virtual void Awake()
+    {
+        Init();
+        originPosition = new Vector3(15, 15, 0);
+        transform.position = originPosition;
+        mons = FindObjectOfType<MonsterScript>();
+    }
     void Start()
     {
         Debug.Log("Start");
         
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (shouldMove)
@@ -193,17 +217,7 @@ public class HeroScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
 
-            if(targetNumber < MonsterScript.monList.Count - 1)
-            {
-                targetNumber++;
-                
-            }
-            else
-            {
-                targetNumber = 0;
-            }
-            FindObjectOfType<TargetDisplay>().DispTarget();
-            Debug.Log($"ターゲットを{targetNumber}のモンスターに変更");//FixMe:ターゲットアイコン表示
+            ChangeTarget();
             
         }
         if (nowHP <= 0)

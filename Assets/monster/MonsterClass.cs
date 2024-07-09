@@ -27,9 +27,12 @@ public class MonsterClass : MonoBehaviour
     protected List<List<mc>> actPattern;
 
     //[SerializeField] 
-    public MonsterClass()
+    protected virtual void Awake()
     {
-
+        targetPosition = GameObject.Find("Hero").transform.position;
+        originPosition = transform.position;
+        actPattern = ActSet();
+        isLiving = true;
     }
     public virtual void Init()
     {
@@ -139,17 +142,16 @@ public class MonsterClass : MonoBehaviour
         }
 
     }
-    protected virtual void Awake()
-    {
-        targetPosition = GameObject.Find("Hero").transform.position;
-        originPosition = transform.position;
-        actPattern = ActSet();
-        isLiving = true;
-    }
+    
     
     public void Dead()
     {
         isLiving = false;
+        HeroScript hero = FindObjectOfType<HeroScript>();
+        if (MonsterScript.monList[hero.targetNumber] == this.gameObject)
+        {
+            StartCoroutine(hero.ResetTarget());
+        }
         MonsterScript.monList.Remove(this.gameObject);
         //Ç±Ç±Ç…è¡Ç¶ÇÈââèoÅH
         Destroy(this.gameObject);
