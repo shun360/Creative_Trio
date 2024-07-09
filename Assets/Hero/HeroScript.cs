@@ -64,14 +64,18 @@ public class HeroScript : HeroClass
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
+
             if(targetNumber < MonsterScript.monList.Count - 1)
             {
                 targetNumber++;
+                
             }
             else
             {
                 targetNumber = 0;
             }
+            FindObjectOfType<TargetDisplay>().DispTarget();
+            Debug.Log($"ターゲットを{targetNumber}のモンスターに変更");//FixMe:ターゲットアイコン表示
             
         }
         if (NowHP <= 0)

@@ -31,9 +31,9 @@ public class PinClass : MonoBehaviour
     }
     public void Remove()
     {
-        if(PinScript.pinList.Contains(this.gameObject)) 
+        if(PinScript.pinYetSentList.Contains(gameObject)) 
         {
-            PinScript.pinList.Remove(this.gameObject);
+            PinScript.pinYetSentList.Remove(gameObject);
         }
     }
     // Start is called before the first frame update

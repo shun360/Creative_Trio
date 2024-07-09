@@ -6,6 +6,7 @@ using UnityEngine;
 public class PinScript : MonoBehaviour
 {
     public static List<GameObject> pinList;
+    public static List<GameObject> pinYetSentList;
     private static Vector3 p = new Vector3(-100, 1, 70);//基準の位置
     private static float m = 2f;
     private static readonly Vector3[] positions =
@@ -41,6 +42,7 @@ public class PinScript : MonoBehaviour
                     Debug.LogError("PinPrefabにPinclassがアタッチされていません。");
                 }
                 pinList.Add(pinstance);
+                pinYetSentList.Add(pinstance);
             }
         }
         else
@@ -59,7 +61,7 @@ public class PinScript : MonoBehaviour
     }
     public bool CheckStrike()
     {
-        if(pinList.Count == 0)
+        if(pinYetSentList.Count == 0)
         {
             return true;
         }
@@ -72,6 +74,7 @@ public class PinScript : MonoBehaviour
     private void Awake()
     {
         pinList = new List<GameObject>();
+        pinYetSentList = new List<GameObject>();
     }
     
 }

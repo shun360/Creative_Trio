@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private PinScript pin;
     private CommandQueue queue;
     private MonsterScript mons;
+    private TargetDisplay tarImage;
 
     public IEnumerator GamePlay()
     {
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
         queue = FindObjectOfType<CommandQueue>();
         mons = FindObjectOfType<MonsterScript>();
         hero = FindObjectOfType<HeroScript>();
+        tarImage = FindObjectOfType<TargetDisplay>();
         stageNo = 1;
         isPlaying = false;
         turn = 0;
