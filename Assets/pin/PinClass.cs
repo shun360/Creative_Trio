@@ -25,14 +25,16 @@ public class PinClass : MonoBehaviour
             GameObject.Find("CommandQueue").GetComponent<CommandQueue>().AddCommand(Type);
             sentCommand = true;
             Debug.Log($"{Type}をコマンドキューに送った");
-            
+            Remove();
         }
         
     }
     public void Remove()
     {
-        //消える演出を追加？
-        Destroy(this.gameObject);
+        if(PinScript.pinList.Contains(this.gameObject)) 
+        {
+            PinScript.pinList.Remove(this.gameObject);
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -49,7 +51,6 @@ public class PinClass : MonoBehaviour
         }
         if(isKnockDown && !sentCommand)
         {
-            Debug.Log("60度以上に傾いた");
             Send();
             
         }

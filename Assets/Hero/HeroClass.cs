@@ -82,7 +82,11 @@ public class HeroClass : MonoBehaviour
    
     //other method
 
-    public void AddBlock() { block += nowDEF; }//ブロック値をプラスする
+    public void AddBlock() 
+    {
+        block += nowDEF;
+        Debug.Log($"{nowDEF}ブロック追加して、{block}ブロックになりました");
+    }//ブロック値をプラスする
     public void TakeAttacked(int damage) //攻撃を受ける
     {
         if (block >= damage)

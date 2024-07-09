@@ -14,7 +14,7 @@ public class HeroScript : HeroClass
     {
         Debug.Log("Heroの攻撃");
         AttackMotion();
-        MonsterClass t = MonsterScript.monInstances[targetNumber].GetComponent<MonsterClass>();
+        MonsterClass t = MonsterScript.monList[targetNumber].GetComponent<MonsterClass>();
         t.TakeAttacked(NowATK);
         yield return new WaitForSeconds(0.1f);
         t.KnockBack();
@@ -64,7 +64,7 @@ public class HeroScript : HeroClass
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            if(targetNumber < MonsterScript.monInstances.Count - 1)
+            if(targetNumber < MonsterScript.monList.Count - 1)
             {
                 targetNumber++;
             }

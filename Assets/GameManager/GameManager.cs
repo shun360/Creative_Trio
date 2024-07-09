@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using CommandType;
 
 public class GameManager : MonoBehaviour
 {
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
             while (stageNo < i)
             {
                 yield return TurnPlay();
-                if(MonsterScript.monInstances.Count == 0)
+                if(MonsterScript.monList.Count == 0)
                 {
                     StageClear();
                 }
@@ -95,6 +95,11 @@ public class GameManager : MonoBehaviour
     {
         if (isPlaying) 
         {
+            if(pin.CheckStrike())
+            {
+                Debug.Log("ストライク！！ ボーナス：ファイアーボール追加");
+                queue.AddCommand(ct.Fireball);
+            }
             isPlaying = false;
             Debug.Log("ボウリング終了");
             pin.AllRemovePin();

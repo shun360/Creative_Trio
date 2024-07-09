@@ -46,7 +46,7 @@ public class BallScript : MonoBehaviour
         transform.position = startPos;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        
+        transform.eulerAngles = Vector3.zero;
     }
     
     

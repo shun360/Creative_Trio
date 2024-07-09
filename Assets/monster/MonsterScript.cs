@@ -5,7 +5,7 @@ using MonsterSet;
 
 public class MonsterScript : MonoBehaviour
 {
-    public static List<GameObject> monInstances;
+    public static List<GameObject> monList;
     private static Vector3 p = new(65, 75, 0);
     private static Vector3[] positions =
     {
@@ -40,7 +40,7 @@ public class MonsterScript : MonoBehaviour
                     break;
                     
             }
-            monInstances.Add(monstance);
+            monList.Add(monstance);
         }
         
         
@@ -58,14 +58,14 @@ public class MonsterScript : MonoBehaviour
     }
     public void DeleteMonsters()
     {
-        for (int i = 0; i < monInstances.Count; i++)
+        for (int i = 0; i < monList.Count; i++)
         {
-            StartCoroutine(monInstances[i].GetComponent<MonsterClass>().YieldDead());
+            StartCoroutine(monList[i].GetComponent<MonsterClass>().YieldDead());
         }
     }
     private void Awake()
     {
-        monInstances = new List<GameObject> ();
+        monList = new List<GameObject> ();
     }
     // Start is called before the first frame update
     void Start()

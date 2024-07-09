@@ -146,7 +146,7 @@ public class MonsterClass : MonoBehaviour
     public void Dead()
     {
         isLiving = false;
-        MonsterScript.monInstances.Remove(this.gameObject);
+        MonsterScript.monList.Remove(this.gameObject);
         //Ç±Ç±Ç…è¡Ç¶ÇÈââèoÅH
         Destroy(this.gameObject);
     }

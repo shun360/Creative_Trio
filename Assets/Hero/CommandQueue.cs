@@ -32,15 +32,13 @@ public class CommandQueue : MonoBehaviour
         {
             case ct.Attack:
                 Debug.Log("攻撃を実行");
-                //TODO:攻撃を実装
-                if(hero != null)
-                {
-                    StartCoroutine(hero.Attack());
-                }
+                //FixMe:攻撃を実装
+                StartCoroutine(hero.Attack());
+                
                 break;
             case ct.Block:
                 Debug.Log("防御を実行");
-                //TODO:防御を実装
+                //FixMe:防御を実装
                 hero.AddBlock();
                 break;
             case ct.Fireball:
@@ -55,16 +53,9 @@ public class CommandQueue : MonoBehaviour
     private void Awake()
     {
         commandQueue = new List<ct>();
-        
-        
-    }
-    void Start()
-    {
-        if (hero == null)
-        {
-            hero = FindObjectOfType<HeroScript>();
-        }
-    }
+        hero = FindObjectOfType<HeroScript>();
 
+    }
+    
     
 }

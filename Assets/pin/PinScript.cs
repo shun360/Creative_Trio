@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PinScript : MonoBehaviour
 {
-    public static List<GameObject> pinInstances;
+    public static List<GameObject> pinList;
     private static Vector3 p = new Vector3(-100, 1, 70);//基準の位置
     private static float m = 2f;
     private static readonly Vector3[] positions =
@@ -31,8 +31,8 @@ public class PinScript : MonoBehaviour
                 GameObject pinPrefab = (GameObject)Resources.Load("Pin");
                 GameObject pinstance = Instantiate(pinPrefab, positions[i], Quaternion.identity);
                 Debug.Log("ピン生成");
-                PinClass pinCls = pinstance.GetComponent<PinClass>();
-                if(pinCls != null)
+                
+                if(pinstance.TryGetComponent<PinClass>(out var pinCls))
                 {
                     pinCls.Init(PinDeck.Deck[i]);
                 }
@@ -40,7 +40,7 @@ public class PinScript : MonoBehaviour
                 {
                     Debug.LogError("PinPrefabにPinclassがアタッチされていません。");
                 }
-                pinInstances.Add(pinstance);
+                pinList.Add(pinstance);
             }
         }
         else
@@ -51,16 +51,27 @@ public class PinScript : MonoBehaviour
     }
     public void AllRemovePin()
     {
-        for(int i = 0;i < pinInstances.Count;i++)
+        for(int i = 0;i < pinList.Count;i++)
         {
-            Destroy(pinInstances[i]);
+            Destroy(pinList[i]);
         }
         Debug.Log("すべてのピンを削除しました");
+    }
+    public bool CheckStrike()
+    {
+        if(pinList.Count == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void Awake()
     {
-        pinInstances = new List<GameObject>();
+        pinList = new List<GameObject>();
     }
     
 }
