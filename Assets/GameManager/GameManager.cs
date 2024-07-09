@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CommandType;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -46,10 +47,18 @@ public class GameManager : MonoBehaviour
                 if(MonsterScript.monList.Count == 0)
                 {
                     StageClear();
+                    Debug.Log("ゲームクリア!!");//TODO:ゲームクリア処理
                 }
             }
+            void Gameclear()
+            {
+               
+                SceneManager.LoadScene("GameClearScene");
+
+            }
         }
-        Debug.Log("ゲームクリア!!");//TODO:ゲームクリア処理
+       
+
     }
     IEnumerator TurnPlay()
     {
