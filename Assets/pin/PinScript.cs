@@ -67,6 +67,7 @@ public class PinScript : MonoBehaviour
         }
         else
         {
+            Debug.Log($"Žc‚Á‚Ä‚¢‚éƒsƒ“‚Í{pinYetSentList.Count}–{‚Å‚·");
             return false;
         }
     }

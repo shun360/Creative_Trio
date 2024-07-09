@@ -61,9 +61,9 @@ public class TesterScript : MonoBehaviour
             hero.TakeAttacked(50);
         }
         
-        if(Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.C))
+        if(Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.L))
         {
-            hero.NowATK = 300;
+            hero.LevelUp();
         }
         //Pin
         if(Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.A))

@@ -27,13 +27,11 @@ public class TargetDisplay : MonoBehaviour
         
         if (MonsterScript.monList.Count > 0)
         {
-            Debug.Log("ターゲット画像表示");
             transform.position = positions[hero.targetNumber];
             rend.color = new(1, 1, 1, 1);
             yield return new WaitForSeconds(0.5f);
             for (float i = 1; i >= 0; i -= 0.01f)
             {
-                Debug.Log("ターゲット画像をだんだん透明にする");
                 yield return new WaitForSeconds(0.01f);
                 rend.color = new(1, 1, 1, i);
             }

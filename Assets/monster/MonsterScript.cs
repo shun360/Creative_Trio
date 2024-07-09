@@ -15,7 +15,7 @@ public class MonsterScript : MonoBehaviour
     };
     public void ArrangeMonsters(List<mt> mts)
     {
-        
+        Å@
         for (int i = 0; i < mts.Count; i++)
         {
             GameObject monPrefab = (GameObject)Resources.Load("MonsterPrefab");//TODO:PrefabÇÃê›íËÇÇ∑ÇÈ
@@ -63,6 +63,13 @@ public class MonsterScript : MonoBehaviour
             StartCoroutine(monList[i].GetComponent<MonsterClass>().YieldDead());
         }
         FindObjectOfType<HeroScript>().targetNumber = 0;
+    }
+    public void AllBlockZero()
+    {
+        for(int i = 0;i < monList.Count; i++)
+        {
+            monList[i].GetComponent<MonsterClass>().BlockZero();
+        }
     }
     private void Awake()
     {

@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     private PinScript pin;
     private CommandQueue queue;
     private MonsterScript mons;
-    private TargetDisplay tarImage;
 
     public IEnumerator GamePlay()
     {
@@ -29,7 +28,6 @@ public class GameManager : MonoBehaviour
         queue = FindObjectOfType<CommandQueue>();
         mons = FindObjectOfType<MonsterScript>();
         hero = FindObjectOfType<HeroScript>();
-        tarImage = FindObjectOfType<TargetDisplay>();
         stageNo = 1;
         isPlaying = false;
         turn = 0;
@@ -49,17 +47,12 @@ public class GameManager : MonoBehaviour
                 if(MonsterScript.monList.Count == 0)
                 {
                     StageClear();
-                    Debug.Log("ゲームクリア!!");//TODO:ゲームクリア処理
+                    
                 }
             }
-            void Gameclear()
-            {
-               
-                SceneManager.LoadScene("GameClearScene");
-
-            }
         }
-       
+        Debug.Log("ゲームクリア!!");
+        SceneManager.LoadScene("GameClearScene");
 
     }
     IEnumerator TurnPlay()
@@ -71,7 +64,8 @@ public class GameManager : MonoBehaviour
         PlayEnd();
         yield return queue.AllCommandsExe();
         yield return mons.MonsterActs();
-
+        hero.BlockZero();
+        mons.AllBlockZero();
         
     }
     public void StageClear()

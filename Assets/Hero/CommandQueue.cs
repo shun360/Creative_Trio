@@ -22,7 +22,7 @@ public class CommandQueue : MonoBehaviour
         while(commandQueue.Count > 0)
         {
             ct cmd = DequeueCommand();
-            ExecuteCommand(cmd);
+            yield return ExecuteCommand(cmd);
         }
         Debug.Log("コマンド実行終了");
     }
@@ -44,6 +44,7 @@ public class CommandQueue : MonoBehaviour
             case ct.Fireball:
                 Debug.Log("炎魔法を実行");
                 //TODO:魔法を実装
+                yield return hero.Fireball();
                 break;
         }
         yield return new WaitForSeconds(1);

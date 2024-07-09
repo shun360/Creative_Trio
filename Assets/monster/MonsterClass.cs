@@ -67,7 +67,11 @@ public class MonsterClass : MonoBehaviour
         }
         return actPattern;
     }
-
+    public void BlockZero()
+    {
+        block = 0;
+        Debug.Log("ブロック値を0にしました");
+    }
     
     protected void Move(float x, float y)
     {
