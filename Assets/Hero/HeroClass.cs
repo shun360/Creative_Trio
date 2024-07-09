@@ -1,23 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class HeroClass : MonoBehaviour
 {
 
     //status
-    [SerializeField] private int maxHP;
-    [SerializeField] private int nowHP;
-    [SerializeField] private readonly int oriATK;//setterなし
-    [SerializeField] private int nowATK;
-    [SerializeField] private readonly int oriDEF;//防御ピンから得られるブロック、setterなし
-    [SerializeField] private int nowDEF;
-    [SerializeField] private readonly int oriMagiATK;
-    [SerializeField] private int nowMagiATK;
-    [SerializeField] private int block; //ダメージを防御ブロックできる値
-    
+    private int maxHP;
+    private int nowHP;
+    private int oriATK;//setterなし
+    private int nowATK;
+    private int oriDEF;//防御ピンから得られるブロック、setterなし
+    private int nowDEF;
+    private int oriMagiATK;
+    private int nowMagiATK;
+    private int block; //ダメージを防御ブロックできる値
+    protected Vector3 velocity = Vector3.zero;
+    protected int targetNumber = 0;
+    protected Vector3 targetPosition;
+    protected bool shouldMove = false;
+    protected bool isReturning = false;
+    protected Vector3 originPosition;
     //コンストラクタ
-    public HeroClass()
+    public void Init()
     {
         maxHP = 100;
         nowHP = 100;
@@ -98,6 +104,68 @@ public class HeroClass : MonoBehaviour
         }
 
     }
+    public void StatusReset()
+    {
+        nowATK = oriATK;
+        nowDEF = oriDEF;
+        nowMagiATK = oriMagiATK;
 
+    }
+    public void KnockBack()
+    {
+        HeroMove(-5, -5);
+    }
+    protected void HeroMove(float x, float y)
+    {
+        shouldMove = true;
+        targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
+        Debug.Log($"HeroMoveが呼ばれた時のtargetPosition: {targetPosition}");
+    }
+    protected void AttackMotion()
+    {
+        HeroMove(10, 10);
+    }
 
+    public void LevelUp()
+    {
+        oriATK += 1;
+        oriDEF += 1;
+        oriMagiATK += 3;
+        Debug.Log("LevelUp! 攻撃力と防御力が1上がった 魔法攻撃力が3上がった");
+    }
+    protected virtual void Awake()
+    {
+        Init();
+        originPosition = new Vector3(15, 15, 0);
+        transform.position = originPosition;
+    }
+    public void Heal(int amount)
+    {
+        if(nowHP + amount > MaxHP)
+        {
+            nowHP = MaxHP;
+        }
+        else
+        {
+            nowHP += amount;
+        }
+    }
+    //報酬
+
+    public void FullHeal()
+    {
+        Heal(MaxHP);
+    }
+    public void GrowATK()
+    {
+        oriATK += 5;
+    }
+    public void GrowDEF()
+    {
+        oriDEF += 5;
+    }
+    public void GrowMagiATK()
+    {
+        oriMagiATK += 25;
+    }
 }

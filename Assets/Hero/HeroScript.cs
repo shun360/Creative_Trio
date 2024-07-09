@@ -9,52 +9,23 @@ using UnityEditor.Search;
 
 public class HeroScript : HeroClass
 {
-    private Vector3 velocity = Vector3.zero;
-    private int targetNumber = 0;
-    private Vector3 targetPosition;
-    private bool shouldMove = false;
-    private bool isReturning = false;
-    Vector3 originPosition;
-
-    private void HeroMove(float x, float y)
-    {
-        shouldMove = true;
-        targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
-        Debug.Log($"HeroMoveが呼ばれた時のtargetPosition: {targetPosition}");
-    }
+       
     public IEnumerator Attack()
     {
+        Debug.Log("Heroの攻撃");
         AttackMotion();
         MonsterClass t = MonsterScript.monInstances[targetNumber].GetComponent<MonsterClass>();
         t.TakeAttacked(NowATK);
         yield return new WaitForSeconds(0.1f);
         t.KnockBack();
     }
-    private void AttackMotion()
-    {
-        HeroMove(10, 10);
-    }
-    public void KnockBack()
-    {
-        HeroMove(-5, -5);
-    }
-    public void LevelUp()
-    {
-        NowATK += 1;
-        NowDEF += 1;
-        Debug.Log("LevelUp! 攻撃力と防御力が1上がった");
-    }
+    
 
-    private void Awake()
-    {
-        
-        originPosition = new Vector3(15, 15, 0);
-    }
-    // Start is called before the first frame update
+    
     void Start()
     {
         Debug.Log("Start");
-        transform.position = originPosition;
+        
     }
 
     // Update is called once per frame
@@ -91,12 +62,25 @@ public class HeroScript : HeroClass
             }
 
         }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if(targetNumber < MonsterScript.monInstances.Count - 1)
+            {
+                targetNumber++;
+            }
+            else
+            {
+                targetNumber = 0;
+            }
+            
+        }
         if (NowHP <= 0)
         {
             Debug.Log("GAME OVER!");
             //ゲームオーバー処理を書く
             GameOver();
         }
+
     }
     void GameOver()
     {

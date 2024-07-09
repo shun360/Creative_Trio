@@ -1661,7 +1661,6 @@ GameObject:
   - component: {fileID: 1225733793}
   - component: {fileID: 1225733792}
   - component: {fileID: 1225733796}
-  - component: {fileID: 1225733797}
   - component: {fileID: 1225733798}
   m_Layer: 0
   m_Name: Ball
@@ -1783,21 +1782,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1225733797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1225733791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa3611f22cf694941ab316243cbb8b13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  acce: {x: 0, y: 0, z: 30000}
-  left: {x: -50, y: 0, z: 0}
-  right: {x: 50, y: 0, z: 0}
 --- !u!114 &1225733798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1810,7 +1794,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809f60737402fb043b5f8b1f619c1d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  acce: {x: 0, y: 0, z: 30000}
+  left: {x: -50, y: 0, z: 0}
+  right: {x: 50, y: 0, z: 0}
 --- !u!1 &1282946132
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,12 +2092,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f95ab6e8d1e7f47afc4bc2236793ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
-  nowHP: 100
-  nowATK: 8
-  nowDEF: 5
-  nowMagiATK: 15
-  block: 0
 --- !u!114 &1569433664
 MonoBehaviour:
   m_ObjectHideFlags: 0

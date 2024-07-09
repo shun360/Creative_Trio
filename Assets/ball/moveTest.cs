@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MoveTest : MonoBehaviour
 {
-    [SerializeField] private Vector3 acce = new Vector3(0, 0, 30000);
-    [SerializeField] private Vector3 left = new Vector3(-50, 0, 0);
-    [SerializeField] private Vector3 right = new Vector3(50, 0, 0);
+    [SerializeField] private Vector3 acce = new(0, 0, 30000);
+    [SerializeField] private Vector3 left = new(-50, 0, 0);
+    [SerializeField] private Vector3 right = new(50, 0, 0);
+    private bool wentLeft = false;
+    private bool wentRight = false;
     private Rigidbody rb;
     private void Awake()
     {
@@ -30,11 +33,16 @@ public class MoveTest : MonoBehaviour
         {
             if (transform.position.x > -106)
             {
+                wentRight = false;
                 transform.Translate(-0.1f, 0, 0);
             }
             else
             {
-                Debug.Log("‚±‚êˆÈã‚Í—‚¿‚Ü‚·");
+                if (!wentLeft)
+                {
+                    wentLeft = true;
+                    Debug.Log("‚±‚êˆÈã‚Í—‚¿‚Ü‚·");
+                }
             }
         }
         
@@ -49,21 +57,20 @@ public class MoveTest : MonoBehaviour
         {
             if (transform.position.x < -94)
             {
+                wentLeft = false;
                 transform.Translate(0.1f, 0, 0);
             }
             else
             {
-                Debug.Log("‚±‚êˆÈã‚Í—‚¿‚Ü‚·");
+                if(!wentRight)
+                {
+                    wentRight = true;
+                    Debug.Log("‚±‚êˆÈã‚Í—‚¿‚Ü‚·");
+                }
             }
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))

@@ -24,6 +24,7 @@ public class CommandQueue : MonoBehaviour
             ct cmd = DequeueCommand();
             ExecuteCommand(cmd);
         }
+        Debug.Log("コマンド実行終了");
     }
     public IEnumerator ExecuteCommand(ct cmd)
     {
@@ -57,7 +58,6 @@ public class CommandQueue : MonoBehaviour
         
         
     }
-    // Start is called before the first frame update
     void Start()
     {
         if (hero == null)
@@ -66,9 +66,5 @@ public class CommandQueue : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
