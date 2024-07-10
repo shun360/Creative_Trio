@@ -34,14 +34,12 @@ public class CommandQueue : MonoBehaviour
             {
                 case ct.Attack:
                     Debug.Log("攻撃を実行");
-                    //FixMe:攻撃を実装
-                    StartCoroutine(hero.Attack());
-
+                    yield return hero.Attack();
                     break;
                 case ct.Block:
                     Debug.Log("防御を実行");
-                    //FixMe:防御を実装
-                    hero.AddBlock();
+                    //FixMe:防御エフェクト
+                    yield return hero.AddBlock();
                     break;
                 case ct.Fireball:
                     Debug.Log("炎魔法を実行");
@@ -49,7 +47,6 @@ public class CommandQueue : MonoBehaviour
                     yield return hero.Fireball();
                     break;
             }
-            yield return new WaitForSeconds(1);
 
         }
         else

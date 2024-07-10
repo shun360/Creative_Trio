@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
                 yield return TurnPlay();
                 if(MonsterScript.monList.Count == 0)
                 {
-                    StageClear();
+                    yield return StageClear();
                     
                 }
             }
@@ -59,22 +59,24 @@ public class GameManager : MonoBehaviour
     {
         turn++;
         yield return disp.Turn();
+        
         PlayStart();
         yield return new WaitUntil(() => throwEnd);
         PlayEnd();
         yield return queue.AllCommandsExe();
-        yield return mons.MonsterActs();
+        yield return mons.MonstersAct();
         hero.BlockZero();
         mons.AllBlockZero();
         
     }
-    public void StageClear()
+    public IEnumerator StageClear()
     {
         Debug.Log("ステージクリア！");
         stageNo++;
         turn = 0;
-        StartCoroutine(disp.Clear());
+        yield return disp.Clear();
         hero.LevelUp();
+        hero.StatusReset();
         //FixMe：LevelUp演出
         //TODO：報酬を選ぶ
     }

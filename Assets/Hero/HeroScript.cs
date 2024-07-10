@@ -13,9 +13,9 @@ public class HeroScript : MonoBehaviour
     //status
     private int maxHP;
     private int nowHP;
-    private int oriATK;//setterなし
+    private int oriATK;
     private int nowATK;
-    private int oriDEF;//防御ピンから得られるブロック、setterなし
+    private int oriDEF;//防御ピンから得られるブロック
     private int nowDEF;
     private int oriMagiATK;
     private int nowMagiATK;
@@ -47,7 +47,6 @@ public class HeroScript : MonoBehaviour
         MonsterClass t = MonsterScript.monList[targetNumber].GetComponent<MonsterClass>();
         yield return new WaitForSeconds(0.2f);
         t.TakeAttacked(nowATK);
-        t.KnockBack();
         yield return new WaitForSeconds(0.8f);
     }
     public IEnumerator AddBlock()
@@ -71,6 +70,7 @@ public class HeroScript : MonoBehaviour
         else if (block <= 0)
         {
             nowHP -= damage;
+            KnockBack();
             Debug.Log(damage + "ダメージを受けた");
         }
         else
@@ -78,6 +78,7 @@ public class HeroScript : MonoBehaviour
             int oriDamage = damage;//デバッグ用
             damage -= block;
             nowHP -= damage;
+            KnockBack();
             Debug.Log(oriDamage + "ダメージのうち、" + damage + "ダメージを受けた");
         }
 
@@ -109,12 +110,13 @@ public class HeroScript : MonoBehaviour
         HeroMove(10, 10);
     }
 
-    public void LevelUp()
+    public IEnumerator LevelUp()
     {
         oriATK += 1;
         oriDEF += 1;
         oriMagiATK += 3;
         Debug.Log("LevelUp! 攻撃力と防御力が1上がった 魔法攻撃力が3上がった");
+        yield return new WaitForSeconds(1); 
     }
     public void ChangeTarget()
     {

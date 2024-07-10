@@ -7,13 +7,13 @@ public class MonsterScript : MonoBehaviour
 {
     public static List<GameObject> monList;
     private static Vector3 p = new(65, 75, 0);
-    private static Vector3[] positions =
+    private static readonly Vector3[] positions =
     {
         p,
         new(p.x + 20, p.y - 15, p.z),
         new(p.x - 25, p.y + 10, p.z)
     };
-    public void ArrangeMonsters(List<mt> mts)
+    public IEnumerator ArrangeMonsters(List<mt> mts)
     {
         　
         for (int i = 0; i < mts.Count; i++)
@@ -42,25 +42,30 @@ public class MonsterScript : MonoBehaviour
             }
             monList.Add(monstance);
         }
+        yield return new WaitForSeconds(0.5f);
         FindObjectOfType<TargetDisplay>().DispTarget();
         
     }
     public void SetMonster()
     {
-        ArrangeMonsters(FindObjectOfType<ReturnMonsters>().StageMonsters(GameManager.Instance.stageNo));
+        StartCoroutine(ArrangeMonsters(FindObjectOfType<ReturnMonsters>().StageMonsters(GameManager.Instance.stageNo)));
     }
 
-    public IEnumerator MonsterActs()
+    public IEnumerator MonstersAct()
     {
         Debug.Log("モンスター行動開始");
         yield return new WaitForSeconds(1);//FixMe：モンスター行動実行、もしモンスターがいなければyield return null;
+        for(int i = 0; i < monList.Count; i++)
+        {
+            yield return monList[i].GetComponent<MonsterClass>().Act();
+        }
         Debug.Log("モンスター行動終了");
     }
     public void DeleteMonsters()
     {
         for (int i = 0; i < monList.Count; i++)
         {
-            StartCoroutine(monList[i].GetComponent<MonsterClass>().YieldDead());
+            StartCoroutine(monList[i].GetComponent<MonsterClass>().Dead());
         }
         FindObjectOfType<HeroScript>().targetNumber = 0;
     }
@@ -75,15 +80,5 @@ public class MonsterScript : MonoBehaviour
     {
         monList = new List<GameObject> ();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

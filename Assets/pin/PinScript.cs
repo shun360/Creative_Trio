@@ -57,6 +57,8 @@ public class PinScript : MonoBehaviour
         {
             Destroy(pinList[i]);
         }
+        pinYetSentList.Clear();     
+        
         Debug.Log("‚·‚×‚Ä‚Ìƒsƒ“‚ğíœ‚µ‚Ü‚µ‚½");
     }
     public bool CheckStrike()

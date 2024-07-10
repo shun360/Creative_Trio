@@ -21,7 +21,7 @@ public class ReturnMonsters : MonoBehaviour
     }
     void Awake()
     {
-        monsters = new List<List<mt>>
+        monsters = new List<List<mt>>//1つのステージにつき3体まで
         {
             new() { mt.Slime, mt.Slime }, //stage1
             new() { mt.Bat, mt.Slime },
@@ -31,9 +31,5 @@ public class ReturnMonsters : MonoBehaviour
         };
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

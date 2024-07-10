@@ -11,8 +11,9 @@ public class GargoyleClass : MonsterClass
         transform.localScale = new Vector3(10, 10, 1);
         StatusSet(thistype, 300, 30, 20);
     }
-    public override void Obstruction()
+    public override IEnumerator Obstruction()
     {
+        yield return null;
         //TODO:3ターンの間、触れるとそのターンATK-3されるエリアをレーンに置く
     }
 

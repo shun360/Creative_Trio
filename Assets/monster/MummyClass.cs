@@ -12,9 +12,10 @@ public class MummyClass : MonsterClass
         transform.localScale = new Vector3(8, 8, 1);
         StatusSet(thistype, 150, 25, 10);
     }
-    public override void Obstruction()
+    public override IEnumerator Obstruction()
     {
         //TODO:2ターンの間レーンに3つ小さな石を出して妨害する。位置はランダム
+        yield return null;
     }
 
     protected override List<List<mc>> ActSet()

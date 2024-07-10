@@ -22,14 +22,18 @@ public class MonsterClass : MonoBehaviour
     protected Vector3 originPosition;
     protected Vector3 velocity = Vector3.zero;
     protected Vector3 targetPosition;
+    private HeroScript hero;
     
+    private SpriteRenderer rend;
     protected bool isLiving = false;
     protected List<List<mc>> actPattern;
 
     //[SerializeField] 
     protected virtual void Awake()
     {
-        targetPosition = GameObject.Find("Hero").transform.position;
+        hero = FindObjectOfType<HeroScript>();
+        targetPosition = hero.transform.position;
+        rend = GetComponent<SpriteRenderer>();
         originPosition = transform.position;
         actPattern = ActSet();
         isLiving = true;
@@ -49,6 +53,7 @@ public class MonsterClass : MonoBehaviour
         this.nowATK = atk;
         this.oriDEF = def;
         this.nowDEF = def;
+        StartCoroutine(FadeIn());
     }
     protected virtual List<List<mc>> ActSet()//行動パターン設定
     {
@@ -70,6 +75,32 @@ public class MonsterClass : MonoBehaviour
         }
         return actPattern;
     }
+    public IEnumerator Act()
+    {
+        List<mc> act = actPattern[(GameManager.Instance.turn - 1) % actPattern.Count];
+        for (int i = 0; i < act.Count; i++)
+        {
+            switch (act[i]) 
+            { 
+                case mc.Attack:
+                    yield return Attack();
+                    break;
+                case mc.Block:
+                    yield return AddBlock();
+                    break;
+                case mc.Buff:
+                    yield return Buff();
+                    break;
+                case mc.Debuff:
+                    yield return Debuff();
+                    break;
+                case mc.Obstruction:
+                    yield return Obstruction();
+                    break;
+
+            }
+        }
+    }
     public void BlockZero()
     {
         block = 0;
@@ -82,10 +113,34 @@ public class MonsterClass : MonoBehaviour
         targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
         Debug.Log($"MonsterのMoveが呼ばれた時のtargetPosition: {targetPosition}");
     }
-    public void Attack()
+    public IEnumerator Attack()
     {
         AttackMotion();
-        FindObjectOfType<HeroScript>().TakeAttacked(nowATK);
+        yield return new WaitForSeconds(0.2f);
+        
+        hero.TakeAttacked(nowATK);
+        yield return new WaitForSeconds(0.8f);
+    }
+    public IEnumerator AddBlock()
+    {
+        block += nowDEF;
+        Debug.Log($"{thistype}が{nowDEF}ブロック追加して、{block}ブロックになりました");
+        yield return new WaitForSeconds(1);//FixMe:エフェクト追加
+    }
+    public virtual IEnumerator Buff()
+    {
+        Debug.LogError("定義されていないBuff()が呼ばれました。オーバーライドしてください。");
+        yield return null;
+    }
+    public virtual IEnumerator Debuff()
+    {
+        Debug.LogError("定義されていないDeBuff()が呼ばれました。オーバーライドしてください。");
+        yield return null;
+    }
+    public virtual IEnumerator Obstruction()
+    {
+        Debug.LogError("定義されていないObstruction()が呼ばれました。オーバーライドしてください。");
+        yield return null;
     }
     public void AttackMotion()
     {
@@ -108,10 +163,7 @@ public class MonsterClass : MonoBehaviour
         }
         //turn数を管理する仕組みを作る
     }
-    public virtual void Obstruction()
-    {
-
-    }
+    
 
     protected void LoadSprite(mt t)
     {
@@ -120,46 +172,60 @@ public class MonsterClass : MonoBehaviour
         
     }
 
-    public void AddBlock() { block += nowDEF; }
+    
     public void TakeAttacked(int damage) //攻撃を受ける
     {
         if (block >= damage)
         {
             block -= damage;
-            Debug.Log("monster:" + damage + "ダメージをすべてブロックした");
+            Debug.Log($"{thistype}:" + damage + "ダメージをすべてブロックした");
         }
         else if (block <= 0)
         {
             nowHP -= damage;
-            Debug.Log("monster:" + damage + "ダメージを受けた");
+            KnockBack();
+            Debug.Log($"{thistype}:" + damage + "ダメージを受けた");
         }
         else
         {
             int oriDamage = damage;//デバッグ用
             damage -= block;
             nowHP -= damage;
-            Debug.Log("monster:" + oriDamage + "ダメージのうち、" + damage + "ダメージを受けた");
+            KnockBack();
+            Debug.Log($"{thistype}:" + oriDamage + "ダメージのうち、" + damage + "ダメージを受けた");
         }
 
     }
     
     
-    public void Dead()
+    public IEnumerator Dead()
     {
         isLiving = false;
-        HeroScript hero = FindObjectOfType<HeroScript>();
         if (MonsterScript.monList[hero.targetNumber] == this.gameObject)
         {
             StartCoroutine(hero.ResetTarget());
         }
+        yield return null;
         MonsterScript.monList.Remove(this.gameObject);
-        //ここに消える演出？
+        yield return FadeOut();
         Destroy(this.gameObject);
     }
-    public IEnumerator YieldDead()
+    public IEnumerator FadeIn()
     {
-        yield return null;
-        Dead();
+        Debug.Log("フェードインします");
+        for (float i = rend.color.a; i < 1; i += 0.02f)
+        {
+            yield return new WaitForSeconds(0.01f);
+            rend.color = new(1, 1, 1, i);
+        }
+    }
+    public IEnumerator FadeOut()
+    {
+        for (float i = rend.color.a;i > 0; i -= 0.02f)
+        {
+            yield return new WaitForSeconds(0.01f);
+            rend.color = new(1, 1, 1, i);
+        }
     }
     protected virtual void Update()
     {
@@ -196,7 +262,7 @@ public class MonsterClass : MonoBehaviour
         }
         if (nowHP <= 0 && isLiving)
         {
-            Dead();
+            StartCoroutine(Dead());
         }
     }
 }

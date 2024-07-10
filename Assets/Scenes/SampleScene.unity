@@ -2698,6 +2698,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 5074904140912870648, guid: 543026cfbded1a54093a5c00d1f91c6b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8794729645465494838, guid: 543026cfbded1a54093a5c00d1f91c6b, type: 3}
       propertyPath: m_Mass
       value: 5
