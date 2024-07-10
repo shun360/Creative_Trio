@@ -9,12 +9,25 @@ public class GargoyleClass : MonsterClass
     {
         thistype = mt.Gargoyle;
         transform.localScale = new Vector3(10, 10, 1);
-        StatusSet(thistype, 300, 30, 20);
+        StatusSet(thistype, 500, 30, 20);
     }
-    public override IEnumerator Obstruction()
+    public override IEnumerator Buff()
     {
-        yield return null;
-        //TODO:3ターンの間、触れるとそのターンATK-3されるエリアをレーンに置く
+        int atk = 5;
+        int def = 5;
+        nowATK += atk;
+        nowDEF += def;
+        Debug.Log($"{thistype}の攻撃力が{atk}、防御力が{def}上がり、攻撃力{nowATK}、防御力{nowDEF}になりました");
+        yield return new WaitForSeconds(1);//FixMe:演出
+    }
+    public override IEnumerator Debuff()
+    {
+        int atk = 2;
+        int def = 2;
+        HeroScript hero = FindObjectOfType<HeroScript>();
+        hero.DebuffATK(atk);
+        hero.DebuffDEF(def);
+        yield return new WaitForSeconds(1); 
     }
 
     protected override List<List<mc>> ActSet()
@@ -27,7 +40,8 @@ public class GargoyleClass : MonsterClass
             switch (i)
             {
                 case 0:
-                    act.Add(mc.Obstruction);
+                    act.Add(mc.Debuff);
+                    act.Add(mc.Block);
                     break;
                 case 1:
                     act.Add(mc.Attack);
@@ -36,8 +50,8 @@ public class GargoyleClass : MonsterClass
                     act.Add(mc.Attack);
                     break;
                 case 3:
+                    act.Add(mc.Buff);
                     act.Add(mc.Block);
-                    act.Add(mc.Debuff);
                     break;
                 case 4:
                     act.Add(mc.Attack);

@@ -104,7 +104,7 @@ public class MonsterClass : MonoBehaviour
     public void BlockZero()
     {
         block = 0;
-        Debug.Log("ブロック値を0にしました");
+        Debug.Log($"{thistype}のブロック値を0にしました");
     }
     
     protected void Move(float x, float y)
@@ -183,8 +183,9 @@ public class MonsterClass : MonoBehaviour
         else if (block <= 0)
         {
             nowHP -= damage;
+            block = 0;
             KnockBack();
-            Debug.Log($"{thistype}:" + damage + "ダメージを受けた");
+            Debug.Log($"{damage}ダメージを受け、残り体力が{nowHP}になった");
         }
         else
         {
@@ -192,7 +193,7 @@ public class MonsterClass : MonoBehaviour
             damage -= block;
             nowHP -= damage;
             KnockBack();
-            Debug.Log($"{thistype}:" + oriDamage + "ダメージのうち、" + damage + "ダメージを受けた");
+            Debug.Log($"{oriDamage}ダメージのうち、{damage}ダメージを受け、{nowHP}になった");
         }
 
     }
@@ -238,7 +239,7 @@ public class MonsterClass : MonoBehaviour
                     shouldMove = false;
                     velocity = Vector3.zero;
                     isReturning = false;
-                    Debug.Log("originPositionに戻った");
+                    
                 }
                 else
                 {
@@ -251,7 +252,7 @@ public class MonsterClass : MonoBehaviour
                 {
                     isReturning = true;
                     targetPosition = originPosition;
-                    Debug.Log("Uターンする");
+                    
                 }
                 else
                 {

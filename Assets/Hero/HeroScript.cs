@@ -36,9 +36,29 @@ public class HeroScript : MonoBehaviour
         nowATK = oriATK;
         oriDEF = 5;
         nowDEF = oriDEF;
-        oriMagiATK = 15;
+        oriMagiATK = 7;
         nowMagiATK = oriMagiATK;
         block = 0;
+    }
+    public void BuffATK(int amount)
+    {
+        nowATK += amount;
+        Debug.Log("");
+    }
+    public void BuffDEF(int amount)
+    {
+        nowDEF += amount;
+        Debug.Log("");
+    }
+    public void DebuffATK(int amount)
+    {
+        nowATK -= amount;
+        Debug.Log("");
+    }
+    public void DebuffDEF(int amount)
+    {
+        nowDEF -= amount;
+        Debug.Log("");//FixMe:演出
     }
     public IEnumerator Attack()
     {
@@ -57,8 +77,11 @@ public class HeroScript : MonoBehaviour
     }//ブロック値をプラスする
     public IEnumerator Fireball()
     {
-        
-        yield return new WaitForSeconds(1);//TODO:魔法
+        Debug.Log("Heroの魔法攻撃");
+        AttackMotion();
+        yield return new WaitForSeconds(0.2f);
+        mons.TakeAOE(nowMagiATK);
+        yield return new WaitForSeconds(0.8f);//FixMe:魔法エフェクト追加
     }
     public void TakeAttacked(int damage) //攻撃を受ける
     {
@@ -70,8 +93,9 @@ public class HeroScript : MonoBehaviour
         else if (block <= 0)
         {
             nowHP -= damage;
+            block = 0;
             KnockBack();
-            Debug.Log(damage + "ダメージを受けた");
+            Debug.Log($"{damage}ダメージを受け、残り体力が{nowHP}になった");
         }
         else
         {
@@ -79,7 +103,7 @@ public class HeroScript : MonoBehaviour
             damage -= block;
             nowHP -= damage;
             KnockBack();
-            Debug.Log(oriDamage + "ダメージのうち、" + damage + "ダメージを受けた");
+            Debug.Log($"{oriDamage}ダメージのうち、{damage}ダメージを受け、{nowHP}になった");
         }
 
     }
@@ -160,14 +184,17 @@ public class HeroScript : MonoBehaviour
     public void GrowATK()
     {
         oriATK += 5;
+        nowATK += 5;
     }
     public void GrowDEF()
     {
         oriDEF += 5;
+        nowDEF += 5;
     }
     public void GrowMagiATK()
     {
         oriMagiATK += 25;
+        nowMagiATK -= 25;
     }
     //MonoBehaviour
     protected virtual void Awake()
@@ -194,7 +221,7 @@ public class HeroScript : MonoBehaviour
                     shouldMove = false;
                     velocity = Vector3.zero;
                     isReturning = false;
-                    Debug.Log("originPositionに戻った");
+                    
                 }
                 else
                 {
@@ -207,7 +234,7 @@ public class HeroScript : MonoBehaviour
                 {
                     isReturning = true;
                     targetPosition = originPosition;
-                    Debug.Log("Uターン");
+                    
                 }
                 else
                 {

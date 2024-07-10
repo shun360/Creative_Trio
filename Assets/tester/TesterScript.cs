@@ -63,7 +63,7 @@ public class TesterScript : MonoBehaviour
         
         if(Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.L))
         {
-            hero.LevelUp();
+            StartCoroutine(hero.LevelUp());
         }
         //Pin
         if(Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.A))

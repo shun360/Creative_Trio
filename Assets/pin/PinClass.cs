@@ -16,7 +16,7 @@ public class PinClass : MonoBehaviour
     public void Init(ct type)
     {
         this.Type = type;
-        Debug.Log($"ピンに{type}をセット");
+        
     }
     private void Send()
     {
@@ -56,7 +56,7 @@ public class PinClass : MonoBehaviour
         }
         if(transform.position.y < -1 && !sentCommand)
         {
-            Debug.Log("yが-1未満になった");
+            
             Send();
         }
         

@@ -61,6 +61,13 @@ public class MonsterScript : MonoBehaviour
         }
         Debug.Log("モンスター行動終了");
     }
+    public void TakeAOE(int damage)
+    {
+        for(int i = 0;i < monList.Count;i++)
+        {
+            monList[i].GetComponent<MonsterClass>().TakeAttacked(damage);
+        }
+    }
     public void DeleteMonsters()
     {
         for (int i = 0; i < monList.Count; i++)
@@ -75,6 +82,7 @@ public class MonsterScript : MonoBehaviour
         {
             monList[i].GetComponent<MonsterClass>().BlockZero();
         }
+        Debug.Log("Monsterすべてのブロック値を0にしました");
     }
     private void Awake()
     {

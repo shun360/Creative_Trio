@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private PinScript pin;
     private CommandQueue queue;
     private MonsterScript mons;
+    private MummyStone stone;
 
     public IEnumerator GamePlay()
     {
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
         queue = FindObjectOfType<CommandQueue>();
         mons = FindObjectOfType<MonsterScript>();
         hero = FindObjectOfType<HeroScript>();
+        stone = FindObjectOfType<MummyStone>();
         stageNo = 1;
         isPlaying = false;
         turn = 0;
@@ -59,65 +61,64 @@ public class GameManager : MonoBehaviour
     {
         turn++;
         yield return disp.Turn();
-        
-        PlayStart();
+        yield return PlayStart();
         yield return new WaitUntil(() => throwEnd);
-        PlayEnd();
+        yield return PlayEnd();
         yield return queue.AllCommandsExe();
+        mons.AllBlockZero();
         yield return mons.MonstersAct();
         hero.BlockZero();
-        mons.AllBlockZero();
+        
         
     }
     public IEnumerator StageClear()
     {
         Debug.Log("ステージクリア！");
+        stone.mummyObs = false;
         stageNo++;
         turn = 0;
         yield return disp.Clear();
-        hero.LevelUp();
+        yield return hero.LevelUp();
         hero.StatusReset();
         //FixMe：LevelUp演出
         //TODO：報酬を選ぶ
     }
-    public void PlayStart()//ボウリング開始
+    public IEnumerator PlayStart()//ボウリング開始
     {
-        if (!isPlaying)
+        
+        throwStart = false;
+        throwEnd = false;
+        pin.ArrangePins();
+        isPlaying = true;
+        if (stone.mummyObs)
         {
-            throwStart = false;
-            throwEnd = false;
-            pin.ArrangePins();
-            isPlaying = true;
-            Debug.Log("ボウリングスタート");
-            //FixMe：ボールを初期位置に戻すコード・移動し続ける
-            ball.Set();
+            stone.Spawn();
         }
-        else
-        {
-            Debug.LogError("まだプレイ中です。一度プレイを終わらせてください。");
-        }
+        Debug.Log("ボウリングスタート");
+        //FixMe：ボールを初期位置に戻すコード・移動し続ける
+        ball.Set();
+        yield return new WaitForSeconds(1);
+        
 
     }
-    public void PlayEnd()
+    public IEnumerator PlayEnd()
     {
-        if (isPlaying) 
+        
+        if(pin.CheckStrike())
         {
-            if(pin.CheckStrike())
-            {
-                Debug.Log("ストライク！！ ボーナス：ファイアーボール追加");
-                queue.AddCommand(ct.Fireball);
-            }
-            isPlaying = false;
-            Debug.Log("ボウリング終了");
-            pin.AllRemovePin();
-            //FixMe：ボールを初期位置に戻すコード・移動し続ける
-            ball.Set();
-            
+            Debug.Log("ストライク！！ ボーナス：ファイアーボール追加");
+            queue.AddCommand(ct.Fireball);
         }
-        else
+        if (stone.mummyObs)
         {
-            Debug.LogError("プレイ中ではありません。");
+            stone.Delete();
         }
+        isPlaying = false;
+        Debug.Log("ボウリング終了");
+        pin.AllRemovePin();
+        //FixMe：ボールを初期位置に戻すコード・移動し続ける
+        ball.Set();
+        yield return new WaitForSeconds(1);
 
     }
     

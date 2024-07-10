@@ -31,7 +31,7 @@ public class PinScript : MonoBehaviour
             {
                 GameObject pinPrefab = (GameObject)Resources.Load("Pin");
                 GameObject pinstance = Instantiate(pinPrefab, positions[i], Quaternion.identity);
-                Debug.Log("ÉsÉìê∂ê¨");
+                
                 
                 if(pinstance.TryGetComponent<PinClass>(out var pinCls))
                 {

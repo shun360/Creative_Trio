@@ -8,7 +8,7 @@ public class SlimeClass : MonsterClass
     public override void Init()
     {
         thistype = mt.Slime;
-        StatusSet(mt.Slime, 30, 8, 6);
+        StatusSet(mt.Slime, 30, 8, 9);
     }
    
     protected override List<List<mc>> ActSet()
