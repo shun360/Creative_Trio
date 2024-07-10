@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class MonsterClass : MonoBehaviour
 {
 
-    public static List<GameObject> existMonsters = new List<GameObject>();
     protected int maxHP;
     protected int nowHP;
     protected int oriATK;
@@ -106,12 +105,40 @@ public class MonsterClass : MonoBehaviour
         block = 0;
         Debug.Log($"{thistype}のブロック値を0にしました");
     }
-    
+    public void BuffATK(int amount)
+    {
+        nowATK += amount;
+        Debug.Log($"{thistype}の攻撃力が{amount}上がって、{nowATK}になりました");//FixMe
+    }
+    public void BuffDEF(int amount)
+    {
+        nowDEF += amount;
+        Debug.Log($"{thistype}の防御力が{amount}上がって、{nowDEF}になりました");//FixMe
+    }
+    public void DebuffATK(int amount)
+    {
+        if (amount > nowATK)
+        {
+            amount = nowATK;
+        }
+        nowATK -= amount;
+        Debug.Log($"{thistype}の攻撃力が{amount}下がって、{nowATK}になりました");//FixMe
+    }
+    public void DebuffDEF(int amount)
+    {
+        if (amount > nowDEF)
+        {
+            amount = nowDEF;
+        }
+        nowDEF -= amount;
+        Debug.Log($"{thistype}の防御力が{amount}下がって、{nowDEF}になりました");//FixMe:演出
+    }
+
     protected void Move(float x, float y)
     {
         shouldMove = true;
         targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
-        Debug.Log($"MonsterのMoveが呼ばれた時のtargetPosition: {targetPosition}");
+        
     }
     public IEnumerator Attack()
     {
@@ -150,19 +177,6 @@ public class MonsterClass : MonoBehaviour
     {
         Move(5, 5);
     }
-    public virtual void ChangeStatus(bd target, int turn, int amount)
-    {
-        switch (target)
-        {
-            case bd.atk:
-                nowATK += amount;
-                break;
-                case bd.def:
-                nowDEF += amount;
-                break;
-        }
-        //turn数を管理する仕組みを作る
-    }
     
 
     protected void LoadSprite(mt t)
@@ -178,22 +192,23 @@ public class MonsterClass : MonoBehaviour
         if (block >= damage)
         {
             block -= damage;
-            Debug.Log($"{thistype}:" + damage + "ダメージをすべてブロックした");
+            Debug.Log($"{thistype}が" + damage + "ダメージをすべてブロックした");
         }
         else if (block <= 0)
         {
             nowHP -= damage;
             block = 0;
             KnockBack();
-            Debug.Log($"{damage}ダメージを受け、残り体力が{nowHP}になった");
+            Debug.Log($"{thistype}が{damage}ダメージを受け、残り体力が{nowHP}になった");
         }
         else
         {
             int oriDamage = damage;//デバッグ用
             damage -= block;
             nowHP -= damage;
+            block = 0;
             KnockBack();
-            Debug.Log($"{oriDamage}ダメージのうち、{damage}ダメージを受け、{nowHP}になった");
+            Debug.Log($"{thistype}が{oriDamage}ダメージのうち、{damage}ダメージを受け、HPが{nowHP}になった");
         }
 
     }
@@ -213,7 +228,6 @@ public class MonsterClass : MonoBehaviour
     }
     public IEnumerator FadeIn()
     {
-        Debug.Log("フェードインします");
         for (float i = rend.color.a; i < 1; i += 0.02f)
         {
             yield return new WaitForSeconds(0.01f);

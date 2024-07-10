@@ -11,15 +11,15 @@ using UnityEditor.Experimental.GraphView;
 public class HeroScript : MonoBehaviour
 {
     //status
-    private int maxHP;
-    private int nowHP;
-    private int oriATK;
-    private int nowATK;
-    private int oriDEF;//防御ピンから得られるブロック
-    private int nowDEF;
-    private int oriMagiATK;
-    private int nowMagiATK;
-    private int block; //ダメージを防御ブロックできる値
+    public int maxHP;
+    public int nowHP;
+    public int oriATK;
+    public int nowATK;
+    public int oriDEF;//防御ピンから得られるブロック
+    public int nowDEF;
+    public int oriMagiATK;
+    public int nowMagiATK;
+    public int block; //ダメージを防御ブロックできる値
     protected Vector3 velocity = Vector3.zero;
     public int targetNumber = 0;
     protected Vector3 targetPosition;
@@ -43,22 +43,30 @@ public class HeroScript : MonoBehaviour
     public void BuffATK(int amount)
     {
         nowATK += amount;
-        Debug.Log("");
+        Debug.Log($"攻撃力が{amount}上がって、{nowATK}になりました");
     }
     public void BuffDEF(int amount)
     {
         nowDEF += amount;
-        Debug.Log("");
+        Debug.Log($"防御力が{amount}上がって、{nowDEF}になりました");
     }
     public void DebuffATK(int amount)
     {
+        if (amount > nowATK)
+        {
+            amount = nowATK;
+        }
         nowATK -= amount;
-        Debug.Log("");
+        Debug.Log($"攻撃力が{amount}下がって、{nowATK}になりました");
     }
     public void DebuffDEF(int amount)
     {
+        if (amount > nowDEF)
+        {
+            amount = nowDEF;
+        }
         nowDEF -= amount;
-        Debug.Log("");//FixMe:演出
+        Debug.Log($"防御力が{amount}下がって、{nowDEF}になりました");//FixMe:演出
     }
     public IEnumerator Attack()
     {
@@ -102,8 +110,9 @@ public class HeroScript : MonoBehaviour
             int oriDamage = damage;//デバッグ用
             damage -= block;
             nowHP -= damage;
+            block = 0;
             KnockBack();
-            Debug.Log($"{oriDamage}ダメージのうち、{damage}ダメージを受け、{nowHP}になった");
+            Debug.Log($"{oriDamage}ダメージのうち、{damage}ダメージを受け、HPが{nowHP}になった");
         }
 
     }
@@ -167,12 +176,10 @@ public class HeroScript : MonoBehaviour
     {
         if (nowHP + amount > maxHP)
         {
-            nowHP = maxHP;
+            amount = maxHP - nowHP;
         }
-        else
-        {
-            nowHP += amount;
-        }
+        nowHP += amount;
+        Debug.Log($"{amount}回復して、HPが{nowHP}になりました");
     }
 
     //報酬

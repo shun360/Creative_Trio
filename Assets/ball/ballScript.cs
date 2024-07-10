@@ -11,8 +11,10 @@ public class BallScript : MonoBehaviour
     private bool wentRight = false;
     private Rigidbody rb;
     private Vector3 startPos = new Vector3(-100, 2, 5);
+    private PinScript pin;
     private void Awake()
     {
+        pin = FindObjectOfType<PinScript>();
         rb = GetComponent<Rigidbody>();
     }
     void Start()
@@ -26,6 +28,7 @@ public class BallScript : MonoBehaviour
         {
             Ahead();
         }
+       
     }
     void FixedUpdate()
     {
@@ -39,7 +42,11 @@ public class BallScript : MonoBehaviour
             CurveRight();
         }
     }
-
+    public IEnumerable ThrowEnd()
+    {
+        yield return new WaitForSeconds(2);
+        GameManager.Instance.throwEnd = true;
+    }
     public void Set()
     {
         
@@ -62,6 +69,7 @@ public class BallScript : MonoBehaviour
     {
         if (GameManager.Instance.throwStart)
         {
+            if(transform.position.z > 6)
             rb.AddForce(left);
         }
         else
@@ -86,7 +94,10 @@ public class BallScript : MonoBehaviour
     {
         if (GameManager.Instance.throwStart)
         {
-            rb.AddForce(right);
+            if(transform.position.z > 6)
+            {
+                rb.AddForce(right);
+            }
         }
         else
         {

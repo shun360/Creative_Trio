@@ -5,9 +5,9 @@ using UnityEngine.UIElements;
 
 public class MummyStone : MonoBehaviour
 {
-    public bool mummyObs = false;
+    public bool active = false;
     public List<GameObject> stoneList = new();
-    private static Vector3 p = new(-105, 0, 40);
+    private static Vector3 p = new(-105, 1, 40);
     private static float x = 2.5f;
     private static float z = 10;
     private Vector3[,] pos = new Vector3[3, 5];
@@ -25,12 +25,17 @@ public class MummyStone : MonoBehaviour
     }
     public void Spawn()
     {
-        for(int i = 0; i < 3; i++)
+        List<int> indexList = new();
+        for(int i =0; i < pos.GetLength(1); i++)
         {
-            int c = Random.Range(0, pos.GetLength(1));
+            indexList.Add(i);
+        }
+        for(int i = 0; i < pos.GetLength(0); i++)
+        {
+            int c = indexList[Random.Range(0, indexList.Count)];
             GameObject StonePrefab = (GameObject)Resources.Load("Stone");
-           
             GameObject stonetance = Instantiate(StonePrefab, pos[i, c], Quaternion.identity);
+            indexList.Remove(c);
             Debug.Log("Stone¶¬");
             stoneList.Add(stonetance);
                

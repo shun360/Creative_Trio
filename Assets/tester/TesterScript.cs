@@ -65,6 +65,14 @@ public class TesterScript : MonoBehaviour
         {
             StartCoroutine(hero.LevelUp());
         }
+        if(Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.S))
+        {
+            Debug.Log($"現在のステータスはHPは{hero.nowHP}、攻撃力は{hero.nowATK}、防御力は{hero.nowDEF}です");
+        }
+        if(Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.R))
+        {
+            hero.FullHeal();
+        }
         //Pin
         if(Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.A))
         {
@@ -92,7 +100,7 @@ public class TesterScript : MonoBehaviour
         {
             FindObjectOfType<BallScript>().Set();
         }
-        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             GameManager.Instance.throwEnd = true;
         }

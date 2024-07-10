@@ -13,21 +13,31 @@ public class GargoyleClass : MonsterClass
     }
     public override IEnumerator Buff()
     {
-        int atk = 5;
-        int def = 5;
-        nowATK += atk;
-        nowDEF += def;
-        Debug.Log($"{thistype}ÇÃçUåÇóÕÇ™{atk}ÅAñhå‰óÕÇ™{def}è„Ç™ÇËÅAçUåÇóÕ{nowATK}ÅAñhå‰óÕ{nowDEF}Ç…Ç»ÇËÇ‹ÇµÇΩ");
-        yield return new WaitForSeconds(1);//FixMe:ââèo
+        BuffATK(10);
+        BuffDEF(10);
+        yield return new WaitForSeconds(1);
     }
     public override IEnumerator Debuff()
     {
-        int atk = 2;
-        int def = 2;
         HeroScript hero = FindObjectOfType<HeroScript>();
-        hero.DebuffATK(atk);
-        hero.DebuffDEF(def);
+        hero.DebuffATK(3);
+        hero.DebuffDEF(3);
         yield return new WaitForSeconds(1); 
+    }
+    public override IEnumerator Obstruction()
+    {
+        WallScript wall = FindObjectOfType<WallScript>();
+        if (!wall.active)
+        {
+            wall.active = true;
+            Debug.Log("GargoyleÇÃñWäQÅIÉåÅ[ÉìÇ…ìÆÇ≠ï«Ç™èoÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩ");
+            yield return new WaitForSeconds(1);
+        }
+        else
+        {
+           yield return Attack();
+        }
+        yield return null;
     }
 
     protected override List<List<mc>> ActSet()
@@ -40,21 +50,21 @@ public class GargoyleClass : MonsterClass
             switch (i)
             {
                 case 0:
-                    act.Add(mc.Debuff);
-                    act.Add(mc.Block);
+                    act.Add(mc.Obstruction);
                     break;
                 case 1:
-                    act.Add(mc.Attack);
+                    act.Add(mc.Debuff);
+                    act.Add(mc.Block);
                     break;
                 case 2:
                     act.Add(mc.Attack);
                     break;
                 case 3:
-                    act.Add(mc.Buff);
-                    act.Add(mc.Block);
+                    act.Add(mc.Attack);
                     break;
                 case 4:
-                    act.Add(mc.Attack);
+                    act.Add(mc.Buff);
+                    act.Add(mc.Block);
                     break;
                 case 5:
                     act.Add(mc.Attack);

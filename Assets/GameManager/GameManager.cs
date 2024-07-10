@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     private CommandQueue queue;
     private MonsterScript mons;
     private MummyStone stone;
+    private WallScript wall;
 
     public IEnumerator GamePlay()
     {
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
         mons = FindObjectOfType<MonsterScript>();
         hero = FindObjectOfType<HeroScript>();
         stone = FindObjectOfType<MummyStone>();
+        wall = FindObjectOfType<WallScript>();
         stageNo = 1;
         isPlaying = false;
         turn = 0;
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        yield return new WaitForSeconds(3);
         Debug.Log("ゲームクリア!!");
         SceneManager.LoadScene("GameClearScene");
 
@@ -74,7 +77,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator StageClear()
     {
         Debug.Log("ステージクリア！");
-        stone.mummyObs = false;
+        stone.active = false;
+        wall.active = false;
         stageNo++;
         turn = 0;
         yield return disp.Clear();
@@ -90,9 +94,13 @@ public class GameManager : MonoBehaviour
         throwEnd = false;
         pin.ArrangePins();
         isPlaying = true;
-        if (stone.mummyObs)
+        if (stone.active)
         {
             stone.Spawn();
+        }
+        if (wall.active)
+        {
+            wall.Spawn();
         }
         Debug.Log("ボウリングスタート");
         //FixMe：ボールを初期位置に戻すコード・移動し続ける
@@ -109,9 +117,13 @@ public class GameManager : MonoBehaviour
             Debug.Log("ストライク！！ ボーナス：ファイアーボール追加");
             queue.AddCommand(ct.Fireball);
         }
-        if (stone.mummyObs)
+        if (stone.active)
         {
             stone.Delete();
+        }
+        if (wall.active)
+        {
+            wall.Delete();
         }
         isPlaying = false;
         Debug.Log("ボウリング終了");

@@ -10,24 +10,24 @@ public class MummyClass : MonsterClass
         thistype = mt.Mummy;
         Debug.Log("Mummy Init()");
         transform.localScale = new Vector3(8, 8, 1);
-        StatusSet(thistype, 200, 35, 18);
+        StatusSet(thistype, 200, 36, 18);
     }
     public override IEnumerator Buff()
     {
-        int atk = 10;
-        nowATK += atk; 
-        Debug.Log($"{thistype}のATKが{atk}上がり、{nowATK}になりました");
-        yield return new WaitForSeconds(1);//FixMe:演出 
+        BuffATK(10);
+        yield return new WaitForSeconds(1);
     }
     public override IEnumerator Obstruction()
     {
         MummyStone stone = FindObjectOfType<MummyStone>();
-        if (!stone)
+        if (!stone.active)
         {
-            stone.mummyObs = true;
-            Debug.Log("Mummyの妨害！レーンに石が出るようになる！");
+            stone.active = true;
+            Debug.Log("Mummyの妨害！レーンに石が出るようになった");
+            yield return new WaitForSeconds(1);
         }
-        yield return new WaitForSeconds(1);
+        yield return null;
+        
     }
 
     protected override List<List<mc>> ActSet()
@@ -40,11 +40,11 @@ public class MummyClass : MonsterClass
             switch (i)
             {
                 case 0:
-                    act.Add(mc.Attack);
-                    break;
-                case 1:
                     act.Add(mc.Obstruction);
                     act.Add(mc.Block);
+                    break;
+                case 1:
+                    act.Add(mc.Attack);
                     break;
                 case 2:
                     act.Add(mc.Buff);
