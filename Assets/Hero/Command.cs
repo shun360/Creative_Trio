@@ -1,10 +1,18 @@
 namespace CommandType
 {
-    public enum ct
+    public enum Ct
     {
         Attack,
         Block,
-        Fireball
+        Fireball,
+        DoubleAttack,
+        DoubleBlock,
+        DebuffATK,
+        DebuffDEF,
+        BuffATK,
+        BuffDEF,
+        TwiceAOE,
+        RandomTwiceAttack
     }
 
 }

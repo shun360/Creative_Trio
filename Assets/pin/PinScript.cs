@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PinScript : MonoBehaviour
 {
+    public GameObject pinPrefab;
     public static List<GameObject> pinList;
     public static List<GameObject> pinYetSentList;
     private static Vector3 p = new Vector3(-100, 1, 70);//äÓèÄÇÃà íu
@@ -29,7 +30,6 @@ public class PinScript : MonoBehaviour
         {
             for (int i = 0; i < PinDeck.Deck.Count && i < positions.Length; i++)
             {
-                GameObject pinPrefab = (GameObject)Resources.Load("Pin");
                 GameObject pinstance = Instantiate(pinPrefab, positions[i], Quaternion.identity);
                 
                 
@@ -78,6 +78,7 @@ public class PinScript : MonoBehaviour
     {
         pinList = new List<GameObject>();
         pinYetSentList = new List<GameObject>();
+        pinPrefab = (GameObject)Resources.Load("Pin");
     }
     
 }

@@ -8,12 +8,12 @@ public class PinClass : MonoBehaviour
     private float knockDownAngle = 60.0f;
     private bool isKnockDown = false; //“|‚ê‚½‚©‚Ç‚¤‚©
     private bool sentCommand = false; //ƒRƒ}ƒ“ƒh‚ð‘—‚Á‚½‚©‚Ç‚¤‚©
-    [SerializeField] public ct Type { get; private set; }
+    [SerializeField] public Ct Type { get; private set; }
     public PinClass()
     {
         
     }
-    public void Init(ct type)
+    public void Init(Ct type)
     {
         this.Type = type;
         

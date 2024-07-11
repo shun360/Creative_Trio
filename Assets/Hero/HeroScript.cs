@@ -40,17 +40,19 @@ public class HeroScript : MonoBehaviour
         nowMagiATK = oriMagiATK;
         block = 0;
     }
-    public void BuffATK(int amount)
+    public IEnumerator BuffATK(int amount)
     {
         nowATK += amount;
         Debug.Log($"攻撃力が{amount}上がって、{nowATK}になりました");
+        yield return new WaitForSeconds(1);
     }
-    public void BuffDEF(int amount)
+    public IEnumerator BuffDEF(int amount)
     {
         nowDEF += amount;
         Debug.Log($"防御力が{amount}上がって、{nowDEF}になりました");
+        yield return new WaitForSeconds(1);
     }
-    public void DebuffATK(int amount)
+    public IEnumerator DebuffATK(int amount)
     {
         if (amount > nowATK)
         {
@@ -58,8 +60,9 @@ public class HeroScript : MonoBehaviour
         }
         nowATK -= amount;
         Debug.Log($"攻撃力が{amount}下がって、{nowATK}になりました");
+        yield return new WaitForSeconds(1);
     }
-    public void DebuffDEF(int amount)
+    public IEnumerator DebuffDEF(int amount)
     {
         if (amount > nowDEF)
         {
@@ -67,6 +70,7 @@ public class HeroScript : MonoBehaviour
         }
         nowDEF -= amount;
         Debug.Log($"防御力が{amount}下がって、{nowDEF}になりました");//FixMe:演出
+        yield return new WaitForSeconds(1);
     }
     public IEnumerator Attack()
     {

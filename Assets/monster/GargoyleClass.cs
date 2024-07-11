@@ -7,9 +7,9 @@ public class GargoyleClass : MonsterClass
 {
     public override void Init()
     {
-        thistype = mt.Gargoyle;
+        thistype = Mt.Gargoyle;
         transform.localScale = new Vector3(10, 10, 1);
-        StatusSet(thistype, 500, 30, 20);
+        StatusSet(thistype, 500, 42, 25);
     }
     public override IEnumerator Buff()
     {
@@ -40,34 +40,34 @@ public class GargoyleClass : MonsterClass
         yield return null;
     }
 
-    protected override List<List<mc>> ActSet()
+    protected override List<List<Mc>> ActSet()
     {
-        List<List<mc>> actPattern = new List<List<mc>>();
+        List<List<Mc>> actPattern = new List<List<Mc>>();
         int cycle = 6;
         for (int i = 0; i < cycle; i++)
         {
-            List<mc> act = new List<mc>();
+            List<Mc> act = new List<Mc>();
             switch (i)
             {
                 case 0:
-                    act.Add(mc.Obstruction);
+                    act.Add(Mc.Obstruction);
                     break;
                 case 1:
-                    act.Add(mc.Debuff);
-                    act.Add(mc.Block);
+                    act.Add(Mc.Attack);
                     break;
                 case 2:
-                    act.Add(mc.Attack);
+                    act.Add(Mc.Debuff);
+                    act.Add(Mc.Block);
                     break;
                 case 3:
-                    act.Add(mc.Attack);
+                    act.Add(Mc.Attack);
                     break;
                 case 4:
-                    act.Add(mc.Buff);
-                    act.Add(mc.Block);
+                    act.Add(Mc.Attack);
                     break;
                 case 5:
-                    act.Add(mc.Attack);
+                    act.Add(Mc.Buff);
+                    act.Add(Mc.Block);
                     break;
 
 

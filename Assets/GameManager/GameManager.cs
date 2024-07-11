@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     IEnumerator TurnPlay()
     {
         turn++;
+        PinDeck.Shuffle();
         yield return disp.Turn();
         yield return PlayStart();
         yield return new WaitUntil(() => throwEnd);
@@ -115,7 +116,7 @@ public class GameManager : MonoBehaviour
         if(pin.CheckStrike())
         {
             Debug.Log("ストライク！！ ボーナス：ファイアーボール追加");
-            queue.AddCommand(ct.Fireball);
+            queue.AddCommand(Ct.Fireball);
         }
         if (stone.active)
         {

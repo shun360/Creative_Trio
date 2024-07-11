@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class MummyStone : MonoBehaviour
 {
+    public GameObject stonePrefab;
     public bool active = false;
     public List<GameObject> stoneList = new();
     private static Vector3 p = new(-105, 1, 40);
@@ -15,7 +16,8 @@ public class MummyStone : MonoBehaviour
 
     private void Awake()
     {
-        for(int i = 0; i < pos.GetLength(0); i++)
+        stonePrefab = (GameObject)Resources.Load("Stone");
+        for (int i = 0; i < pos.GetLength(0); i++)
         {
             for (int j = 0; j < pos.GetLength(1); j++)
             {
@@ -33,8 +35,7 @@ public class MummyStone : MonoBehaviour
         for(int i = 0; i < pos.GetLength(0); i++)
         {
             int c = indexList[Random.Range(0, indexList.Count)];
-            GameObject StonePrefab = (GameObject)Resources.Load("Stone");
-            GameObject stonetance = Instantiate(StonePrefab, pos[i, c], Quaternion.identity);
+            GameObject stonetance = Instantiate(stonePrefab, pos[i, c], Quaternion.identity);
             indexList.Remove(c);
             Debug.Log("Stone¶¬");
             stoneList.Add(stonetance);

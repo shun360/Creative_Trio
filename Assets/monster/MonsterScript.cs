@@ -5,6 +5,7 @@ using MonsterSet;
 
 public class MonsterScript : MonoBehaviour
 {
+    public GameObject monPrefab;
     public static List<GameObject> monList;
     private static Vector3 p = new(65, 75, 0);
     private static readonly Vector3[] positions =
@@ -13,26 +14,25 @@ public class MonsterScript : MonoBehaviour
         new(p.x + 20, p.y - 15, p.z),
         new(p.x - 25, p.y + 10, p.z)
     };
-    public IEnumerator ArrangeMonsters(List<mt> mts)
+    public IEnumerator ArrangeMonsters(List<Mt> mts)
     {
         　
         for (int i = 0; i < mts.Count; i++)
         {
-            GameObject monPrefab = (GameObject)Resources.Load("MonsterPrefab");//TODO:Prefabの設定をする
             GameObject monstance = Instantiate(monPrefab, positions[i], Quaternion.identity);
             Debug.Log("モンスター生成");
             
             switch (mts[i]){
-                case mt.Slime:
+                case Mt.Slime:
                     monstance.AddComponent<SlimeClass>().Init();
                     break;
-                case mt.Bat:
+                case Mt.Bat:
                     monstance.AddComponent<BatClass>().Init();
                     break;
-                case mt.Mummy:
+                case Mt.Mummy:
                     monstance.AddComponent<MummyClass>().Init();
                     break;
-                case mt.Gargoyle:
+                case Mt.Gargoyle:
                     monstance.AddComponent<GargoyleClass>().Init();
                     break;
                 default:
@@ -86,6 +86,7 @@ public class MonsterScript : MonoBehaviour
     }
     private void Awake()
     {
+        monPrefab = (GameObject)Resources.Load("Monster");
         monList = new List<GameObject> ();
     }
     

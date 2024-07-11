@@ -12,10 +12,11 @@ namespace Result
         //pin
         PinFireball,
         PinRandomTwiceAttack,
-        PinDoubleNext,
+        PinTwiceAOE,
         PinDoubleAttack,
         PinDoubleBlock,
         PinDebuffATK,
+        PinDebuffDEF,
         PinBuffATK,
         PinBuffDEF,
         //PinOnlyOne, //ŽÀ‘•‚ª“ï

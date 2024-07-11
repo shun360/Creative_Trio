@@ -15,7 +15,7 @@ public class MonsterClass : MonoBehaviour
     protected int oriDEF;
     protected int nowDEF;
     protected int block;
-    protected mt thistype;
+    protected Mt thistype;
     protected bool shouldMove = false;
     protected bool isReturning = false;
     protected Vector3 originPosition;
@@ -25,7 +25,7 @@ public class MonsterClass : MonoBehaviour
     
     private SpriteRenderer rend;
     protected bool isLiving = false;
-    protected List<List<mc>> actPattern;
+    protected List<List<Mc>> actPattern;
 
     //[SerializeField] 
     protected virtual void Awake()
@@ -40,10 +40,10 @@ public class MonsterClass : MonoBehaviour
     public virtual void Init()
     {
         Debug.Log("MonsterClassのInit()");
-        thistype = mt.NoneMonster;
+        thistype = Mt.NoneMonster;
         StatusSet(thistype, 30, 11, 6);
     }
-    protected void StatusSet(mt type,int hp, int atk, int def) 
+    protected void StatusSet(Mt type,int hp, int atk, int def) 
     {
         LoadSprite(type);
         this.maxHP = hp;
@@ -54,20 +54,20 @@ public class MonsterClass : MonoBehaviour
         this.nowDEF = def;
         StartCoroutine(FadeIn());
     }
-    protected virtual List<List<mc>> ActSet()//行動パターン設定
+    protected virtual List<List<Mc>> ActSet()//行動パターン設定
     {
-        List<List<mc>> actPattern = new List<List<mc>>();
+        List<List<Mc>> actPattern = new List<List<Mc>>();
         int cycle = 2;
         for (int i = 0; i < cycle; i++)
         {
-            List<mc> act = new List<mc>();
+            List<Mc> act = new List<Mc>();
             switch (i)
             {
                 case 0:
-                    act.Add(mc.Attack);
+                    act.Add(Mc.Attack);
                     break;
                 case 1:
-                    act.Add(mc.Block);
+                    act.Add(Mc.Block);
                     break;
             }
             actPattern.Add(act);
@@ -76,24 +76,24 @@ public class MonsterClass : MonoBehaviour
     }
     public IEnumerator Act()
     {
-        List<mc> act = actPattern[(GameManager.Instance.turn - 1) % actPattern.Count];
+        List<Mc> act = actPattern[(GameManager.Instance.turn - 1) % actPattern.Count];
         for (int i = 0; i < act.Count; i++)
         {
             switch (act[i]) 
             { 
-                case mc.Attack:
+                case Mc.Attack:
                     yield return Attack();
                     break;
-                case mc.Block:
+                case Mc.Block:
                     yield return AddBlock();
                     break;
-                case mc.Buff:
+                case Mc.Buff:
                     yield return Buff();
                     break;
-                case mc.Debuff:
+                case Mc.Debuff:
                     yield return Debuff();
                     break;
-                case mc.Obstruction:
+                case Mc.Obstruction:
                     yield return Obstruction();
                     break;
 
@@ -179,7 +179,7 @@ public class MonsterClass : MonoBehaviour
     }
     
 
-    protected void LoadSprite(mt t)
+    protected void LoadSprite(Mt t)
     {
         Debug.Log($"{t}の画像を読み込みます");
         GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>($"{t}");

@@ -23,7 +23,7 @@ public class WallClass : MonoBehaviour
             if (!firstRight)
             {
                 transform.Translate(0.02f, 0, 0);
-                if (Vector3.Distance(transform.position, right) < 1f)
+                if (Vector3.Distance(transform.position, right) < 0.1f)
                 {
                     movingRight = false;
                     firstRight = true;

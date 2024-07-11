@@ -29,8 +29,8 @@ public class TesterScript : MonoBehaviour
             }
             else
             {
-                List<ct> deck = PinDeck.GetAllPinDeck();
-                foreach (ct pin in deck)
+                List<Ct> deck = PinDeck.GetAllPinDeck();
+                foreach (Ct pin in deck)
                 {
                     i++;
                     Debug.Log("デッキ" + i + "番目:" + pin);
@@ -41,17 +41,17 @@ public class TesterScript : MonoBehaviour
         //Deck
         if(Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.A))
         {
-            PinDeck.AddPinDeck(ct.Attack);
+            PinDeck.AddPinDeck(Ct.Attack);
         }
 
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.B))
         {
-            PinDeck.AddPinDeck(ct.Block);
+            PinDeck.AddPinDeck(Ct.Block);
         }
 
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.M))
         {
-            PinDeck.AddPinDeck(ct.Fireball);
+            PinDeck.AddPinDeck(Ct.Fireball);
         }
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.S))
         {
@@ -115,14 +115,11 @@ public class TesterScript : MonoBehaviour
         {
             ball.Grow();
         }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            GameManager.Instance.throwEnd = true;
-        }
+        
         //Queue
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            List<ct> cmds = GameObject.Find("CommandQueue").GetComponent<CommandQueue>().commandQueue;
+            List<Ct> cmds = GameObject.Find("CommandQueue").GetComponent<CommandQueue>().commandQueue;
             if (cmds.Count == 0)
             {
                 Debug.Log("セットされているコマンドはありません。");

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6599658408432820418}
   - component: {fileID: 5391537195828511255}
   m_Layer: 0
-  m_Name: MonsterPrefab
+  m_Name: Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

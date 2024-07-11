@@ -7,14 +7,13 @@ public class MummyClass : MonsterClass
 {
     public override void Init()
     {
-        thistype = mt.Mummy;
-        Debug.Log("Mummy Init()");
+        thistype = Mt.Mummy;
         transform.localScale = new Vector3(8, 8, 1);
-        StatusSet(thistype, 200, 36, 18);
+        StatusSet(thistype, 200, 31, 18);
     }
     public override IEnumerator Buff()
     {
-        BuffATK(10);
+        BuffATK(8);
         yield return new WaitForSeconds(1);
     }
     public override IEnumerator Obstruction()
@@ -26,29 +25,33 @@ public class MummyClass : MonsterClass
             Debug.Log("MummyÇÃñWäQÅIÉåÅ[ÉìÇ…êŒÇ™èoÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩ");
             yield return new WaitForSeconds(1);
         }
+        else
+        {
+            yield return Buff();
+        }
         yield return null;
         
     }
 
-    protected override List<List<mc>> ActSet()
+    protected override List<List<Mc>> ActSet()
     {
-        List<List<mc>> actPattern = new List<List<mc>>();
+        List<List<Mc>> actPattern = new List<List<Mc>>();
         int cycle = 3;
         for (int i = 0; i < cycle; i++)
         {
-            List<mc> act = new List<mc>();
+            List<Mc> act = new List<Mc>();
             switch (i)
             {
                 case 0:
-                    act.Add(mc.Obstruction);
-                    act.Add(mc.Block);
+                    act.Add(Mc.Obstruction);
+                    act.Add(Mc.Block);
                     break;
                 case 1:
-                    act.Add(mc.Attack);
+                    act.Add(Mc.Attack);
                     break;
                 case 2:
-                    act.Add(mc.Buff);
-                    act.Add(mc.Block);
+                    act.Add(Mc.Buff);
+                    act.Add(Mc.Block);
                     break;
                 
             }

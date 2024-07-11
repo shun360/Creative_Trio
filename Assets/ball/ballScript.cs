@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallScript : MonoBehaviour
@@ -28,7 +29,18 @@ public class BallScript : MonoBehaviour
         {
             Ahead();
         }
-       
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if(transform.position.z > 6 || transform.position.y < -1)
+            {
+                GameManager.Instance.throwEnd = true;
+            }
+            else
+            {
+                Debug.LogError("“Š‚°‚é‘O‚Å‚·");
+            }
+        }
+
     }
     void FixedUpdate()
     {

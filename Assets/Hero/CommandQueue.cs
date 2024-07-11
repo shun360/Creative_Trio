@@ -6,11 +6,11 @@ using CommandType;
 public class CommandQueue : MonoBehaviour
 {
     private HeroScript hero;
-    public List<ct> commandQueue;
-    public void AddCommand(ct cmd) {  commandQueue.Add(cmd); }
-    public ct DequeueCommand() 
+    public List<Ct> commandQueue;
+    public void AddCommand(Ct cmd) {  commandQueue.Add(cmd); }
+    public Ct DequeueCommand() 
     {
-        ct c = commandQueue[0];
+        Ct c = commandQueue[0];
         commandQueue.RemoveAt(0);
         return c; 
     }
@@ -21,30 +21,62 @@ public class CommandQueue : MonoBehaviour
         
         while(commandQueue.Count > 0)
         {
-            ct cmd = DequeueCommand();
+            Ct cmd = DequeueCommand();
             yield return ExecuteCommand(cmd);
         }
         Debug.Log("コマンド実行終了");
     }
-    public IEnumerator ExecuteCommand(ct cmd)
+    public IEnumerator ExecuteCommand(Ct cmd)
     {
         if(MonsterScript.monList.Count > 0) 
         {
             switch (cmd)
             {
-                case ct.Attack:
-                    Debug.Log("攻撃を実行");
+                case Ct.Attack:
+                    Debug.Log($"{cmd}攻撃を実行");
                     yield return hero.Attack();
                     break;
-                case ct.Block:
-                    Debug.Log("防御を実行");
+                case Ct.Block:
+                    Debug.Log($"{cmd}防御を実行");
                     //FixMe:防御エフェクト
                     yield return hero.AddBlock();
                     break;
-                case ct.Fireball:
-                    Debug.Log("炎魔法を実行");
-                    //TODO:魔法を実装
+                case Ct.Fireball:
+                    Debug.Log($"{cmd}を実行");
+                    //FixMe:エフェクト
                     yield return hero.Fireball();
+                    break;
+                case Ct.DoubleAttack:
+                    Debug.Log($"{cmd}を実行");
+                    //yield return hero.();
+                    break;
+                case Ct.DoubleBlock:
+                    Debug.Log($"{cmd}を実行");
+                    //yield return hero.();
+                    break;
+                case Ct.DebuffATK:
+                    Debug.Log($"{cmd}を実行");
+                    //yield return hero.();
+                    break;
+                case Ct.DebuffDEF:
+                    Debug.Log($"{cmd}を実行");
+                    //yield return hero.();
+                    break;
+                case Ct.BuffATK:
+                    Debug.Log($"{cmd}を実行");
+                    yield return hero.BuffATK(2);
+                    break;
+                case Ct.BuffDEF:
+                    Debug.Log($"{cmd}を実行");
+                    yield return hero.BuffDEF(2);
+                    break;
+                case Ct.TwiceAOE:
+                    Debug.Log($"{cmd}を実行");
+                    //yield return hero.();
+                    break;
+                case Ct.RandomTwiceAttack:
+                    Debug.Log($"{cmd}を実行");
+                    //yield return hero.();
                     break;
             }
 
@@ -61,7 +93,7 @@ public class CommandQueue : MonoBehaviour
     public void ClearCommand() { commandQueue.Clear(); }
     private void Awake()
     {
-        commandQueue = new List<ct>();
+        commandQueue = new List<Ct>();
         hero = FindObjectOfType<HeroScript>();
 
     }
