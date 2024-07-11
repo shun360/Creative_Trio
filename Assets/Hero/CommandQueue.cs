@@ -79,6 +79,7 @@ public class CommandQueue : MonoBehaviour
                     //yield return hero.();
                     break;
             }
+            yield return null;
 
         }
         else
