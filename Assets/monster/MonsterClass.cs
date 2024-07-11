@@ -22,7 +22,7 @@ public class MonsterClass : MonoBehaviour
     protected Vector3 velocity = Vector3.zero;
     protected Vector3 targetPosition;
     private HeroScript hero;
-    
+    private Effects ef;
     private SpriteRenderer rend;
     protected bool isLiving = false;
     protected List<List<Mc>> actPattern;
@@ -33,6 +33,7 @@ public class MonsterClass : MonoBehaviour
         hero = FindObjectOfType<HeroScript>();
         targetPosition = hero.transform.position;
         rend = GetComponent<SpriteRenderer>();
+        ef = FindObjectOfType<Effects>();
         originPosition = transform.position;
         actPattern = ActSet();
         isLiving = true;
@@ -152,7 +153,8 @@ public class MonsterClass : MonoBehaviour
     {
         block += nowDEF;
         Debug.Log($"{thistype}が{nowDEF}ブロック追加して、{block}ブロックになりました");
-        yield return new WaitForSeconds(1);//FixMe:エフェクト追加
+        StartCoroutine(ef.AddBlockEffect(transform.position));
+        yield return new WaitForSeconds(1);
     }
     public virtual IEnumerator Buff()
     {

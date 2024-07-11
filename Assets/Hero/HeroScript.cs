@@ -27,7 +27,16 @@ public class HeroScript : MonoBehaviour
     protected bool isReturning = false;
     protected Vector3 originPosition;
     private MonsterScript mons;
+    private Effects ef;
 
+    protected virtual void Awake()
+    {
+        Init();
+        originPosition = new Vector3(15, 15, 0);
+        transform.position = originPosition;
+        mons = FindObjectOfType<MonsterScript>();
+        ef = FindObjectOfType<Effects>();
+    }
     public void Init()//初期化
     {
         maxHP = 100;
@@ -85,6 +94,7 @@ public class HeroScript : MonoBehaviour
     {
         block += nowDEF;
         Debug.Log($"{nowDEF}ブロック追加して、{block}ブロックになりました");
+        StartCoroutine(ef.AddBlockEffect(transform.position));
         yield return new WaitForSeconds(1);//FixMe:エフェクト追加
     }//ブロック値をプラスする
     public IEnumerator Fireball()
@@ -208,13 +218,7 @@ public class HeroScript : MonoBehaviour
         nowMagiATK -= 25;
     }
     //MonoBehaviour
-    protected virtual void Awake()
-    {
-        Init();
-        originPosition = new Vector3(15, 15, 0);
-        transform.position = originPosition;
-        mons = FindObjectOfType<MonsterScript>();
-    }
+    
     void Start()
     {
         Debug.Log("Start");
