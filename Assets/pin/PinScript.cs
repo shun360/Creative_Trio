@@ -61,17 +61,9 @@ public class PinScript : MonoBehaviour
         
         Debug.Log("すべてのピンを削除しました");
     }
-    public bool CheckStrike()
+    public int RestPins()
     {
-        if(pinYetSentList.Count == 0)
-        {
-            return true;
-        }
-        else
-        {
-            Debug.Log($"残っているピンは{pinYetSentList.Count}本です");
-            return false;
-        }
+        return pinYetSentList.Count;
     }
 
     private void Awake()

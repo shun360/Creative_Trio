@@ -153,7 +153,7 @@ public class MonsterClass : MonoBehaviour
     {
         block += nowDEF;
         Debug.Log($"{thistype}が{nowDEF}ブロック追加して、{block}ブロックになりました");
-        StartCoroutine(ef.AddBlockEffect(transform.position));
+        StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF));
         yield return new WaitForSeconds(1);
     }
     public virtual IEnumerator Buff()
@@ -189,29 +189,39 @@ public class MonsterClass : MonoBehaviour
     }
 
     
-    public void TakeAttacked(int damage) //攻撃を受ける
+    public void TakeAttacked(int damage, bool penet = false) //攻撃を受ける
     {
-        if (block >= damage)
+        if (!penet)
         {
-            block -= damage;
-            Debug.Log($"{thistype}が" + damage + "ダメージをすべてブロックした");
-        }
-        else if (block <= 0)
-        {
-            nowHP -= damage;
-            block = 0;
-            KnockBack();
-            Debug.Log($"{thistype}が{damage}ダメージを受け、残り体力が{nowHP}になった");
+            if (block >= damage)
+            {
+                block -= damage;
+                Debug.Log($"{thistype}が" + damage + "ダメージをすべてブロックした");
+            }
+            else if (block <= 0)
+            {
+                nowHP -= damage;
+                block = 0;
+                KnockBack();
+                Debug.Log($"{thistype}が{damage}ダメージを受け、残り体力が{nowHP}になった");
+            }
+            else
+            {
+                int oriDamage = damage;//デバッグ用
+                damage -= block;
+                nowHP -= damage;
+                block = 0;
+                KnockBack();
+                Debug.Log($"{thistype}が{oriDamage}ダメージのうち、{damage}ダメージを受け、HPが{nowHP}になった");
+            }
         }
         else
         {
-            int oriDamage = damage;//デバッグ用
-            damage -= block;
             nowHP -= damage;
-            block = 0;
+            Debug.Log($"{thistype}が{damage}ダメージを受け、残り体力が{nowHP}になった");
             KnockBack();
-            Debug.Log($"{thistype}が{oriDamage}ダメージのうち、{damage}ダメージを受け、HPが{nowHP}になった");
         }
+        
 
     }
     

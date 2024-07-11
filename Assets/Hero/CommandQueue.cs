@@ -46,27 +46,27 @@ public class CommandQueue : MonoBehaviour
                     //FixMe:エフェクト
                     yield return hero.Fireball();
                     break;
-                case Ct.DoubleAttack:
+                case Ct.Smash:
                     Debug.Log($"{cmd}を実行");
-                    //yield return hero.();
+                    yield return hero.Smash();
                     break;
-                case Ct.DoubleBlock:
+                case Ct.Protection:
                     Debug.Log($"{cmd}を実行");
-                    //yield return hero.();
+                    yield return hero.Protection();
                     break;
-                case Ct.DebuffATK:
+                case Ct.CurseATK:
                     Debug.Log($"{cmd}を実行");
-                    //yield return hero.();
+                    yield return hero.CurseATK();
                     break;
-                case Ct.DebuffDEF:
+                case Ct.Penetration:
                     Debug.Log($"{cmd}を実行");
-                    //yield return hero.();
+                    yield return hero.Penetration();
                     break;
-                case Ct.BuffATK:
+                case Ct.ExtendATK:
                     Debug.Log($"{cmd}を実行");
-                    yield return hero.BuffATK(2);
+                    yield return hero.BuffATK(3);
                     break;
-                case Ct.BuffDEF:
+                case Ct.ExtendDEF:
                     Debug.Log($"{cmd}を実行");
                     yield return hero.BuffDEF(2);
                     break;
@@ -77,6 +77,10 @@ public class CommandQueue : MonoBehaviour
                 case Ct.RandomTwiceAttack:
                     Debug.Log($"{cmd}を実行");
                     //yield return hero.();
+                    break;
+                case Ct.OnlyOne:
+                    Debug.Log($"{cmd}を実行");
+                    yield return hero.OnlyOne();
                     break;
             }
             yield return null;

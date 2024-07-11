@@ -5,7 +5,7 @@ using CommandType;
 
 public class PinClass : MonoBehaviour
 {
-    private float knockDownAngle = 60.0f;
+    private float knockDownAngle = 45.0f;
     private bool isKnockDown = false; //倒れたかどうか
     private bool sentCommand = false; //コマンドを送ったかどうか
     [SerializeField] public Ct Type { get; private set; }
@@ -16,6 +16,7 @@ public class PinClass : MonoBehaviour
     public void Init(Ct type)
     {
         this.Type = type;
+        //TODO:ここに色分け
         
     }
     private void Send()

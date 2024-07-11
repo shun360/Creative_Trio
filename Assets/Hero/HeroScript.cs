@@ -27,6 +27,7 @@ public class HeroScript : MonoBehaviour
     protected bool isReturning = false;
     protected Vector3 originPosition;
     private MonsterScript mons;
+    
     private Effects ef;
 
     protected virtual void Awake()
@@ -90,13 +91,35 @@ public class HeroScript : MonoBehaviour
         t.TakeAttacked(nowATK);
         yield return new WaitForSeconds(0.8f);
     }
+    public IEnumerator Smash()
+    {
+        Debug.Log("HeroのSmash");
+        Move(15,15);
+        MonsterClass t = MonsterScript.monList[targetNumber].GetComponent<MonsterClass>();
+        yield return new WaitForSeconds(0.2f);
+        t.TakeAttacked(nowATK * 2);
+        yield return new WaitForSeconds(0.8f);
+    }
     public IEnumerator AddBlock()
     {
         block += nowDEF;
         Debug.Log($"{nowDEF}ブロック追加して、{block}ブロックになりました");
-        StartCoroutine(ef.AddBlockEffect(transform.position));
-        yield return new WaitForSeconds(1);//FixMe:エフェクト追加
-    }//ブロック値をプラスする
+        StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF));
+        yield return new WaitForSeconds(1);
+    }
+    public IEnumerator Protection()
+    {
+        block += nowDEF * 2;
+        Debug.Log($"プロテクションで{nowDEF * 2}を獲得し、、{block}ブロックになりました");
+        StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF, 20));
+        yield return new WaitForSeconds(1);
+    }
+    public IEnumerator CurseATK()
+    {
+        mons.AllDebuffATK(5);
+        yield return new WaitForSeconds(1);
+    }
+    
     public IEnumerator Fireball()
     {
         Debug.Log("Heroの魔法攻撃");
@@ -104,6 +127,23 @@ public class HeroScript : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         mons.TakeAOE(nowMagiATK);
         yield return new WaitForSeconds(0.8f);//FixMe:魔法エフェクト追加
+    }
+    public IEnumerator Penetration()
+    {
+        MonsterScript.monList[targetNumber].GetComponent<MonsterClass>().TakeAttacked(oriATK + 5, true);
+        yield return new WaitForSeconds(1);
+    }
+    
+    public IEnumerator OnlyOne()
+    {
+        if(GameManager.Instance.restPin == 1)
+        {
+            Debug.Log("Heroの大魔法攻撃");
+            AttackMotion();
+            yield return new WaitForSeconds(0.2f);
+            mons.TakeAOE(nowMagiATK);
+            yield return new WaitForSeconds(0.8f);//FixMe:魔法エフェクト追加
+        }
     }
     public void TakeAttacked(int damage) //攻撃を受ける
     {
@@ -144,9 +184,9 @@ public class HeroScript : MonoBehaviour
     }
     public void KnockBack()
     {
-        HeroMove(-5, -5);
+        Move(-5, -5);
     }
-    protected void HeroMove(float x, float y)
+    protected void Move(float x, float y)
     {
         shouldMove = true;
         targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
@@ -154,15 +194,15 @@ public class HeroScript : MonoBehaviour
     }
     protected void AttackMotion()
     {
-        HeroMove(10, 10);
+        Move(10, 10);
     }
 
     public IEnumerator LevelUp()
     {
-        oriATK += 1;
-        oriDEF += 1;
-        oriMagiATK += 3;
-        Debug.Log("LevelUp! 攻撃力と防御力が1上がった 魔法攻撃力が3上がった");
+        Debug.Log("LevelUp!");
+        SumATK(1);
+        SumDEF(1);
+        SumMagiATK(3);
         yield return new WaitForSeconds(1); 
     }
     public void ChangeTarget()
@@ -195,7 +235,24 @@ public class HeroScript : MonoBehaviour
         nowHP += amount;
         Debug.Log($"{amount}回復して、HPが{nowHP}になりました");
     }
-
+    public void SumATK(int amount)
+    {
+        oriATK += amount;
+        nowATK += amount;
+        Debug.Log($"元の攻撃力が{amount}上がった");
+    }
+    public void SumDEF(int amount)
+    {
+        oriDEF += amount;
+        nowDEF += amount;
+        Debug.Log($"元の防御力が{amount}上がった");
+    }
+    public void SumMagiATK(int amount)
+    {
+        oriMagiATK += amount;
+        nowMagiATK += amount;
+        Debug.Log($"元の魔法攻撃力が{amount}上がった");
+    }
     //報酬
 
     public void FullHeal()
@@ -204,18 +261,15 @@ public class HeroScript : MonoBehaviour
     }
     public void GrowATK()
     {
-        oriATK += 5;
-        nowATK += 5;
+        SumATK(5);
     }
     public void GrowDEF()
     {
-        oriDEF += 5;
-        nowDEF += 5;
+        SumDEF(5);
     }
     public void GrowMagiATK()
     {
-        oriMagiATK += 25;
-        nowMagiATK -= 25;
+        SumMagiATK(15);
     }
     //MonoBehaviour
     

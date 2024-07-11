@@ -68,6 +68,14 @@ public class MonsterScript : MonoBehaviour
             monList[i].GetComponent<MonsterClass>().TakeAttacked(damage);
         }
     }
+    public void AllDebuffATK(int amount)
+    {
+        for(int i = 0;i < monList.Count; i++)
+        {
+            monList[i].GetComponent<MonsterClass>().DebuffATK(amount);
+        }
+    }
+    
     public void DeleteMonsters()
     {
         for (int i = 0; i < monList.Count; i++)

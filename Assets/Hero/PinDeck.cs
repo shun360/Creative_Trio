@@ -42,29 +42,29 @@ public class PinDeck : MonoBehaviour
     {
         AddPinDeck(Ct.Fireball);
     }
-    public void AddDoubleAttack()
+    public void AddSmash()
     {
-        AddPinDeck(Ct.DoubleAttack);
+        AddPinDeck(Ct.Smash);
     }
-    public void AddDoubleBlock()
+    public void AddProtection()
     {
-        AddPinDeck(Ct.DoubleBlock);
+        AddPinDeck(Ct.Protection);
     }
     public void AddDebffATK()
     {
-        AddPinDeck(Ct.DebuffDEF);
+        AddPinDeck(Ct.CurseATK);
     }
-    public void AddDebuffDEF()
+    public void AddPenetration()
     {
-        AddPinDeck(Ct.DebuffDEF);
+        AddPinDeck(Ct.Penetration);
     }
-    public void AddBuffATK()
+    public void AddExtendATK()
     {
-        AddPinDeck(Ct.BuffATK);
+        AddPinDeck(Ct.ExtendATK);
     }
-    public void AddBuffDEF()
+    public void AddExtendDEF()
     {
-        AddPinDeck(Ct.BuffDEF);
+        AddPinDeck(Ct.ExtendDEF);
     }
     public void AddTwiceAOE()
     {
@@ -73,5 +73,11 @@ public class PinDeck : MonoBehaviour
     public void AddRandomTwiceAttack()
     {
         AddPinDeck(Ct.RandomTwiceAttack);
+    }
+    public void AddOnlyOne()
+    {
+        AddPinDeck(Ct.OnlyOne);
+        GameManager.Instance.onlyOne = true;
+        FindObjectOfType<HeroScript>().SumMagiATK(20);
     }
 }

@@ -5,14 +5,15 @@ namespace CommandType
         Attack,
         Block,
         Fireball,
-        DoubleAttack,
-        DoubleBlock,
-        DebuffATK,
-        DebuffDEF,
-        BuffATK,
-        BuffDEF,
+        Smash,
+        Protection,
+        CurseATK,
+        Penetration,
+        ExtendATK,
+        ExtendDEF,
         TwiceAOE,
-        RandomTwiceAttack
+        RandomTwiceAttack,
+        OnlyOne
     }
 
 }

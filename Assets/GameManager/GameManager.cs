@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public int turn;
     public bool throwStart;
     public bool throwEnd;
+    public int restPin;
+    public bool onlyOne;
     private Display disp;
     private HeroScript hero;
     private BallScript ball;
@@ -37,6 +39,8 @@ public class GameManager : MonoBehaviour
         turn = 0;
         throwStart = false;
         throwEnd = false;
+        restPin = -1;
+        onlyOne = false;
         Debug.Log("GamePlay開始");
         for (int i = 2; i < ReturnMonsters.monsters.Count + 2;i++)
         {
@@ -112,8 +116,8 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator PlayEnd()
     {
-        
-        if(pin.CheckStrike())
+        restPin = pin.RestPins();
+        if(restPin == 0 && !onlyOne)
         {
             Debug.Log("ストライク！！ ボーナス：ファイアーボール追加");
             queue.AddCommand(Ct.Fireball);

@@ -13,13 +13,13 @@ namespace Result
         PinFireball,
         PinRandomTwiceAttack,
         PinTwiceAOE,
-        PinDoubleAttack,
-        PinDoubleBlock,
+        PinSmash,
+        PinProtection,
         PinDebuffATK,
         PinDebuffDEF,
         PinBuffATK,
         PinBuffDEF,
-        //PinOnlyOne, //ŽÀ‘•‚ª“ï
+        PinOnlyOne,
         //PinPoison, //ŽÀ‘•‚ª“ï
         //ball
         BallGrow,
