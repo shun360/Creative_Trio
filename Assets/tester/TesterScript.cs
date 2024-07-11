@@ -6,13 +6,15 @@ using CommandType;
 public class TesterScript : MonoBehaviour
 {
     private HeroScript hero;
+    private BallScript ball;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if(hero == null)
         {
             hero = FindObjectOfType<HeroScript>();
         }
+        ball = FindObjectOfType<BallScript>();
     }
 
     // Update is called once per frame
@@ -99,6 +101,19 @@ public class TesterScript : MonoBehaviour
         if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S))
         {
             FindObjectOfType<BallScript>().Set();
+        }
+
+        if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.A))
+        {
+            ball.DoubleAcceleration();
+        }
+        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.C))
+        {
+            ball.DoubleControl();
+        }
+        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.G))
+        {
+            ball.Grow();
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {

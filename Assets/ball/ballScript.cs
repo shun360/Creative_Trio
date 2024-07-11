@@ -69,7 +69,7 @@ public class BallScript : MonoBehaviour
     {
         if (GameManager.Instance.throwStart)
         {
-            if(transform.position.z > 6)
+            if(transform.position.z > 6 && transform.position.z < 70)
             rb.AddForce(left);
         }
         else
@@ -94,7 +94,7 @@ public class BallScript : MonoBehaviour
     {
         if (GameManager.Instance.throwStart)
         {
-            if(transform.position.z > 6)
+            if(transform.position.z > 6 && transform.position.z < 70)
             {
                 rb.AddForce(right);
             }
@@ -136,9 +136,9 @@ public class BallScript : MonoBehaviour
     }
     public void Grow()
     {
-        ChangeScale(1.2f);
+        ChangeScale(1.3f);
         rb.mass *= 1.5f;
-        Acceleration(1.3f);
+        Acceleration(1.5f);
     }
     
 }
