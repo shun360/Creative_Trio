@@ -7,7 +7,7 @@ public class BatClass : MonsterClass
     public override void Init()
     {
         thistype = Mt.Bat;
-        StatusSet(thistype, 80, 18, 0);
+        StatusSet(thistype, 90, 18, 0);
     }
     protected override List<List<Mc>> ActSet()
     {

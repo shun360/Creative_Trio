@@ -230,7 +230,7 @@ public class MonsterClass : MonoBehaviour
         targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
     }
 
-    public IEnumerator Attack()
+    protected virtual IEnumerator Attack()
     {
         AttackMotion();
         yield return new WaitForSeconds(0.2f);

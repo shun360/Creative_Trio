@@ -10,7 +10,7 @@ public class MummyClass : MonsterClass
         thistype = Mt.Mummy;
         scale = 8;
         transform.localScale = new Vector3(scale, scale, 1);
-        StatusSet(thistype, 200, 31, 18);
+        StatusSet(thistype, 200, 27, 16);
     }
     public override IEnumerator Buff()
     {

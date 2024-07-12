@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
 using System.Data.SqlTypes;
-using UnityEditor.Search;
-using UnityEditor.Experimental.GraphView;
 using StatusChangeType;
 using TMPro;
 
@@ -100,7 +98,7 @@ public class HeroScript : MonoBehaviour
             amount = nowATK;
         }
         nowATK -= amount;
-        sct.ShowStatusChange(originPosition, $"+{amount}", Im.Down, Ab.Attack);
+        sct.ShowStatusChange(originPosition, $"-{amount}", Im.Down, Ab.Attack);
         Debug.Log($"攻撃力が{amount}下がって、{nowATK}になりました");
         yield return new WaitForSeconds(1);
     }
@@ -111,7 +109,7 @@ public class HeroScript : MonoBehaviour
             amount = nowDEF;
         }
         nowDEF -= amount;
-        sct.ShowStatusChange(originPosition, $"+{amount}", Im.Down, Ab.Defense);
+        sct.ShowStatusChange(originPosition, $"-{amount}", Im.Down, Ab.Defense);
         Debug.Log($"防御力が{amount}下がって、{nowDEF}になりました");
         yield return new WaitForSeconds(1);
     }

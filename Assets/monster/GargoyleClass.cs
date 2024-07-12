@@ -14,9 +14,16 @@ public class GargoyleClass : MonsterClass
     }
     public override IEnumerator Buff()
     {
-        yield return BuffATK(10);
-
-        yield return BuffDEF(10);
+        if(GameManager.Instance.turn < 12)
+        {
+            yield return BuffATK(10);
+            yield return BuffDEF(10);
+        }
+        else
+        {
+            yield return BuffATK(50);
+            yield return BuffDEF(30);
+        }
         yield return new WaitForSeconds(1);
     }
     public override IEnumerator Debuff()
@@ -42,7 +49,7 @@ public class GargoyleClass : MonsterClass
         }
         yield return null;
     }
-
+    
     protected override List<List<Mc>> ActSet()
     {
         List<List<Mc>> actPattern = new List<List<Mc>>();
