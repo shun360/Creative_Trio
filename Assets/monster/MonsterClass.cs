@@ -9,7 +9,6 @@ using TMPro;
 
 public class MonsterClass : MonoBehaviour
 {
-
     protected int maxHP;
     protected int nowHP;
     protected int oriATK;
@@ -36,7 +35,6 @@ public class MonsterClass : MonoBehaviour
     public TextMeshProUGUI hpText;
     public GameObject barIns;
 
-    //[SerializeField] 
     protected virtual void Awake()
     {
         transform.Translate(0, 0, 1);
@@ -47,9 +45,10 @@ public class MonsterClass : MonoBehaviour
         sct = FindObjectOfType<StatusChangeText>();
         originPosition = transform.position;
         actPattern = ActSet();
-        
+
         isLiving = true;
     }
+
     public virtual void Init()
     {
         Debug.Log("MonsterClassのInit()");
@@ -57,9 +56,9 @@ public class MonsterClass : MonoBehaviour
         thistype = Mt.NoneMonster;
         StatusSet(thistype, 30, 11, 6);
     }
-    protected void StatusSet(Mt type,int hp, int atk, int def) 
+
+    protected void StatusSet(Mt type, int hp, int atk, int def)
     {
-        
         LoadSprite(type);
         this.maxHP = hp;
         this.nowHP = hp;
@@ -67,8 +66,9 @@ public class MonsterClass : MonoBehaviour
         this.nowATK = atk;
         this.oriDEF = def;
         this.nowDEF = def;
+
         barPrefab = (GameObject)Resources.Load("MonHPBar");
-        barIns = Instantiate(barPrefab, transform.position,Quaternion.identity);
+        barIns = Instantiate(barPrefab);
         Canvas canvas = FindObjectOfType<Canvas>();
         if (canvas == null)
         {
@@ -76,6 +76,7 @@ public class MonsterClass : MonoBehaviour
             return;
         }
         barIns.transform.SetParent(canvas.transform, false);
+
         if (barIns == null)
         {
             Debug.LogError("barInsが正しく生成されていません。");
@@ -88,7 +89,7 @@ public class MonsterClass : MonoBehaviour
             Debug.LogError("hpSliderが見つかりません。");
             return;
         }
-        hpSlider = barIns.GetComponent<Slider>();
+
         hpSlider.maxValue = maxHP;
         hpSlider.value = nowHP;
 
@@ -107,10 +108,12 @@ public class MonsterClass : MonoBehaviour
             Debug.LogError("hpTextが見つかりません。");
             return;
         }
+
         UpdateHPBarPosition();
         StartCoroutine(FadeIn());
     }
-    protected virtual List<List<Mc>> ActSet()//行動パターン設定
+
+    protected virtual List<List<Mc>> ActSet()
     {
         List<List<Mc>> actPattern = new List<List<Mc>>();
         int cycle = 2;
@@ -130,13 +133,14 @@ public class MonsterClass : MonoBehaviour
         }
         return actPattern;
     }
+
     public IEnumerator Act()
     {
         List<Mc> act = actPattern[(GameManager.Instance.turn - 1) % actPattern.Count];
         for (int i = 0; i < act.Count; i++)
         {
-            switch (act[i]) 
-            { 
+            switch (act[i])
+            {
                 case Mc.Attack:
                     yield return Attack();
                     break;
@@ -152,24 +156,34 @@ public class MonsterClass : MonoBehaviour
                 case Mc.Obstruction:
                     yield return Obstruction();
                     break;
-
             }
         }
     }
+
     void UpdateHPBarPosition()
     {
         // モンスターのワールド座標をスクリーン座標に変換
         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-        screenPos.y -= 50; // モンスターの下に位置を調整するためにオフセット
+        screenPos.y -= scale * 5 + 25; // モンスターの下に位置を調整するためにオフセット
 
-        // スクリーン座標に基づいてHPバーの位置を設定
-        barIns.transform.position = screenPos;
+        // HPバーのキャンバス空間での座標を計算
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            barIns.transform.parent as RectTransform,
+            screenPos,
+            Camera.main,
+            out Vector2 localPoint
+        );
+
+        // 計算した座標をHPバーに適用
+        barIns.GetComponent<RectTransform>().localPosition = localPoint;
     }
+
     public void BlockZero()
     {
         block = 0;
         Debug.Log($"{thistype}のブロック値を0にしました");
     }
+
     public IEnumerator BuffATK(int amount)
     {
         nowATK += amount;
@@ -177,6 +191,7 @@ public class MonsterClass : MonoBehaviour
         Debug.Log($"{thistype}の攻撃力が{amount}上がって、{nowATK}になりました");
         yield return new WaitForSeconds(1);
     }
+
     public IEnumerator BuffDEF(int amount)
     {
         nowDEF += amount;
@@ -184,6 +199,7 @@ public class MonsterClass : MonoBehaviour
         Debug.Log($"{thistype}の防御力が{amount}上がって、{nowDEF}になりました");
         yield return new WaitForSeconds(1);
     }
+
     public IEnumerator DebuffATK(int amount)
     {
         if (amount > nowATK)
@@ -195,6 +211,7 @@ public class MonsterClass : MonoBehaviour
         Debug.Log($"{thistype}の攻撃力が{amount}下がって、{nowATK}になりました");
         yield return new WaitForSeconds(1);
     }
+
     public IEnumerator DebuffDEF(int amount)
     {
         if (amount > nowDEF)
@@ -211,16 +228,16 @@ public class MonsterClass : MonoBehaviour
     {
         shouldMove = true;
         targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
-        
     }
+
     public IEnumerator Attack()
     {
         AttackMotion();
         yield return new WaitForSeconds(0.2f);
-        
         hero.TakeAttacked(nowATK);
         yield return new WaitForSeconds(0.8f);
     }
+
     public IEnumerator AddBlock()
     {
         block += nowDEF;
@@ -228,40 +245,42 @@ public class MonsterClass : MonoBehaviour
         StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF));
         yield return new WaitForSeconds(1);
     }
+
     public virtual IEnumerator Buff()
     {
         Debug.LogError("定義されていないBuff()が呼ばれました。オーバーライドしてください。");
         yield return null;
     }
+
     public virtual IEnumerator Debuff()
     {
         Debug.LogError("定義されていないDeBuff()が呼ばれました。オーバーライドしてください。");
         yield return null;
     }
+
     public virtual IEnumerator Obstruction()
     {
         Debug.LogError("定義されていないObstruction()が呼ばれました。オーバーライドしてください。");
         yield return null;
     }
+
     public void AttackMotion()
     {
         Move(-10, -10);
     }
+
     public void KnockBack()
     {
         Move(5, 5);
     }
-    
 
     protected void LoadSprite(Mt t)
     {
         Debug.Log($"{t}の画像を読み込みます");
         GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>($"{t}");
-        
     }
 
-    
-    public void TakeAttacked(int damage, bool penet = false) //攻撃を受ける
+    public void TakeAttacked(int damage, bool penet = false)
     {
         if (!penet)
         {
@@ -281,10 +300,9 @@ public class MonsterClass : MonoBehaviour
             }
             else
             {
-                int oriDamage = damage;//デバッグ用
+                int oriDamage = damage;
                 damage -= block;
                 nowHP -= damage;
-
                 KnockBack();
                 sct.ShowStatusChange(transform.position, $"-{block}", Im.NoneDown, Ab.Block);
                 block = 0;
@@ -299,11 +317,8 @@ public class MonsterClass : MonoBehaviour
             Debug.Log($"{thistype}が{damage}ダメージを受け、残り体力が{nowHP}になった");
             KnockBack();
         }
-        
-
     }
-    
-    
+
     public IEnumerator Dead()
     {
         isLiving = false;
@@ -316,22 +331,25 @@ public class MonsterClass : MonoBehaviour
         Destroy(barIns);
         Destroy(this.gameObject);
     }
+
     public IEnumerator FadeIn()
     {
         for (float i = rend.color.a; i < 1; i += 0.02f)
         {
             yield return new WaitForSeconds(0.01f);
-            rend.color = new(1, 1, 1, i);
+            rend.color = new Color(1, 1, 1, i);
         }
     }
+
     public IEnumerator FadeOut()
     {
-        for (float i = rend.color.a;i > 0; i -= 0.02f)
+        for (float i = rend.color.a; i > 0; i -= 0.02f)
         {
             yield return new WaitForSeconds(0.01f);
-            rend.color = new(1, 1, 1, i);
+            rend.color = new Color(1, 1, 1, i);
         }
     }
+
     protected virtual void Update()
     {
         if (nowHP <= 0 && isLiving)
@@ -347,7 +365,6 @@ public class MonsterClass : MonoBehaviour
                     shouldMove = false;
                     velocity = Vector3.zero;
                     isReturning = false;
-                    
                 }
                 else
                 {
@@ -360,19 +377,17 @@ public class MonsterClass : MonoBehaviour
                 {
                     isReturning = true;
                     targetPosition = originPosition;
-                    
                 }
                 else
                 {
                     transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, 0.1f);
                 }
             }
-
         }
         UpdateUI();
         UpdateHPBarPosition();
-
     }
+
     void UpdateUI()
     {
         hpSlider.value = nowHP;

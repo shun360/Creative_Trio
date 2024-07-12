@@ -2425,7 +2425,7 @@ MonoBehaviour:
   nowMagiATK: 0
   block: 0
   targetNumber: 0
-  barPrefab: {fileID: 0}
+  bar: {fileID: 0}
   hpSlider: {fileID: 0}
   blockSlider: {fileID: 0}
   hpText: {fileID: 0}
@@ -3209,6 +3209,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3458122773564395962, guid: a6bb4740a0d96724c9094143ec4b78b8, type: 3}
+      propertyPath: m_Name
+      value: BlockBar
+      objectReference: {fileID: 0}
     - target: {fileID: 5451303571384030804, guid: a6bb4740a0d96724c9094143ec4b78b8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3289,9 +3293,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5522759601554313141, guid: a6bb4740a0d96724c9094143ec4b78b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.97
+      objectReference: {fileID: 0}
     - target: {fileID: 5758939662378304958, guid: a6bb4740a0d96724c9094143ec4b78b8, type: 3}
       propertyPath: m_Name
-      value: HPBar
+      value: PlayerHPBar
       objectReference: {fileID: 0}
     - target: {fileID: 5955569394690381850, guid: a6bb4740a0d96724c9094143ec4b78b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3307,6 +3315,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7649193391079775075, guid: a6bb4740a0d96724c9094143ec4b78b8, type: 3}
       propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7649193391079775075, guid: a6bb4740a0d96724c9094143ec4b78b8, type: 3}
+      propertyPath: m_WholeNumbers
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
