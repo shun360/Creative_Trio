@@ -1,31 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Display : MonoBehaviour
 {
+    public GameObject prefab;
+
+    private void Awake()
+    {
+        prefab = (GameObject)Resources.Load("Around");
+        
+    }
     public IEnumerator StageStart()
     {
-        //TODO：ステージ開始表示
-        Debug.Log("ステージ開始を表示");
+        GameObject field = Instantiate(prefab, gameObject.transform);
+        field.transform.localPosition = Vector3.zero;
+        Image img = field.GetComponent<Image>();
+        TextMeshProUGUI text = field.GetComponentInChildren<TextMeshProUGUI>();
+        text.SetText($"STAGE {GameManager.Instance.stageNo}");
+        img.color = new Color(0.75f, 0.75f, 0.75f, 0.6f);
+        text.color = new Color(1, 1, 1, 1);
+        
         yield return new WaitForSeconds(1f);
-        Debug.Log("ステージ開始表示終了");
-        //表示終了
+        for (float i = text.color.a; i >= 0; i -= 0.02f)
+        {
+            yield return new WaitForSeconds(0.01f);
+            img.color = new Color(0.75f, 0.75f, 0.75f, i * 0.6f);
+            text.color = new Color(1, 1, 1, i);
+        }
+        Destroy(field);
     }
+
     public IEnumerator Clear()
     {
-        //TODO：ステージクリア表示
-        Debug.Log("ステージクリアを表示");
+        GameObject field = Instantiate(prefab, gameObject.transform);
+        field.transform.localPosition = Vector3.zero;
+        Image img = field.GetComponent<Image>();
+        TextMeshProUGUI text = field.GetComponentInChildren<TextMeshProUGUI>();
+        text.SetText($"STAGE {GameManager.Instance.stageNo} CLEAR!");
+        img.color = new Color(0.75f, 0.75f, 0.75f, 0.6f);
+        text.color = new Color(1, 1, 1, 1);
+
         yield return new WaitForSeconds(1f);
-        Debug.Log("ステージクリア表示終了");
-        //表示終了
+        for (float i = text.color.a; i >= 0; i -= 0.02f)
+        {
+            yield return new WaitForSeconds(0.01f);
+            img.color = new Color(0.75f, 0.75f, 0.75f, i * 0.6f);
+            text.color = new Color(1, 1, 1, i);
+        }
+        Destroy(field);
     }
     public IEnumerator Turn()
     {
-        //TODO：現在のターン数を大きく表示
-        Debug.Log("ターン数表示");
+        GameObject field = Instantiate(prefab, gameObject.transform);
+        field.transform.localPosition = Vector3.zero;
+        Image img = field.GetComponent<Image>();
+        TextMeshProUGUI text = field.GetComponentInChildren<TextMeshProUGUI>();
+        text.SetText($"TURN {GameManager.Instance.turn}");
+        img.color = new Color(0.75f, 0.75f, 0.75f, 0.6f);
+        text.color = new Color(1, 1, 1, 1);
+
         yield return new WaitForSeconds(1f);
-        Debug.Log("ターン数表示終了");
-        //TODO：表示終了
+        for (float i = text.color.a; i >= 0; i -= 0.02f)
+        {
+            yield return new WaitForSeconds(0.01f);
+            img.color = new Color(0.75f, 0.75f, 0.75f, i * 0.6f);
+            text.color = new Color(1, 1, 1, i);
+        }
+        Destroy(field);
     }
 }

@@ -23,10 +23,10 @@ public class MonsterClass : MonoBehaviour
     protected Vector3 originPosition;
     protected Vector3 velocity = Vector3.zero;
     protected Vector3 targetPosition;
-    private HeroScript hero;
-    private Effects ef;
-    private SpriteRenderer rend;
-    private StatusChangeText sct;
+    protected HeroScript hero;
+    protected Effects ef;
+    protected SpriteRenderer rend;
+    protected StatusChangeText sct;
     protected bool isLiving = false;
     protected List<List<Mc>> actPattern;
 

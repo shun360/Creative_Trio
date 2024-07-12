@@ -31,6 +31,7 @@ public class GargoyleClass : MonsterClass
         if (!wall.active)
         {
             wall.active = true;
+            StartCoroutine(ef.ObsEffect(hero.transform.position));
             Debug.Log("Gargoyle‚Ì–WŠQIƒŒ[ƒ“‚É“®‚­•Ç‚ªo‚é‚æ‚¤‚É‚È‚Á‚½");
             yield return new WaitForSeconds(1);
         }

@@ -13,7 +13,7 @@ public class MummyClass : MonsterClass
     }
     public override IEnumerator Buff()
     {
-        BuffATK(8);
+        StartCoroutine(BuffATK(8));
         yield return new WaitForSeconds(1);
     }
     public override IEnumerator Obstruction()
@@ -22,6 +22,7 @@ public class MummyClass : MonsterClass
         if (!stone.active)
         {
             stone.active = true;
+            StartCoroutine(ef.ObsEffect(hero.transform.position));
             Debug.Log("Mummy‚Ì–WŠQIƒŒ[ƒ“‚ÉÎ‚ªo‚é‚æ‚¤‚É‚È‚Á‚½");
             yield return new WaitForSeconds(1);
         }

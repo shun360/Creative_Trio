@@ -169,8 +169,10 @@ public class HeroScript : MonoBehaviour
     }
     public IEnumerator Penetration()
     {
+        AttackMotion();
+        yield return new WaitForSeconds(0.15f);
         MonsterScript.monList[targetNumber].GetComponent<MonsterClass>().TakeAttacked(oriATK + 5, true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.85f);
     }
     public IEnumerator RandomTripleAttack()
     {
