@@ -1,4 +1,4 @@
-[System.Serializable]
+/*[System.Serializable]
 public class Reward
 {
     public string name;
@@ -16,4 +16,4 @@ public class Reward
     {
         Debug.Log("Reward claimed: " + name);
     }
-}
+}*/
