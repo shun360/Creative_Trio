@@ -58,7 +58,7 @@ public class StatusChangeText : MonoBehaviour
                 uiText.outlineColor = Color.magenta;
                 break;
         }
-        uiText.outlineWidth = 0.2f; // アウトラインの幅を設定
+        uiText.outlineWidth = 0.3f; // アウトラインの幅を設定
 
         if (img == Im.Up || img == Im.Down)
         {

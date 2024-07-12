@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
 using System.Data.SqlTypes;
 using UnityEditor.Search;
 using UnityEditor.Experimental.GraphView;
 using StatusChangeType;
+using TMPro;
 
 
 public class HeroScript : MonoBehaviour
@@ -23,7 +25,13 @@ public class HeroScript : MonoBehaviour
     public int block; //ダメージを防御ブロックできる値
     protected Vector3 velocity = Vector3.zero;
     public int targetNumber = 0;
-    
+    public Slider hpSlider;
+    public Slider blockSlider;
+    [SerializeField]public TextMeshProUGUI hpText;
+    [SerializeField]public TextMeshProUGUI atkText;
+    [SerializeField]public TextMeshProUGUI defText;
+    [SerializeField] public TextMeshProUGUI magicAtkText;
+
     protected Vector3 targetPosition;
     protected bool shouldMove = false;
     protected bool isReturning = false;
@@ -43,6 +51,16 @@ public class HeroScript : MonoBehaviour
         ef = FindObjectOfType<Effects>();
         sct = FindObjectOfType<StatusChangeText>();
         fire = FindObjectOfType<Fire>();
+        hpSlider = GameObject.Find("HPBar").GetComponent<Slider>();
+        hpSlider.maxValue = maxHP;
+        hpSlider.value = nowHP;
+        blockSlider = GameObject.Find("BlockBar").GetComponent<Slider>();
+        blockSlider.maxValue = maxHP;
+        blockSlider.value = block;
+        hpText = GameObject.Find("HPText").GetComponent<TextMeshProUGUI>();
+        atkText = GameObject.Find("AtkText").GetComponent<TextMeshProUGUI>();
+        defText = GameObject.Find("DefText").GetComponent<TextMeshProUGUI>();
+        magicAtkText = GameObject.Find("MagicAtkText").GetComponent<TextMeshProUGUI>();
     }
     public void Init()//初期化
     {
@@ -55,6 +73,7 @@ public class HeroScript : MonoBehaviour
         oriMagiATK = 7;
         nowMagiATK = oriMagiATK;
         block = 0;
+        
     }
     public IEnumerator BuffATK(int amount)
     {
@@ -392,16 +411,24 @@ public class HeroScript : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-
             ChangeTarget();
-            
         }
+        UpdateUI();
         if (nowHP <= 0)
         {
             Debug.Log("GAME OVER!");
             GameOver();
         }
 
+    }
+    void UpdateUI()
+    {
+        hpSlider.value = nowHP;
+        hpText.SetText($"{nowHP} + {block}");
+        blockSlider.value = block;
+        atkText.SetText($"ATK:{nowATK}");
+        defText.SetText($"DEF:{nowDEF}");
+        magicAtkText.SetText($"MagicATK:{nowMagiATK}");
     }
     void GameOver()
     {
