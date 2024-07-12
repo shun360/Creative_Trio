@@ -8,7 +8,8 @@ public class GargoyleClass : MonsterClass
     public override void Init()
     {
         thistype = Mt.Gargoyle;
-        transform.localScale = new Vector3(10, 10, 1);
+        scale = 10;
+        transform.localScale = new Vector3(scale, scale, 1);
         StatusSet(thistype, 500, 42, 25);
     }
     public override IEnumerator Buff()

@@ -25,6 +25,7 @@ public class HeroScript : MonoBehaviour
     public int block; //ダメージを防御ブロックできる値
     protected Vector3 velocity = Vector3.zero;
     public int targetNumber = 0;
+    public GameObject barPrefab;
     public Slider hpSlider;
     public Slider blockSlider;
     [SerializeField]public TextMeshProUGUI hpText;
@@ -51,10 +52,11 @@ public class HeroScript : MonoBehaviour
         ef = FindObjectOfType<Effects>();
         sct = FindObjectOfType<StatusChangeText>();
         fire = FindObjectOfType<Fire>();
-        hpSlider = GameObject.Find("HPBar").GetComponent<Slider>();
+        barPrefab = (GameObject)Resources.Load("PlayerHPBar");
+        hpSlider = barPrefab.GetComponent<Slider>();
         hpSlider.maxValue = maxHP;
         hpSlider.value = nowHP;
-        blockSlider = GameObject.Find("BlockBar").GetComponent<Slider>();
+        blockSlider = hpSlider.transform.Find("BlockBar").gameObject.GetComponent<Slider>();
         blockSlider.maxValue = maxHP;
         blockSlider.value = block;
         hpText = GameObject.Find("HPText").GetComponent<TextMeshProUGUI>();

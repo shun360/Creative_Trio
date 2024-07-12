@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using MonsterSet;
 using UnityEngine.UI;
-using CommandType;
 using StatusChangeType;
+using TMPro;
 [System.Serializable]
 
 public class MonsterClass : MonoBehaviour
@@ -18,6 +18,7 @@ public class MonsterClass : MonoBehaviour
     protected int nowDEF;
     protected int block;
     protected Mt thistype;
+    protected float scale;
     protected bool shouldMove = false;
     protected bool isReturning = false;
     protected Vector3 originPosition;
@@ -29,6 +30,11 @@ public class MonsterClass : MonoBehaviour
     protected StatusChangeText sct;
     protected bool isLiving = false;
     protected List<List<Mc>> actPattern;
+    public GameObject barPrefab;
+    public Slider hpSlider;
+    public Slider blockSlider;
+    public TextMeshProUGUI hpText;
+    public GameObject barIns;
 
     //[SerializeField] 
     protected virtual void Awake()
@@ -41,16 +47,19 @@ public class MonsterClass : MonoBehaviour
         sct = FindObjectOfType<StatusChangeText>();
         originPosition = transform.position;
         actPattern = ActSet();
+        
         isLiving = true;
     }
     public virtual void Init()
     {
         Debug.Log("MonsterClassのInit()");
+        scale = 5;
         thistype = Mt.NoneMonster;
         StatusSet(thistype, 30, 11, 6);
     }
     protected void StatusSet(Mt type,int hp, int atk, int def) 
     {
+        
         LoadSprite(type);
         this.maxHP = hp;
         this.nowHP = hp;
@@ -58,6 +67,47 @@ public class MonsterClass : MonoBehaviour
         this.nowATK = atk;
         this.oriDEF = def;
         this.nowDEF = def;
+        barPrefab = (GameObject)Resources.Load("MonHPBar");
+        barIns = Instantiate(barPrefab, transform.position,Quaternion.identity);
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogError("Canvasが見つかりません");
+            return;
+        }
+        barIns.transform.SetParent(canvas.transform, false);
+        if (barIns == null)
+        {
+            Debug.LogError("barInsが正しく生成されていません。");
+            return;
+        }
+
+        hpSlider = barIns.GetComponent<Slider>();
+        if (hpSlider == null)
+        {
+            Debug.LogError("hpSliderが見つかりません。");
+            return;
+        }
+        hpSlider = barIns.GetComponent<Slider>();
+        hpSlider.maxValue = maxHP;
+        hpSlider.value = nowHP;
+
+        blockSlider = hpSlider.transform.Find("BlockBar").GetComponent<Slider>();
+        if (blockSlider == null)
+        {
+            Debug.LogError("blockSliderが見つかりません。");
+            return;
+        }
+        blockSlider.maxValue = maxHP;
+        blockSlider.value = block;
+
+        hpText = barIns.GetComponentInChildren<TextMeshProUGUI>();
+        if (hpText == null)
+        {
+            Debug.LogError("hpTextが見つかりません。");
+            return;
+        }
+        UpdateHPBarPosition();
         StartCoroutine(FadeIn());
     }
     protected virtual List<List<Mc>> ActSet()//行動パターン設定
@@ -105,6 +155,15 @@ public class MonsterClass : MonoBehaviour
 
             }
         }
+    }
+    void UpdateHPBarPosition()
+    {
+        // モンスターのワールド座標をスクリーン座標に変換
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        screenPos.y -= 50; // モンスターの下に位置を調整するためにオフセット
+
+        // スクリーン座標に基づいてHPバーの位置を設定
+        barIns.transform.position = screenPos;
     }
     public void BlockZero()
     {
@@ -254,6 +313,7 @@ public class MonsterClass : MonoBehaviour
         }
         MonsterScript.monList.Remove(this.gameObject);
         yield return FadeOut();
+        Destroy(barIns);
         Destroy(this.gameObject);
     }
     public IEnumerator FadeIn()
@@ -309,6 +369,14 @@ public class MonsterClass : MonoBehaviour
             }
 
         }
-        
+        UpdateUI();
+        UpdateHPBarPosition();
+
+    }
+    void UpdateUI()
+    {
+        hpSlider.value = nowHP;
+        hpText.SetText($"{nowHP} + {block}");
+        blockSlider.value = block;
     }
 }
