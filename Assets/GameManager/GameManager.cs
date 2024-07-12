@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         Debug.Log("ゲームクリア!!");
         SceneManager.LoadScene("GameClearScene");
 
@@ -89,16 +89,19 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator StageClear()
     {
-        Debug.Log("ステージクリア！");
         stone.active = false;
         wall.active = false;
-        stageNo++;
         turn = 0;
-        yield return disp.Clear();
-        yield return hero.LevelUp();
-        hero.StatusReset();
-        //FixMe：LevelUp演出
-        yield return reward.RewardSelect();
+        if (stageNo < 5)
+        {
+            Debug.Log("ステージクリア！");
+            yield return disp.Clear();
+            yield return hero.LevelUp();
+            hero.StatusReset();
+            yield return reward.RewardSelect();
+        }
+        stageNo++;
+
     }
     public IEnumerator PlayStart()//ボウリング開始
     {

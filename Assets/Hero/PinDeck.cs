@@ -79,5 +79,6 @@ public class PinDeck : MonoBehaviour
         AddPinDeck(Ct.OnlyOne);
         GameManager.Instance.onlyOne = true;
         FindObjectOfType<HeroScript>().SumMagiATK(20);
+        Debug.Log("ストライクボーナスがなくなった");
     }
 }

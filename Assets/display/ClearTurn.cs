@@ -6,10 +6,9 @@ using TMPro;
 
 public class ClearTurn : MonoBehaviour
 {
-    public TMP_Text turnText;
     void Start()
     {
         int turns = GameManager.Instance.sumTurn;
-        turnText.text = $"クリアにかかったターン数：\n{turns}ターン";
+        GetComponent<TMP_Text>().text = $"クリアにかかったターン数：\n{turns}ターン";
     }
 }

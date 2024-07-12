@@ -29,7 +29,7 @@ public class WallClass : MonoBehaviour
                     firstRight = true;
                 }
             }
-            if(movingRight)
+            else if(movingRight)
             {
                 transform.position = Vector3.SmoothDamp(transform.position, right, ref velocity, 2f);
                 if(Vector3.Distance(transform.position, right) < 1f)

@@ -57,6 +57,14 @@ public class TesterScript : MonoBehaviour
         {
             PinDeck.Shuffle();
         }
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.T))
+        {
+            PinDeck.AddPinDeck(Ct.RandomTripleAttack);
+        }
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.A))
+        {
+            PinDeck.AddPinDeck(Ct.TwiceAOE);
+        }
         //Hero
         if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.D))
         {

@@ -151,7 +151,7 @@ public class HeroScript : MonoBehaviour
             int index = UnityEngine.Random.Range(0, MonsterScript.monList.Count);
             Move(10, 10);
             MonsterScript.monList[index].GetComponent<MonsterClass>().TakeAttacked(nowATK);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
         }
         yield return new WaitForSeconds(0.8f);
     }
@@ -166,7 +166,7 @@ public class HeroScript : MonoBehaviour
         for(int i = 0; i < 2; i++)
         {
             AttackMotion();
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
             mons.TakeAOE(atk);
         }
         yield return new WaitForSeconds(0.8f);
@@ -370,7 +370,6 @@ public class HeroScript : MonoBehaviour
         if (nowHP <= 0)
         {
             Debug.Log("GAME OVER!");
-            //ゲームオーバー処理を書く
             GameOver();
         }
 
