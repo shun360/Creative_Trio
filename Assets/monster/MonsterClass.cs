@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using MonsterSet;
 using UnityEngine.UI;
+using CommandType;
+using StatusChangeType;
 [System.Serializable]
 
 public class MonsterClass : MonoBehaviour
@@ -24,16 +26,19 @@ public class MonsterClass : MonoBehaviour
     private HeroScript hero;
     private Effects ef;
     private SpriteRenderer rend;
+    private StatusChangeText sct;
     protected bool isLiving = false;
     protected List<List<Mc>> actPattern;
 
     //[SerializeField] 
     protected virtual void Awake()
     {
+        transform.Translate(0, 0, 1);
         hero = FindObjectOfType<HeroScript>();
         targetPosition = hero.transform.position;
         rend = GetComponent<SpriteRenderer>();
         ef = FindObjectOfType<Effects>();
+        sct = FindObjectOfType<StatusChangeText>();
         originPosition = transform.position;
         actPattern = ActSet();
         isLiving = true;
@@ -106,33 +111,41 @@ public class MonsterClass : MonoBehaviour
         block = 0;
         Debug.Log($"{thistype}のブロック値を0にしました");
     }
-    public void BuffATK(int amount)
+    public IEnumerator BuffATK(int amount)
     {
         nowATK += amount;
-        Debug.Log($"{thistype}の攻撃力が{amount}上がって、{nowATK}になりました");//FixMe
+        sct.ShowStatusChange(transform.position, $"+{amount}", Im.Up, Ab.Attack);
+        Debug.Log($"{thistype}の攻撃力が{amount}上がって、{nowATK}になりました");
+        yield return new WaitForSeconds(1);
     }
-    public void BuffDEF(int amount)
+    public IEnumerator BuffDEF(int amount)
     {
         nowDEF += amount;
-        Debug.Log($"{thistype}の防御力が{amount}上がって、{nowDEF}になりました");//FixMe
+        sct.ShowStatusChange(transform.position, $"+{amount}", Im.Up, Ab.Defense);
+        Debug.Log($"{thistype}の防御力が{amount}上がって、{nowDEF}になりました");
+        yield return new WaitForSeconds(1);
     }
-    public void DebuffATK(int amount)
+    public IEnumerator DebuffATK(int amount)
     {
         if (amount > nowATK)
         {
             amount = nowATK;
         }
         nowATK -= amount;
-        Debug.Log($"{thistype}の攻撃力が{amount}下がって、{nowATK}になりました");//FixMe
+        sct.ShowStatusChange(transform.position, $"-{amount}", Im.Down, Ab.Attack);
+        Debug.Log($"{thistype}の攻撃力が{amount}下がって、{nowATK}になりました");
+        yield return new WaitForSeconds(1);
     }
-    public void DebuffDEF(int amount)
+    public IEnumerator DebuffDEF(int amount)
     {
         if (amount > nowDEF)
         {
             amount = nowDEF;
         }
         nowDEF -= amount;
-        Debug.Log($"{thistype}の防御力が{amount}下がって、{nowDEF}になりました");//FixMe:演出
+        sct.ShowStatusChange(transform.position, $"-{amount}", Im.Down, Ab.Defense);
+        Debug.Log($"{thistype}の防御力が{amount}下がって、{nowDEF}になりました");
+        yield return new WaitForSeconds(1);
     }
 
     protected void Move(float x, float y)
@@ -196,28 +209,34 @@ public class MonsterClass : MonoBehaviour
             if (block >= damage)
             {
                 block -= damage;
-                Debug.Log($"{thistype}が" + damage + "ダメージをすべてブロックした");
+                StartCoroutine(ef.BlockEffect(transform.position, damage));
+                Debug.Log(damage + "ダメージをすべてブロックした");
             }
             else if (block <= 0)
             {
                 nowHP -= damage;
                 block = 0;
                 KnockBack();
-                Debug.Log($"{thistype}が{damage}ダメージを受け、残り体力が{nowHP}になった");
+                sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneUp, Ab.Attack);
+                Debug.Log($"{damage}ダメージを受け、残り体力が{nowHP}になった");
             }
             else
             {
                 int oriDamage = damage;//デバッグ用
                 damage -= block;
                 nowHP -= damage;
-                block = 0;
+
                 KnockBack();
-                Debug.Log($"{thistype}が{oriDamage}ダメージのうち、{damage}ダメージを受け、HPが{nowHP}になった");
+                sct.ShowStatusChange(transform.position, $"-{block}", Im.NoneDown, Ab.Block);
+                block = 0;
+                sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneUp, Ab.Attack);
+                Debug.Log($"{oriDamage}ダメージのうち、{damage}ダメージを受け、HPが{nowHP}になった");
             }
         }
         else
         {
             nowHP -= damage;
+            sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneDown, Ab.Attack);
             Debug.Log($"{thistype}が{damage}ダメージを受け、残り体力が{nowHP}になった");
             KnockBack();
         }

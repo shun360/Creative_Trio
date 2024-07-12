@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Data.SqlTypes;
 using UnityEditor.Search;
 using UnityEditor.Experimental.GraphView;
+using StatusChangeType;
 
 
 public class HeroScript : MonoBehaviour
@@ -28,16 +29,20 @@ public class HeroScript : MonoBehaviour
     protected bool isReturning = false;
     protected Vector3 originPosition;
     private MonsterScript mons;
+    private StatusChangeText sct;
+    private Fire fire;
     
     private Effects ef;
 
     protected virtual void Awake()
     {
         Init();
-        originPosition = new Vector3(15, 15, 0);
+        originPosition = new Vector3(15, 15, 1);
         transform.position = originPosition;
         mons = FindObjectOfType<MonsterScript>();
         ef = FindObjectOfType<Effects>();
+        sct = FindObjectOfType<StatusChangeText>();
+        fire = FindObjectOfType<Fire>();
     }
     public void Init()//初期化
     {
@@ -54,12 +59,14 @@ public class HeroScript : MonoBehaviour
     public IEnumerator BuffATK(int amount)
     {
         nowATK += amount;
+        sct.ShowStatusChange(originPosition, $"+{amount}", Im.Up, Ab.Attack);
         Debug.Log($"攻撃力が{amount}上がって、{nowATK}になりました");
         yield return new WaitForSeconds(1);
     }
     public IEnumerator BuffDEF(int amount)
     {
         nowDEF += amount;
+        sct.ShowStatusChange(originPosition, $"+{amount}", Im.Up, Ab.Defense);
         Debug.Log($"防御力が{amount}上がって、{nowDEF}になりました");
         yield return new WaitForSeconds(1);
     }
@@ -70,6 +77,7 @@ public class HeroScript : MonoBehaviour
             amount = nowATK;
         }
         nowATK -= amount;
+        sct.ShowStatusChange(originPosition, $"+{amount}", Im.Down, Ab.Attack);
         Debug.Log($"攻撃力が{amount}下がって、{nowATK}になりました");
         yield return new WaitForSeconds(1);
     }
@@ -80,7 +88,8 @@ public class HeroScript : MonoBehaviour
             amount = nowDEF;
         }
         nowDEF -= amount;
-        Debug.Log($"防御力が{amount}下がって、{nowDEF}になりました");//FixMe:演出
+        sct.ShowStatusChange(originPosition, $"+{amount}", Im.Down, Ab.Defense);
+        Debug.Log($"防御力が{amount}下がって、{nowDEF}になりました");
         yield return new WaitForSeconds(1);
     }
     public IEnumerator Attack()
@@ -121,7 +130,7 @@ public class HeroScript : MonoBehaviour
     {
         block += nowDEF * 2;
         Debug.Log($"プロテクションで{nowDEF * 2}を獲得し、、{block}ブロックになりました");
-        StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF, 20));
+        StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF * 2, 20));
         yield return new WaitForSeconds(1);
     }
     public IEnumerator CurseATK()
@@ -136,6 +145,7 @@ public class HeroScript : MonoBehaviour
         AttackMotion();
         yield return new WaitForSeconds(0.2f);
         mons.TakeAOE(nowMagiATK);
+        StartCoroutine(fire.ShowFire());
         yield return new WaitForSeconds(0.8f);//FixMe:魔法エフェクト追加
     }
     public IEnumerator Penetration()
@@ -187,6 +197,7 @@ public class HeroScript : MonoBehaviour
             AttackMotion();
             yield return new WaitForSeconds(0.2f);
             mons.TakeAOE(nowMagiATK);
+            StartCoroutine(fire.ShowFire());
             yield return new WaitForSeconds(0.8f);//FixMe:魔法エフェクト追加
         }
     }
@@ -195,6 +206,7 @@ public class HeroScript : MonoBehaviour
         if (block >= damage)
         {
             block -= damage;
+            StartCoroutine(ef.BlockEffect(transform.position, damage));
             Debug.Log(damage + "ダメージをすべてブロックした");
         }
         else if (block <= 0)
@@ -202,6 +214,7 @@ public class HeroScript : MonoBehaviour
             nowHP -= damage;
             block = 0;
             KnockBack();
+            sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneUp, Ab.Attack);
             Debug.Log($"{damage}ダメージを受け、残り体力が{nowHP}になった");
         }
         else
@@ -209,8 +222,11 @@ public class HeroScript : MonoBehaviour
             int oriDamage = damage;//デバッグ用
             damage -= block;
             nowHP -= damage;
-            block = 0;
+            
             KnockBack();
+            sct.ShowStatusChange(transform.position, $"-{block}", Im.NoneDown, Ab.Block);
+            block = 0;
+            sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneUp, Ab.Attack);
             Debug.Log($"{oriDamage}ダメージのうち、{damage}ダメージを受け、HPが{nowHP}になった");
         }
 
@@ -234,7 +250,7 @@ public class HeroScript : MonoBehaviour
     protected void Move(float x, float y)
     {
         shouldMove = true;
-        targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, 0);
+        targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z);
 
     }
     protected void AttackMotion()
@@ -246,9 +262,11 @@ public class HeroScript : MonoBehaviour
     {
         Debug.Log("LevelUp!");
         SumATK(1);
+        yield return new WaitForSeconds(1);
         SumDEF(1);
+        yield return new WaitForSeconds(1);
         SumMagiATK(3);
-        yield return new WaitForSeconds(1); 
+        yield return new WaitForSeconds(1);
     }
     public void ChangeTarget()
     {
@@ -291,18 +309,21 @@ public class HeroScript : MonoBehaviour
     {
         oriATK += amount;
         nowATK += amount;
-        Debug.Log($"元の攻撃力が{amount}上がった");//FixMe
+        sct.ShowStatusChange(originPosition, $"+{amount}", Im.Up, Ab.Attack);
+        Debug.Log($"元の攻撃力が{amount}上がった");
     }
     public void SumDEF(int amount)
     {
         oriDEF += amount;
         nowDEF += amount;
+        sct.ShowStatusChange(originPosition, $"+{amount}", Im.Up, Ab.Defense);
         Debug.Log($"元の防御力が{amount}上がった");
     }
     public void SumMagiATK(int amount)
     {
         oriMagiATK += amount;
         nowMagiATK += amount;
+        sct.ShowStatusChange(originPosition, $"+{amount}", Im.Up, Ab.MagiAttack);
         Debug.Log($"元の魔法攻撃力が{amount}上がった");
     }
     //報酬

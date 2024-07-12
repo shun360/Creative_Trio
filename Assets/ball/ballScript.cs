@@ -75,7 +75,7 @@ public class BallScript : MonoBehaviour
         {
             GameManager.Instance.throwStart = true;
             rb.AddForce(acce);
-            rb.angularVelocity = new(5,0,0);
+            rb.angularVelocity = new(0.1f,0,0);
         }
     }
     public void CurveLeft()

@@ -76,7 +76,7 @@ public class MonsterScript : MonoBehaviour
     {
         for(int i = 0;i < monList.Count; i++)
         {
-            monList[i].GetComponent<MonsterClass>().DebuffATK(amount);
+            StartCoroutine(monList[i].GetComponent<MonsterClass>().DebuffATK(amount));
         }
     }
     

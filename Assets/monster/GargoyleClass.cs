@@ -13,15 +13,16 @@ public class GargoyleClass : MonsterClass
     }
     public override IEnumerator Buff()
     {
-        BuffATK(10);
-        BuffDEF(10);
+        yield return BuffATK(10);
+
+        yield return BuffDEF(10);
         yield return new WaitForSeconds(1);
     }
     public override IEnumerator Debuff()
     {
         HeroScript hero = FindObjectOfType<HeroScript>();
-        StartCoroutine(hero.DebuffATK(3));
-        StartCoroutine(hero.DebuffDEF(3));
+        yield return hero.DebuffATK(3);
+        yield return hero.DebuffDEF(3);
         yield return new WaitForSeconds(1); 
     }
     public override IEnumerator Obstruction()
