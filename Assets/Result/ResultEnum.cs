@@ -11,14 +11,14 @@ namespace Result
     {
         //pin
         PinFireball,
-        PinRandomTwiceAttack,
+        PinRandomTripleAttack,
         PinTwiceAOE,
         PinSmash,
         PinProtection,
-        PinDebuffATK,
-        PinDebuffDEF,
-        PinBuffATK,
-        PinBuffDEF,
+        PinCurseATK,
+        PinPenetration,
+        PinExtendATK,
+        PinExtendDEF,
         PinOnlyOne,
         //PinPoison, //ŽÀ‘•‚ª“ï
         //ball
@@ -26,14 +26,11 @@ namespace Result
         BallAcce,
         BallCont,
         //hero
-        HeroBlockCycle,
         HeroGrowATK,
         HeroGrowDEF,
         HeroGrowMagic,
-        HeroSeasonGrow,
-        HeroAttackAOE,
-        //others
-        Heal,
+        HeroMetal,
+        HeroHeal
 
     }
 }

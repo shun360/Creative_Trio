@@ -233,7 +233,6 @@ public class MonsterClass : MonoBehaviour
         {
             StartCoroutine(hero.ResetTarget());
         }
-        yield return null;
         MonsterScript.monList.Remove(this.gameObject);
         yield return FadeOut();
         Destroy(this.gameObject);

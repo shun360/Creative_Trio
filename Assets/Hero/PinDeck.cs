@@ -50,7 +50,7 @@ public class PinDeck : MonoBehaviour
     {
         AddPinDeck(Ct.Protection);
     }
-    public void AddDebffATK()
+    public void AddCurseATK()
     {
         AddPinDeck(Ct.CurseATK);
     }
@@ -70,9 +70,9 @@ public class PinDeck : MonoBehaviour
     {
         AddPinDeck(Ct.TwiceAOE);
     }
-    public void AddRandomTwiceAttack()
+    public void AddRandomTripleAttack()
     {
-        AddPinDeck(Ct.RandomTwiceAttack);
+        AddPinDeck(Ct.RandomTripleAttack);
     }
     public void AddOnlyOne()
     {

@@ -78,7 +78,7 @@ public class MonsterScript : MonoBehaviour
     
     public void DeleteMonsters()
     {
-        for (int i = 0; i < monList.Count; i++)
+        for (int i = monList.Count - 1; i >= 0; i--)
         {
             StartCoroutine(monList[i].GetComponent<MonsterClass>().Dead());
         }

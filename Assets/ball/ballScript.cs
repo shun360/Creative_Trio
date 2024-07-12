@@ -37,7 +37,7 @@ public class BallScript : MonoBehaviour
             }
             else
             {
-                Debug.LogError("投げる前です");
+                Debug.Log("投げる前です");
             }
         }
 
@@ -141,16 +141,19 @@ public class BallScript : MonoBehaviour
     {
         left = new Vector3(left.x * 2, 0, 0);
         right = new Vector3(right.x * 2, 0, 0);
+        Debug.Log("コントロールが2倍になった");
     }
     public void DoubleAcceleration()
     {
         Acceleration(2);
+        Debug.Log("発射速度が2倍になった");
     }
     public void Grow()
     {
         ChangeScale(1.3f);
         rb.mass *= 1.5f;
         Acceleration(1.5f);
+        Debug.Log("ボールが成長した");
     }
     
 }

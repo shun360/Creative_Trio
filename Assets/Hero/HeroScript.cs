@@ -22,6 +22,7 @@ public class HeroScript : MonoBehaviour
     public int block; //ダメージを防御ブロックできる値
     protected Vector3 velocity = Vector3.zero;
     public int targetNumber = 0;
+    
     protected Vector3 targetPosition;
     protected bool shouldMove = false;
     protected bool isReturning = false;
@@ -100,10 +101,19 @@ public class HeroScript : MonoBehaviour
         t.TakeAttacked(nowATK * 2);
         yield return new WaitForSeconds(0.8f);
     }
-    public IEnumerator AddBlock()
+    public IEnumerator AddBlock(bool now = true)
     {
-        block += nowDEF;
-        Debug.Log($"{nowDEF}ブロック追加して、{block}ブロックになりました");
+        if (now)
+        {
+            block += nowDEF;
+            Debug.Log($"{nowDEF}ブロック追加して、{block}ブロックになりました");
+        }
+        else
+        {
+            block += oriDEF;
+            Debug.Log($"{oriDEF}ブロック追加して、{block}ブロックになりました");
+        }
+        
         StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF));
         yield return new WaitForSeconds(1);
     }
@@ -133,7 +143,34 @@ public class HeroScript : MonoBehaviour
         MonsterScript.monList[targetNumber].GetComponent<MonsterClass>().TakeAttacked(oriATK + 5, true);
         yield return new WaitForSeconds(1);
     }
-    
+    public IEnumerator RandomTripleAttack()
+    {
+        Debug.Log("Heroの乱れ打ち");
+        for(int i = 0;i < 3;i++)
+        {
+            int index = UnityEngine.Random.Range(0, MonsterScript.monList.Count);
+            Move(10, 10);
+            MonsterScript.monList[index].GetComponent<MonsterClass>().TakeAttacked(nowATK);
+            yield return new WaitForSeconds(0.2f);
+        }
+        yield return new WaitForSeconds(0.8f);
+    }
+    public IEnumerator TwiceAOE()
+    {
+        Debug.Log("Heroの全体二回攻撃");
+        int atk = 0;
+        if(nowATK - 2 > 0)
+        {
+            atk = nowATK - 2;
+        }
+        for(int i = 0; i < 2; i++)
+        {
+            AttackMotion();
+            yield return new WaitForSeconds(0.2f);
+            mons.TakeAOE(atk);
+        }
+        yield return new WaitForSeconds(0.8f);
+    }
     public IEnumerator OnlyOne()
     {
         if(GameManager.Instance.restPin == 1)
@@ -207,17 +244,24 @@ public class HeroScript : MonoBehaviour
     }
     public void ChangeTarget()
     {
-        if (targetNumber < MonsterScript.monList.Count - 1)
+        if (GameManager.Instance.isPlaying)
         {
-            targetNumber++;
+            if (targetNumber < MonsterScript.monList.Count - 1)
+            {
+                targetNumber++;
 
+            }
+            else
+            {
+                targetNumber = 0;
+            }
+            FindObjectOfType<TargetDisplay>().DispTarget();
+            Debug.Log($"ターゲットを{targetNumber}のモンスターに変更");
         }
         else
         {
-            targetNumber = 0;
+            Debug.Log("今はターゲット変更できません");
         }
-        FindObjectOfType<TargetDisplay>().DispTarget();
-        Debug.Log($"ターゲットを{targetNumber}のモンスターに変更");
     }
     public IEnumerator ResetTarget()
     {
@@ -270,6 +314,11 @@ public class HeroScript : MonoBehaviour
     public void GrowMagiATK()
     {
         SumMagiATK(15);
+    }
+    public void Metal()
+    {
+        GameManager.Instance.metal = true;
+        Debug.Log("毎ターン元の防御力のブロックを獲得するようになった");
     }
     //MonoBehaviour
     

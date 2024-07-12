@@ -53,9 +53,10 @@ public class PinScript : MonoBehaviour
     }
     public void AllRemovePin()
     {
-        for(int i = 0;i < pinList.Count;i++)
+        for(int i = pinList.Count - 1;i >= 0;i--)
         {
             Destroy(pinList[i]);
+            pinList.Remove(pinList[i]);
         }
         pinYetSentList.Clear();     
         

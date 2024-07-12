@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
     public int stageNo;
     public bool isPlaying;
     public int turn;
+    public int sumTurn;
     public bool throwStart;
     public bool throwEnd;
     public int restPin;
     public bool onlyOne;
+    public bool metal;
     private Display disp;
     private HeroScript hero;
     private BallScript ball;
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour
     private MonsterScript mons;
     private MummyStone stone;
     private WallScript wall;
+    private RewardScript reward;
 
     public IEnumerator GamePlay()
     {
@@ -34,13 +37,17 @@ public class GameManager : MonoBehaviour
         hero = FindObjectOfType<HeroScript>();
         stone = FindObjectOfType<MummyStone>();
         wall = FindObjectOfType<WallScript>();
+        reward = FindObjectOfType<RewardScript>();
+        
         stageNo = 1;
         isPlaying = false;
         turn = 0;
+        sumTurn = 0;
         throwStart = false;
         throwEnd = false;
         restPin = -1;
         onlyOne = false;
+        metal = false;
         Debug.Log("GamePlay開始");
         for (int i = 2; i < ReturnMonsters.monsters.Count + 2;i++)
         {
@@ -67,6 +74,7 @@ public class GameManager : MonoBehaviour
     IEnumerator TurnPlay()
     {
         turn++;
+        sumTurn++;
         PinDeck.Shuffle();
         yield return disp.Turn();
         yield return PlayStart();
@@ -90,13 +98,17 @@ public class GameManager : MonoBehaviour
         yield return hero.LevelUp();
         hero.StatusReset();
         //FixMe：LevelUp演出
-        //TODO：報酬を選ぶ
+        yield return reward.RewardSelect();
     }
     public IEnumerator PlayStart()//ボウリング開始
     {
         
         throwStart = false;
         throwEnd = false;
+        if (metal)
+        {
+            StartCoroutine(hero.AddBlock(now: false));
+        }
         pin.ArrangePins();
         isPlaying = true;
         if (stone.active)
@@ -108,7 +120,6 @@ public class GameManager : MonoBehaviour
             wall.Spawn();
         }
         Debug.Log("ボウリングスタート");
-        //FixMe：ボールを初期位置に戻すコード・移動し続ける
         ball.Set();
         yield return new WaitForSeconds(1);
         
@@ -133,7 +144,6 @@ public class GameManager : MonoBehaviour
         isPlaying = false;
         Debug.Log("ボウリング終了");
         pin.AllRemovePin();
-        //FixMe：ボールを初期位置に戻すコード・移動し続ける
         ball.Set();
         yield return new WaitForSeconds(1);
 
@@ -153,6 +163,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        StartCoroutine(GamePlay());
     }
     void Update()
     {

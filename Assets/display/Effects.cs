@@ -41,7 +41,9 @@ public class Effects : MonoBehaviour
         {
             effect.transform.Translate(new Vector3(0, 0, 0.01f));
             rend.color = new(1, 1, 1, i);
+            yield return new WaitForSeconds(0.01f);
         }
+        Destroy(effect);
         yield return null;
     }
 

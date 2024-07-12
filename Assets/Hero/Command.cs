@@ -12,7 +12,7 @@ namespace CommandType
         ExtendATK,
         ExtendDEF,
         TwiceAOE,
-        RandomTwiceAttack,
+        RandomTripleAttack,
         OnlyOne
     }
 

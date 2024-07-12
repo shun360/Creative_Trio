@@ -72,11 +72,11 @@ public class CommandQueue : MonoBehaviour
                     break;
                 case Ct.TwiceAOE:
                     Debug.Log($"{cmd}を実行");
-                    //yield return hero.();
+                    yield return hero.TwiceAOE();
                     break;
-                case Ct.RandomTwiceAttack:
+                case Ct.RandomTripleAttack:
                     Debug.Log($"{cmd}を実行");
-                    //yield return hero.();
+                    yield return hero.RandomTripleAttack();
                     break;
                 case Ct.OnlyOne:
                     Debug.Log($"{cmd}を実行");
