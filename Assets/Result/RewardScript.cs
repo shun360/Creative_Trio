@@ -155,7 +155,6 @@ public class RewardScript : MonoBehaviour
     }
     public void RewardExe(Re r)
     {
-        //TODO:•ñVƒƒ\ƒbƒh‚É‚Â‚È‚®
         switch (r)
         {
             case Re.PinFire:

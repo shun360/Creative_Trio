@@ -145,12 +145,20 @@ public class HeroScript : MonoBehaviour
     }
     public IEnumerator RandomTripleAttack()
     {
+        MonsterClass mon;
         Debug.Log("Heroの乱れ打ち");
         for(int i = 0;i < 3;i++)
         {
-            int index = UnityEngine.Random.Range(0, MonsterScript.monList.Count);
             Move(10, 10);
-            MonsterScript.monList[index].GetComponent<MonsterClass>().TakeAttacked(nowATK);
+            if(MonsterScript.monList.Count > 0)
+            {
+                int index = UnityEngine.Random.Range(0, MonsterScript.monList.Count);
+                mon = MonsterScript.monList[index].GetComponent<MonsterClass>();
+               
+                mon.TakeAttacked(nowATK);
+                
+            }
+            
             yield return new WaitForSeconds(0.3f);
         }
         yield return new WaitForSeconds(0.8f);
@@ -283,7 +291,7 @@ public class HeroScript : MonoBehaviour
     {
         oriATK += amount;
         nowATK += amount;
-        Debug.Log($"元の攻撃力が{amount}上がった");
+        Debug.Log($"元の攻撃力が{amount}上がった");//FixMe
     }
     public void SumDEF(int amount)
     {
@@ -361,7 +369,7 @@ public class HeroScript : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.X))
         {
 
             ChangeTarget();

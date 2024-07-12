@@ -38,7 +38,7 @@ public class CommandQueue : MonoBehaviour
                     break;
                 case Ct.Block:
                     Debug.Log($"{cmd}防御を実行");
-                    //FixMe:防御エフェクト
+                    
                     yield return hero.AddBlock();
                     break;
                 case Ct.Fire:

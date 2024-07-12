@@ -8,16 +8,66 @@ public class PinClass : MonoBehaviour
     private float knockDownAngle = 30.0f;
     private bool isKnockDown = false; //倒れたかどうか
     private bool sentCommand = false; //コマンドを送ったかどうか
+    public Material Attack;
+    public Material Block;
+    public Material Fire;
+    public Material Smash;
+    public Material Protection;
+    public Material CurseATK;
+    public Material Penetration;
+    public Material ExtendATK;
+    public Material EctendDEF;
+    public Material TwiceAOE;
+    public Material RandomTripleAttack;
+    public Material OnlyOne;
     [SerializeField] public Ct Type { get; private set; }
-    public PinClass()
-    {
-        
-    }
+    
     public void Init(Ct type)
     {
         this.Type = type;
-        //TODO:ここに色分け
-        
+        Renderer r = GetComponent<Renderer>();
+        Material[] materials = r.materials;
+        switch (type)
+        {
+            case Ct.Attack:
+                materials[0] = Attack;
+                break;
+            case Ct.Block:
+                materials[0] = Block;
+                break;
+            case Ct.Fire:
+                materials[0] = Fire;
+                break;
+            case Ct.Smash:
+                materials[0] = Smash;
+                break;
+            case Ct.Protection:
+                materials[0] = Protection;
+                break;
+            case Ct.CurseATK:
+                materials[0] = CurseATK;
+                break;
+            case Ct.Penetration:
+                materials[0] = Penetration;
+                break;
+            case Ct.ExtendATK:
+                materials[0] = ExtendATK;
+                break;
+            case Ct.ExtendDEF:
+                materials[0] = EctendDEF;
+                break;
+            case Ct.TwiceAOE:
+                materials[0] = TwiceAOE;
+                break;
+            case Ct.RandomTripleAttack:
+                materials[0] = RandomTripleAttack;
+                break;
+            case Ct.OnlyOne:
+                materials[0] = OnlyOne;
+                break;
+        }
+        r.materials = materials;
+
     }
     private void Send()
     {

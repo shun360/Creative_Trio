@@ -53,13 +53,17 @@ public class MonsterScript : MonoBehaviour
 
     public IEnumerator MonstersAct()
     {
-        Debug.Log("モンスター行動開始");
-        yield return new WaitForSeconds(1);//FixMe：モンスター行動実行、もしモンスターがいなければyield return null;
-        for(int i = 0; i < monList.Count; i++)
+        if(monList.Count > 0)
         {
-            yield return monList[i].GetComponent<MonsterClass>().Act();
+            Debug.Log("モンスター行動開始");
+            yield return new WaitForSeconds(1);
+            for (int i = 0; i < monList.Count; i++)
+            {
+                yield return monList[i].GetComponent<MonsterClass>().Act();
+            }
+            Debug.Log("モンスター行動終了");
         }
-        Debug.Log("モンスター行動終了");
+        yield return null;
     }
     public void TakeAOE(int damage)
     {

@@ -255,6 +255,10 @@ public class MonsterClass : MonoBehaviour
     }
     protected virtual void Update()
     {
+        if (nowHP <= 0 && isLiving)
+        {
+            StartCoroutine(Dead());
+        }
         if (shouldMove)
         {
             if (isReturning)
@@ -286,9 +290,6 @@ public class MonsterClass : MonoBehaviour
             }
 
         }
-        if (nowHP <= 0 && isLiving)
-        {
-            StartCoroutine(Dead());
-        }
+        
     }
 }

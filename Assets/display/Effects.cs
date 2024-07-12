@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EffectColor;
+using UnityEngine.UIElements;
 
 public class Effects : MonoBehaviour
 {
@@ -27,7 +28,18 @@ public class Effects : MonoBehaviour
     }
     public IEnumerator BlockEffect(Vector3 pos) 
     {
-        
+        GameObject effect = Instantiate(shield, pos, Quaternion.identity);
+        effect.transform.localScale = new Vector3(15, 15, 1);
+        effect.transform.Translate(new Vector3(0, 0, -1));
+        SpriteRenderer rend = effect.GetComponent<SpriteRenderer>();
+        rend.color = new(1, 1, 1, 0.7f);
+        for (float i = rend.color.a; i >= 0; i -= 0.01f)
+        {
+            effect.transform.Translate(new Vector3(0, 0, 0.01f));
+            rend.color = new(1, 1, 1, i);
+            yield return new WaitForSeconds(0.01f);
+        }
+        Destroy(effect);
         yield return null;
     }
     public IEnumerator AddBlockEffect(Vector3 pos, int amount, float scale = 15)

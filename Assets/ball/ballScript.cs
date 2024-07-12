@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour
 {
-    [SerializeField] public Vector3 acce = new(0, 0, 30000);
+    [SerializeField] public Vector3 acce = new(0, 0, 3000);
     [SerializeField] public Vector3 left = new(-50, 0, 0);
     [SerializeField] public Vector3 right = new(50, 0, 0);
     private bool wentLeft = false;
@@ -75,6 +75,7 @@ public class BallScript : MonoBehaviour
         {
             GameManager.Instance.throwStart = true;
             rb.AddForce(acce);
+            rb.angularVelocity = new(5,0,0);
         }
     }
     public void CurveLeft()
