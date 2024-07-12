@@ -5,7 +5,7 @@ using CommandType;
 
 public class PinClass : MonoBehaviour
 {
-    private float knockDownAngle = 45.0f;
+    private float knockDownAngle = 30.0f;
     private bool isKnockDown = false; //“|‚ê‚½‚©‚Ç‚¤‚©
     private bool sentCommand = false; //ƒRƒ}ƒ“ƒh‚ð‘—‚Á‚½‚©‚Ç‚¤‚©
     [SerializeField] public Ct Type { get; private set; }

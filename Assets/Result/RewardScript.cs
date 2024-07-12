@@ -8,6 +8,7 @@ using TMPro;
 public class RewardScript : MonoBehaviour
 {
     public GameObject buttonPrefab;
+    public GameObject reminder;
     public List<GameObject> buttunList = new List<GameObject>();
     public HeroScript hero;
     public PinDeck pind;
@@ -15,15 +16,16 @@ public class RewardScript : MonoBehaviour
     public List<Re> allRewards;
     public List<Re> yetRewards;
     public List<Re> selectedRewards;
+    
     public Re select;
     public string text;
     public bool click = false;
-    private static Vector3 p = new(0, 400, 0);
+    private static Vector3 p = new(0, 370, 0);
     public static Vector3[] positions =
     {
         p,
-        new(p.x, p.y - 400, p.z),
-        new(p.x, p.y - 800, p.z)
+        new(p.x, p.y - 370, p.z),
+        new(p.x, p.y - 740, p.z)
     };
     private void Awake()
     {
@@ -31,6 +33,8 @@ public class RewardScript : MonoBehaviour
         hero = FindObjectOfType<HeroScript>();
         pind = FindObjectOfType<PinDeck>();
         ball = FindObjectOfType<BallScript>();
+        reminder = GameObject.Find("Reminder");
+        reminder.SetActive(false);
     }
     private void Start()
     {
@@ -63,71 +67,79 @@ public class RewardScript : MonoBehaviour
         click = false;
         for(int i = 0; i < positions.Length; i++)
         {
+            reminder.SetActive(true);
             GameObject button = Instantiate(buttonPrefab, positions[i],Quaternion.identity);
-
+            bool mini = false;
             text = button.GetComponentInChildren<TMP_Text>().text;
             switch (rewards[i])
             {
-                case Re.PinFireball:
-                    text = "";
+                case Re.PinFire:
+                    text = "＜ファイアー＞\n魔法攻撃力で全体攻撃するピン";
                     break;
                 case Re.PinRandomTripleAttack:
-                    text = "";
+                    text = "＜乱れ打ち＞\n3回ランダムな敵に攻撃するピン";
                     break;
                 case Re.PinTwiceAOE:
-                    text = "";
+                    text = "＜旋風＞\n攻撃力-2で全体に2回攻撃するピン";
                     break;
                 case Re.PinSmash:
-                    text = "";
+                    text = "＜スマッシュ＞\n攻撃力の2倍で攻撃するピン";
                     break;
                 case Re.PinProtection:
-                    text = "";
+                    text = "＜プロテクション＞\n防御力の2倍のブロックを得るピン";
                     break;
                 case Re.PinCurseATK:
-                    text = "";
+                    text = "＜呪い＞\n敵全体の攻撃力を5下げるピン";
                     break;
                 case Re.PinPenetration:
-                    text = "";
+                    text = "＜風穴＞\n元の攻撃力+5のダメージをブロック無視で与えるピン";
                     break;
                 case Re.PinExtendATK:
-                    text = "";
+                    text = "＜増幅＞\n戦闘が終わるまで攻撃力+3するピン";
                     break;
                 case Re.PinExtendDEF:
-                    text = "";
+                    text = "＜硬化＞\n戦闘が終わるまで防御力+2するピン";
                     break;
                 case Re.PinOnlyOne:
-                    text = "";
+                    mini = true;
+                    text = "＜オンリーワン＞\n魔法攻撃力が20上がるが、ストライクボーナスが無くなる。\nこれを倒した上で、残りのピンが1個なら全体に魔法攻撃するピン";
                     break;
                 case Re.BallGrow:
-                    text = "";
+                    text = "＜成長＞\nボールが成長する";
                     break;
                 case Re.BallAcce:
-                    text = "";
+                    text = "＜ロケットスタート＞\nボールの発射速度が2倍になる";
                     break;
                 case Re.BallCont:
-                    text = "";
+                    text = "＜念力＞\nボールを投げた後の左右コントロールが2倍になる";
                     break;
                 case Re.HeroGrowATK:
-                    text = "";
+                    text = "＜鍛錬＞\n元の攻撃力が5上がる";
                     break;
                 case Re.HeroGrowDEF:
-                    text = "";
+                    text = "＜集中＞\n元の防御力が5上がる";
                     break;
                 case Re.HeroGrowMagic:
-                    text = "";
+                    text = "＜充填＞\n元の魔法攻撃力が15上がる";
                     break;
                 case Re.HeroMetal:
-                    text = "";
+                    text = "＜金属化＞\n毎ターン元の防御力のブロックを得る";
                     break;
                 case Re.HeroHeal:
-                    text = "";
+                    text = "＜治癒＞\n体力が全回復する";
                     break;
-                    //TODO:テキスト入力
             }
             int index = i;
+            if (mini)
+            {
+                button.GetComponentInChildren<TMP_Text>().fontSize = 45;
+            }
             button.GetComponentInChildren<TMP_Text>().text = text;
+
             button.transform.SetParent(transform, false);
+            
             button.GetComponent<Button>().onClick.AddListener(() => RewardExe(rewards[index]));
+            
             buttunList.Add(button);
         }
         
@@ -137,6 +149,7 @@ public class RewardScript : MonoBehaviour
             Destroy(buttunList[i]);
             buttunList.RemoveAt(i);
         }
+        reminder.SetActive(false);
 
 
     }
@@ -145,8 +158,8 @@ public class RewardScript : MonoBehaviour
         //TODO:報酬メソッドにつなぐ
         switch (r)
         {
-            case Re.PinFireball:
-                pind.AddFireball();
+            case Re.PinFire:
+                pind.AddFire();
                 break;
             case Re.PinRandomTripleAttack:
                 pind.AddRandomTripleAttack();

@@ -38,9 +38,9 @@ public class PinDeck : MonoBehaviour
         Shuffle();
     }
     //ïÒèV
-    public void AddFireball()
+    public void AddFire()
     {
-        AddPinDeck(Ct.Fireball);
+        AddPinDeck(Ct.Fire);
     }
     public void AddSmash()
     {

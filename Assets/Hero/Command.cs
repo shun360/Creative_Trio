@@ -4,7 +4,7 @@ namespace CommandType
     {
         Attack,
         Block,
-        Fireball,
+        Fire,
         Smash,
         Protection,
         CurseATK,

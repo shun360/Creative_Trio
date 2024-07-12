@@ -130,7 +130,7 @@ public class HeroScript : MonoBehaviour
         yield return new WaitForSeconds(1);
     }
     
-    public IEnumerator Fireball()
+    public IEnumerator Fire()
     {
         Debug.Log("Heroの魔法攻撃");
         AttackMotion();

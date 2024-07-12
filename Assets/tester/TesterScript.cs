@@ -51,7 +51,7 @@ public class TesterScript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.M))
         {
-            PinDeck.AddPinDeck(Ct.Fireball);
+            PinDeck.AddPinDeck(Ct.Fire);
         }
         if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.S))
         {

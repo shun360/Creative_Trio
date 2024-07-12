@@ -10,7 +10,7 @@ namespace Result
     public enum Re
     {
         //pin
-        PinFireball,
+        PinFire,
         PinRandomTripleAttack,
         PinTwiceAOE,
         PinSmash,

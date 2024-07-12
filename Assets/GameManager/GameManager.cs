@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         if(restPin == 0 && !onlyOne)
         {
             Debug.Log("ストライク！！ ボーナス：ファイアーボール追加");
-            queue.AddCommand(Ct.Fireball);
+            queue.AddCommand(Ct.Fire);
         }
         if (stone.active)
         {

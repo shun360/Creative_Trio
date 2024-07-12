@@ -41,10 +41,10 @@ public class CommandQueue : MonoBehaviour
                     //FixMe:防御エフェクト
                     yield return hero.AddBlock();
                     break;
-                case Ct.Fireball:
+                case Ct.Fire:
                     Debug.Log($"{cmd}を実行");
                     //FixMe:エフェクト
-                    yield return hero.Fireball();
+                    yield return hero.Fire();
                     break;
                 case Ct.Smash:
                     Debug.Log($"{cmd}を実行");
