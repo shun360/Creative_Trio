@@ -5,9 +5,9 @@ using CommandType;
 
 public class PinClass : MonoBehaviour
 {
-    private float knockDownAngle = 30.0f;
-    private bool isKnockDown = false; //倒れたかどうか
-    private bool sentCommand = false; //コマンドを送ったかどうか
+    private readonly float knockDownAngle = 30.0f;
+    private bool isKnockDown; //倒れたかどうか
+    private bool sentCommand; //コマンドを送ったかどうか
     public Material Attack;
     public Material Block;
     public Material Fire;
@@ -24,6 +24,8 @@ public class PinClass : MonoBehaviour
     
     public void Init(Ct type)
     {
+        isKnockDown = false;
+        sentCommand = false;
         this.Type = type;
         Renderer r = GetComponent<Renderer>();
         Material[] materials = r.materials;
@@ -86,11 +88,6 @@ public class PinClass : MonoBehaviour
         {
             PinScript.pinYetSentList.Remove(gameObject);
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame

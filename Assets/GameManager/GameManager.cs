@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public int restPin;
     public bool onlyOne;
     public bool metal;
-    private Display disp;
+    public Display disp;
     private HeroScript hero;
     private BallScript ball;
     private PinScript pin;
@@ -27,18 +27,8 @@ public class GameManager : MonoBehaviour
     private WallScript wall;
     private RewardScript reward;
 
-    public IEnumerator GamePlay()
+    public void GameReset()
     {
-        disp = FindObjectOfType<Display>();
-        ball = FindObjectOfType<BallScript>();
-        pin = FindObjectOfType<PinScript>();
-        queue = FindObjectOfType<CommandQueue>();
-        mons = FindObjectOfType<MonsterScript>();
-        hero = FindObjectOfType<HeroScript>();
-        stone = FindObjectOfType<MummyStone>();
-        wall = FindObjectOfType<WallScript>();
-        reward = FindObjectOfType<RewardScript>();
-        
         stageNo = 1;
         isPlaying = false;
         turn = 0;
@@ -48,12 +38,37 @@ public class GameManager : MonoBehaviour
         restPin = -1;
         onlyOne = false;
         metal = false;
+    }
+    public IEnumerator GamePlay()
+    {
+        GameReset();
+        yield return new WaitForSeconds(0.1f);
+        ball = FindObjectOfType<BallScript>();
+        pin = FindObjectOfType<PinScript>();
+        queue = FindObjectOfType<CommandQueue>();
+        mons = FindObjectOfType<MonsterScript>();
+        hero = FindObjectOfType<HeroScript>();
+        stone = FindObjectOfType<MummyStone>();
+        wall = FindObjectOfType<WallScript>();
+        reward = FindObjectOfType<RewardScript>();
+        disp = FindObjectOfType<Display>();
+        if (disp == null)
+        {
+            Debug.LogError("Display オブジェクトが見つかりませんでした。");
+            yield break;
+        }
+        else
+        {
+            Debug.Log("Display オブジェクトが見つかりました: " + disp.gameObject.name);
+        }
+        
         Debug.Log("GamePlay開始");
+        
         for (int i = 2; i < ReturnMonsters.monsters.Count + 2;i++)
         {
             Debug.Log($"ステージ{i - 1}を開始します");
 
-            yield return disp.StageStart();
+            yield return disp.StageStart();//NullReferenceException
             
             mons.SetMonster();
             while (stageNo < i)
@@ -76,7 +91,7 @@ public class GameManager : MonoBehaviour
         turn++;
         sumTurn++;
         PinDeck.Shuffle();
-        yield return disp.Turn();
+        yield return disp.Turn();//この行でTurn()呼び出し
         yield return PlayStart();
         yield return new WaitUntil(() => throwEnd);
         yield return PlayEnd();
@@ -157,21 +172,20 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
-    void Start()
-    {
-        StartCoroutine(GamePlay());
-    }
-    void Update()
+    public void StartButton()
     {
         
+        SceneManager.LoadScene("SampleScene");
+        StartCoroutine(GamePlay());
     }
+
 
 }
 

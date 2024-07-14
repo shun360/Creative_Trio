@@ -34,7 +34,10 @@ public class StatusChangeText : MonoBehaviour
         upArrow = (GameObject)Resources.Load("Up");
         downArrow = (GameObject)Resources.Load("Down");
     }
-
+    private void Start()
+    {
+        
+    }
     public void ShowStatusChange(Vector3 pos, string txt, Im img, Ab type)
     {
         GameObject textObj = Instantiate(textPrefab, pos, Quaternion.identity, transform);

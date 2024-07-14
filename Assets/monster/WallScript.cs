@@ -5,12 +5,14 @@ using UnityEngine;
 public class WallScript : MonoBehaviour
 {
     public GameObject wallPrefab;
-    public bool active = false;
-    public List<GameObject> wallList = new();
+    public bool active;
+    public List<GameObject> wallList;
 
     private void Awake()
     {
         wallPrefab = (GameObject)Resources.Load("Wall");
+        active = false;
+        wallList = new List<GameObject>();
     }
     public void Spawn()
     {

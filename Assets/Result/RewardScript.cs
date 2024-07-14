@@ -9,7 +9,7 @@ public class RewardScript : MonoBehaviour
 {
     public GameObject buttonPrefab;
     public GameObject reminder;
-    public List<GameObject> buttunList = new List<GameObject>();
+    public List<GameObject> buttonList;
     public HeroScript hero;
     public PinDeck pind;
     public BallScript ball;
@@ -19,9 +19,9 @@ public class RewardScript : MonoBehaviour
     
     public Re select;
     public string text;
-    public bool click = false;
-    private static Vector3 p = new(0, 370, 0);
-    public static Vector3[] positions =
+    public bool click;
+    private static readonly Vector3 p = new(0, 370, 0);
+    public static readonly Vector3[] positions =
     {
         p,
         new(p.x, p.y - 370, p.z),
@@ -33,6 +33,8 @@ public class RewardScript : MonoBehaviour
         hero = FindObjectOfType<HeroScript>();
         pind = FindObjectOfType<PinDeck>();
         ball = FindObjectOfType<BallScript>();
+        buttonList = new();
+        click = false;
         reminder = GameObject.Find("Reminder");
         reminder.SetActive(false);
     }
@@ -140,14 +142,14 @@ public class RewardScript : MonoBehaviour
             
             button.GetComponent<Button>().onClick.AddListener(() => RewardExe(rewards[index]));
             
-            buttunList.Add(button);
+            buttonList.Add(button);
         }
         
         yield return new WaitUntil(() => click);
-        for (int i = buttunList.Count - 1; i >= 0; i--)
+        for (int i = buttonList.Count - 1; i >= 0; i--)
         {
-            Destroy(buttunList[i]);
-            buttunList.RemoveAt(i);
+            Destroy(buttonList[i]);
+            buttonList.RemoveAt(i);
         }
         reminder.SetActive(false);
 

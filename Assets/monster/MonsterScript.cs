@@ -7,13 +7,19 @@ public class MonsterScript : MonoBehaviour
 {
     public GameObject monPrefab;
     public static List<GameObject> monList;
-    private static Vector3 p = new(65, 75, 0);
+    private static readonly Vector3 p = new(65, 75, 0);
     private static readonly Vector3[] positions =
     {
         p,
         new(p.x + 20, p.y - 15, p.z),
         new(p.x - 25, p.y + 10, p.z)
     };
+    private void Awake()
+    {
+        monPrefab = (GameObject)Resources.Load("Monster");
+        monList = new List<GameObject>();
+
+    }
     public IEnumerator ArrangeMonsters(List<Mt> mts)
     {
         　
@@ -96,10 +102,6 @@ public class MonsterScript : MonoBehaviour
         }
         Debug.Log("Monsterすべてのブロック値を0にしました");
     }
-    private void Awake()
-    {
-        monPrefab = (GameObject)Resources.Load("Monster");
-        monList = new List<GameObject> ();
-    }
+    
     
 }

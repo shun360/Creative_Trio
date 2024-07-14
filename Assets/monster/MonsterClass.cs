@@ -18,16 +18,16 @@ public class MonsterClass : MonoBehaviour
     protected int block;
     protected Mt thistype;
     protected float scale;
-    protected bool shouldMove = false;
-    protected bool isReturning = false;
+    protected bool shouldMove;
+    protected bool isReturning;
     protected Vector3 originPosition;
-    protected Vector3 velocity = Vector3.zero;
+    protected Vector3 velocity;
     protected Vector3 targetPosition;
     protected HeroScript hero;
     protected Effects ef;
     protected SpriteRenderer rend;
     protected StatusChangeText sct;
-    protected bool isLiving = false;
+    protected bool isLiving;
     protected List<List<Mc>> actPattern;
     public GameObject barPrefab;
     public Slider hpSlider;
@@ -45,8 +45,10 @@ public class MonsterClass : MonoBehaviour
         sct = FindObjectOfType<StatusChangeText>();
         originPosition = transform.position;
         actPattern = ActSet();
-
+        shouldMove = false;
+        isReturning = false;
         isLiving = true;
+        velocity = Vector3.zero;
     }
 
     public virtual void Init()

@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CommandType;
@@ -149,4 +149,3 @@ public class TesterScript : MonoBehaviour
 
     }
 }
-*/

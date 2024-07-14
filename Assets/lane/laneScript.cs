@@ -9,10 +9,4 @@ public class laneScript : MonoBehaviour
     {
         transform.position = new Vector3(-100, -0.5f, 40);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

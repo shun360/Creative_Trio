@@ -9,8 +9,14 @@ using CommandType;
 
 public class PinDeck : MonoBehaviour
 {
-    public static List<Ct> Deck = new List<Ct>();
+    public static List<Ct> Deck;
+    private void Awake()
+    {
+        Deck = new List<Ct>();
+    }
     public static List<Ct> GetAllPinDeck() { return Deck; }
+
+    
     public static void AddPinDeck(Ct pin)
     {
         Deck.Add(pin);

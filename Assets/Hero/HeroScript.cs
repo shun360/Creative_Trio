@@ -21,8 +21,8 @@ public class HeroScript : MonoBehaviour
     public int oriMagiATK;
     public int nowMagiATK;
     public int block; //ダメージを防御ブロックできる値
-    protected Vector3 velocity = Vector3.zero;
-    public int targetNumber = 0;
+    protected Vector3 velocity;
+    public int targetNumber;
     public GameObject bar;
     public Slider hpSlider;
     public Slider blockSlider;
@@ -32,8 +32,8 @@ public class HeroScript : MonoBehaviour
     [SerializeField] public TextMeshProUGUI magicAtkText;
 
     protected Vector3 targetPosition;
-    protected bool shouldMove = false;
-    protected bool isReturning = false;
+    protected bool shouldMove;
+    protected bool isReturning;
     protected Vector3 originPosition;
     private MonsterScript mons;
     private StatusChangeText sct;
@@ -46,6 +46,10 @@ public class HeroScript : MonoBehaviour
         Init();
         originPosition = new Vector3(15, 15, 1);
         transform.position = originPosition;
+        shouldMove = false;
+        isReturning = false;
+        targetNumber = 0;
+        velocity = Vector3.zero;
         mons = FindObjectOfType<MonsterScript>();
         ef = FindObjectOfType<Effects>();
         sct = FindObjectOfType<StatusChangeText>();

@@ -8,8 +8,8 @@ public class PinScript : MonoBehaviour
     public GameObject pinPrefab;
     public static List<GameObject> pinList;
     public static List<GameObject> pinYetSentList;
-    private static Vector3 p = new Vector3(-100, 1, 70);//Šî€‚ÌˆÊ’u
-    private static float m = 2f;
+    private static readonly Vector3 p = new Vector3(-100, 1, 70);//Šî€‚ÌˆÊ’u
+    private static readonly float m = 2f;
     private static readonly Vector3[] positions =
     {
         p,

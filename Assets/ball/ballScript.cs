@@ -5,18 +5,22 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour
 {
-    [SerializeField] public Vector3 acce = new(0, 0, 3000);
-    [SerializeField] public Vector3 left = new(-50, 0, 0);
-    [SerializeField] public Vector3 right = new(50, 0, 0);
-    private bool wentLeft = false;
-    private bool wentRight = false;
+    [SerializeField] public Vector3 acce;
+    [SerializeField] public Vector3 left;
+    [SerializeField] public Vector3 right;
+    private bool wentLeft;
+    private bool wentRight;
     private Rigidbody rb;
-    private Vector3 startPos = new Vector3(-100, 2, 5);
-    private PinScript pin;
+    private Vector3 startPos;
     private void Awake()
     {
-        pin = FindObjectOfType<PinScript>();
         rb = GetComponent<Rigidbody>();
+        wentLeft = false;
+        wentRight = false;
+        startPos = new(-100, 2, 5);
+        acce = new(0, 0, 30000);
+        left = new(-50, 0, 0);
+        right = new(50, 0 , 0);
     }
     void Start()
     {
