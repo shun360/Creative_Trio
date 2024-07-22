@@ -132,7 +132,7 @@ public class HeroScript : MonoBehaviour
         Move(15,15);
         MonsterClass t = MonsterScript.monList[targetNumber].GetComponent<MonsterClass>();
         yield return new WaitForSeconds(0.2f);
-        t.TakeAttacked(nowATK * 2);
+        t.TakeAttacked((int)(nowATK * 2.5f));
         yield return new WaitForSeconds(0.8f);
     }
     public IEnumerator AddBlock(bool now = true)
@@ -160,7 +160,7 @@ public class HeroScript : MonoBehaviour
     }
     public IEnumerator CurseATK()
     {
-        mons.AllDebuffATK(5);
+        mons.AllDebuffATK(4);
         yield return new WaitForSeconds(1);
     }
     
@@ -177,7 +177,7 @@ public class HeroScript : MonoBehaviour
     {
         AttackMotion();
         yield return new WaitForSeconds(0.15f);
-        MonsterScript.monList[targetNumber].GetComponent<MonsterClass>().TakeAttacked(oriATK + 5, true);
+        MonsterScript.monList[targetNumber].GetComponent<MonsterClass>().TakeAttacked(nowATK, true);
         yield return new WaitForSeconds(0.85f);
     }
     public IEnumerator RandomTripleAttack()
@@ -203,16 +203,11 @@ public class HeroScript : MonoBehaviour
     public IEnumerator TwiceAOE()
     {
         Debug.Log("Heroの全体二回攻撃");
-        int atk = 0;
-        if(nowATK - 2 > 0)
-        {
-            atk = nowATK - 2;
-        }
         for(int i = 0; i < 2; i++)
         {
             AttackMotion();
             yield return new WaitForSeconds(0.3f);
-            mons.TakeAOE(atk);
+            mons.TakeAOE(nowATK);
         }
         yield return new WaitForSeconds(0.8f);
     }
@@ -276,8 +271,12 @@ public class HeroScript : MonoBehaviour
     }
     protected void Move(float x, float y)
     {
-        shouldMove = true;
-        targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z);
+        if(this != null)
+        {
+            shouldMove = true;
+            targetPosition = new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z);
+        }
+        
 
     }
     protected void AttackMotion()
@@ -425,7 +424,7 @@ public class HeroScript : MonoBehaviour
         if (nowHP <= 0)
         {
             Debug.Log("GAME OVER!");
-            GameOver();
+            GameManager.Instance.GameOver();
         }
 
     }
@@ -438,8 +437,6 @@ public class HeroScript : MonoBehaviour
         defText.SetText($"DEF:{nowDEF}");
         magicAtkText.SetText($"MagicATK:{nowMagiATK}");
     }
-    void GameOver()
-    {
-        SceneManager.LoadScene("GameOverScene");
-    }
+    
+
 }

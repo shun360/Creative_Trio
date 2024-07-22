@@ -3,7 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using CommandType;
 using UnityEngine.SceneManagement;
+using senceName;
 
+namespace senceName
+{
+    public enum Sence
+    {
+        Title,
+        Sample,
+        GameOver,
+        GameClear
+    }
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -17,6 +28,7 @@ public class GameManager : MonoBehaviour
     public int restPin;
     public bool onlyOne;
     public bool metal;
+    public Sence sence;
     public Display disp;
     private HeroScript hero;
     private BallScript ball;
@@ -41,6 +53,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator GamePlay()
     {
+        
         GameReset();
         yield return new WaitForSeconds(0.1f);
         ball = FindObjectOfType<BallScript>();
@@ -68,7 +81,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log($"ステージ{i - 1}を開始します");
 
-            yield return disp.StageStart();//NullReferenceException
+            yield return disp.StageStart();
             
             mons.SetMonster();
             while (stageNo < i)
@@ -84,6 +97,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         Debug.Log("ゲームクリア!!");
         SceneManager.LoadScene("GameClearScene");
+        sence = Sence.GameClear;
 
     }
     IEnumerator TurnPlay()
@@ -173,6 +187,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            sence = Sence.Title;
         }
         else
         {
@@ -183,9 +198,14 @@ public class GameManager : MonoBehaviour
     {
         
         SceneManager.LoadScene("SampleScene");
+        sence = Sence.Sample;
         StartCoroutine(GamePlay());
     }
-
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GameOverScene");
+        sence = Sence.GameOver;
+    }
 
 }
 

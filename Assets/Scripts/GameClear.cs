@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using senceName;
 
 public class GameClear : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class GameClear : MonoBehaviour
     public void ClearReturnToTitle()
     {
         Debug.Log("Start");
+        GameManager.Instance.sence = Sence.Title;
         SceneManager.LoadScene("title");
+        
     }
 
 }

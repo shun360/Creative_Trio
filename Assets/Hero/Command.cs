@@ -2,18 +2,18 @@ namespace CommandType
 {
     public enum Ct
     {
-        Attack,
-        Block,
-        Fire,
-        Smash,
-        Protection,
-        CurseATK,
-        Penetration,
         ExtendATK,
         ExtendDEF,
+        Penetration,
+        Attack,
+        Smash,
+        Protection,
         TwiceAOE,
         RandomTripleAttack,
-        OnlyOne
+        Fire,
+        OnlyOne,
+        CurseATK,
+        Block
     }
 
 }

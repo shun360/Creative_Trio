@@ -284,41 +284,37 @@ public class MonsterClass : MonoBehaviour
 
     public void TakeAttacked(int damage, bool penet = false)
     {
-        if (!penet)
+        if(penet)
         {
-            if (block >= damage)
-            {
-                block -= damage;
-                StartCoroutine(ef.BlockEffect(transform.position, damage));
-                Debug.Log(damage + "ダメージをすべてブロックした");
-            }
-            else if (block <= 0)
-            {
-                nowHP -= damage;
-                block = 0;
-                KnockBack();
-                sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneUp, Ab.Attack);
-                Debug.Log($"{damage}ダメージを受け、残り体力が{nowHP}になった");
-            }
-            else
-            {
-                int oriDamage = damage;
-                damage -= block;
-                nowHP -= damage;
-                KnockBack();
-                sct.ShowStatusChange(transform.position, $"-{block}", Im.NoneDown, Ab.Block);
-                block = 0;
-                sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneUp, Ab.Attack);
-                Debug.Log($"{oriDamage}ダメージのうち、{damage}ダメージを受け、HPが{nowHP}になった");
-            }
+            block = 0;
+        }
+        if (block >= damage)
+        {
+            block -= damage;
+            StartCoroutine(ef.BlockEffect(transform.position, damage));
+            Debug.Log(damage + "ダメージをすべてブロックした");
+        }
+        else if (block <= 0)
+        {
+            nowHP -= damage;
+            block = 0;
+            KnockBack();
+            sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneUp, Ab.Attack);
+            Debug.Log($"{damage}ダメージを受け、残り体力が{nowHP}になった");
         }
         else
         {
+            int oriDamage = damage;
+            damage -= block;
             nowHP -= damage;
-            sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneDown, Ab.Attack);
-            Debug.Log($"{thistype}が{damage}ダメージを受け、残り体力が{nowHP}になった");
             KnockBack();
+            sct.ShowStatusChange(transform.position, $"-{block}", Im.NoneDown, Ab.Block);
+            block = 0;
+            sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneUp, Ab.Attack);
+            Debug.Log($"{oriDamage}ダメージのうち、{damage}ダメージを受け、HPが{nowHP}になった");
         }
+        
+        
     }
 
     public IEnumerator Dead()

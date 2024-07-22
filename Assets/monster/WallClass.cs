@@ -19,25 +19,29 @@ public class WallClass : MonoBehaviour
     }
     void Update()
     {
-        if(wall.active)
+        if(wall != null)
         {
-            
-            if(movingRight)
+            if (wall.active)
             {
-                transform.Translate(0.03f, 0, 0);
-                if (Vector3.Distance(transform.position, right) < 1f)
+
+                if (movingRight)
                 {
-                    movingRight = false;
+                    transform.Translate(0.03f, 0, 0);
+                    if (Vector3.Distance(transform.position, right) < 1f)
+                    {
+                        movingRight = false;
+                    }
                 }
-            }
-            else 
-            {
-                transform.Translate(-0.03f, 0, 0);
-                if (Vector3.Distance(transform.position, left) < 1f)
+                else
                 {
-                    movingRight= true;
+                    transform.Translate(-0.03f, 0, 0);
+                    if (Vector3.Distance(transform.position, left) < 1f)
+                    {
+                        movingRight = true;
+                    }
                 }
             }
         }
+        
     }
 }

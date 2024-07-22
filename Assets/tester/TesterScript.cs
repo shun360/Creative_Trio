@@ -7,6 +7,7 @@ public class TesterScript : MonoBehaviour
 {
     private HeroScript hero;
     private BallScript ball;
+    private RewardScript reward;
     // Start is called before the first frame update
     void Awake()
     {
@@ -15,6 +16,7 @@ public class TesterScript : MonoBehaviour
             hero = FindObjectOfType<HeroScript>();
         }
         ball = FindObjectOfType<BallScript>();
+        reward = FindObjectOfType<RewardScript>();
     }
 
     // Update is called once per frame
@@ -115,14 +117,7 @@ public class TesterScript : MonoBehaviour
         {
             ball.DoubleAcceleration();
         }
-        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.C))
-        {
-            ball.DoubleControl();
-        }
-        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.G))
-        {
-            ball.Grow();
-        }
+        
         
         //Queue
         if (Input.GetKeyDown(KeyCode.Q))
@@ -146,6 +141,9 @@ public class TesterScript : MonoBehaviour
         {
             FindAnyObjectByType<MonsterScript>().DeleteMonsters();
         }
-
+        //Reward
+        if(Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.LeftShift)){
+            
+        }
     }
 }

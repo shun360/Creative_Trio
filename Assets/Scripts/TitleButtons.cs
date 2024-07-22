@@ -20,6 +20,7 @@ public class TitleButtons : MonoBehaviour
     public void ReturnToTitle()
         {
         Debug.Log("Start");
+        GameManager.Instance.sence = senceName.Sence.Title;
             SceneManager.LoadScene("title");
         }
 

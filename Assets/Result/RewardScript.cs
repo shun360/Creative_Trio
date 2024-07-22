@@ -82,10 +82,10 @@ public class RewardScript : MonoBehaviour
                     text = "＜乱れ打ち＞\n3回ランダムな敵に攻撃するピン";
                     break;
                 case Re.PinTwiceAOE:
-                    text = "＜旋風＞\n攻撃力-2で全体に2回攻撃するピン";
+                    text = "＜旋風＞\n攻撃力で全体に2回攻撃するピン";
                     break;
                 case Re.PinSmash:
-                    text = "＜スマッシュ＞\n攻撃力の2倍で攻撃するピン";
+                    text = "＜スマッシュ＞\n攻撃力の2.5倍で攻撃するピン";
                     break;
                 case Re.PinProtection:
                     text = "＜プロテクション＞\n防御力の2倍のブロックを得るピン";
@@ -94,7 +94,7 @@ public class RewardScript : MonoBehaviour
                     text = "＜呪い＞\n敵全体の攻撃力を5下げるピン";
                     break;
                 case Re.PinPenetration:
-                    text = "＜風穴＞\n元の攻撃力+5のダメージをブロック無視で与えるピン";
+                    text = "＜風穴＞\n敵のブロックを破壊して攻撃するピン";
                     break;
                 case Re.PinExtendATK:
                     text = "＜増幅＞\n戦闘が終わるまで攻撃力+3するピン";
@@ -110,10 +110,10 @@ public class RewardScript : MonoBehaviour
                     text = "＜成長＞\nボールが成長する";
                     break;
                 case Re.BallAcce:
-                    text = "＜ロケットスタート＞\nボールの発射速度が2倍になる";
+                    text = "＜ロケットスタート＞\nボールの発射速度が1.6倍になる";
                     break;
                 case Re.BallCont:
-                    text = "＜念力＞\nボールを投げた後の左右コントロールが2倍になる";
+                    text = "＜念力＞\nボールを投げた後の左右コントロールが3倍になる";
                     break;
                 case Re.HeroGrowATK:
                     text = "＜鍛錬＞\n元の攻撃力が5上がる";
@@ -155,7 +155,7 @@ public class RewardScript : MonoBehaviour
 
 
     }
-    public void RewardExe(Re r)
+    public void RewardExe(Re r,bool test = false)
     {
         switch (r)
         {
@@ -214,6 +214,9 @@ public class RewardScript : MonoBehaviour
                 hero.FullHeal();
                 break;
         }
-        click = true;
+        if (!test)
+        {
+            click = true;
+        }
     }
 }

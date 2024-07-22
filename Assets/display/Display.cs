@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using senceName;
 
 public class Display : MonoBehaviour
 {
@@ -76,31 +77,35 @@ public class Display : MonoBehaviour
     }
     public IEnumerator Turn()
     {
-        GameObject field = Instantiate(prefab, gameObject.transform);
-        if (field == null)
+        if(GameManager.Instance.sence == Sence.Sample)
         {
-            Debug.LogError("Field prefab could not be instantiated.");
-            yield break;
-        }
-        field.transform.localPosition = Vector3.zero;
-        Image img = field.GetComponent<Image>();
-        TextMeshProUGUI text = field.GetComponentInChildren<TextMeshProUGUI>();
-        text.SetText($"TURN {GameManager.Instance.turn}");
-        img.color = new Color(0.75f, 0.75f, 0.75f, 0.6f);
-        text.color = new Color(1, 1, 1, 1);
-
-        yield return new WaitForSeconds(1f);
-        for (float i = text.color.a; i >= 0; i -= 0.02f)
-        {
-            if (field == null || img == null || text == null)
+            GameObject field = Instantiate(prefab, gameObject.transform);
+            if (field == null)
             {
-                Debug.LogWarning("Field or its components were destroyed during coroutine execution.");
+                Debug.LogError("Field prefab could not be instantiated.");
                 yield break;
             }
-            yield return new WaitForSeconds(0.01f);
-            img.color = new Color(0.75f, 0.75f, 0.75f, i * 0.6f);
-            text.color = new Color(1, 1, 1, i);
+            field.transform.localPosition = Vector3.zero;
+            Image img = field.GetComponent<Image>();
+            TextMeshProUGUI text = field.GetComponentInChildren<TextMeshProUGUI>();
+            text.SetText($"TURN {GameManager.Instance.turn}");
+            img.color = new Color(0.75f, 0.75f, 0.75f, 0.6f);
+            text.color = new Color(1, 1, 1, 1);
+
+            yield return new WaitForSeconds(1f);
+            for (float i = text.color.a; i >= 0; i -= 0.02f)
+            {
+                if (field == null || img == null || text == null)
+                {
+                    Debug.LogWarning("Field or its components were destroyed during coroutine execution.");
+                    yield break;
+                }
+                yield return new WaitForSeconds(0.01f);
+                img.color = new Color(0.75f, 0.75f, 0.75f, i * 0.6f);
+                text.color = new Color(1, 1, 1, i);
+            }
+            Destroy(field);
         }
-        Destroy(field);
+        
     }
 }
