@@ -65,7 +65,15 @@ public class MonsterScript : MonoBehaviour
             yield return new WaitForSeconds(1);
             for (int i = 0; i < monList.Count; i++)
             {
-                yield return monList[i].GetComponent<MonsterClass>().Act();
+                if (monList[i] != null)
+                {
+                    yield return monList[i].GetComponent<MonsterClass>().Act();
+                }
+                else
+                {
+                    Debug.LogWarning("モンスターの参照が切れました");
+                }
+                
             }
             Debug.Log("モンスター行動終了");
         }

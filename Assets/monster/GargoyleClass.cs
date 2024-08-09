@@ -24,14 +24,12 @@ public class GargoyleClass : MonsterClass
             yield return BuffATK(50);
             yield return BuffDEF(30);
         }
-        yield return new WaitForSeconds(1);
     }
     public override IEnumerator Debuff()
     {
         HeroScript hero = FindObjectOfType<HeroScript>();
-        yield return hero.DebuffATK(3);
-        yield return hero.DebuffDEF(3);
-        yield return new WaitForSeconds(1); 
+        yield return hero.DebuffATK(hero.nowATK / 3);
+        yield return hero.DebuffDEF(hero.nowDEF / 3);
     }
     public override IEnumerator Obstruction()
     {

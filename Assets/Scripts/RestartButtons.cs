@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TitleButtons : MonoBehaviour
+public class RestartButtons : MonoBehaviour
 {
 
     private void Start()
@@ -16,11 +16,15 @@ public class TitleButtons : MonoBehaviour
     {
         
     }
-
+    
     public void ReturnToTitle()
         {
-        Debug.Log("Start");
-            SceneManager.LoadScene("title");
+        GameManager.Instance.sence = senceName.Sence.Title;
+        SceneManager.LoadScene("title");
         }
+    public void Restart()
+    {
+        GameManager.Instance.StartButton();
+    }
 
 }

@@ -65,11 +65,14 @@ public class BallScript : MonoBehaviour
     }
     public void Set()
     {
+        if (GameObject.Find("Ball") != null)
+        {
+            transform.position = startPos;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            transform.eulerAngles = Vector3.zero;
+        }
         
-        transform.position = startPos;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        transform.eulerAngles = Vector3.zero;
     }
     
     
@@ -144,19 +147,19 @@ public class BallScript : MonoBehaviour
     //報酬
     public void DoubleControl()
     {
-        left = new Vector3(left.x * 2, 0, 0);
-        right = new Vector3(right.x * 2, 0, 0);
-        Debug.Log("コントロールが2倍になった");
+        left = new Vector3(left.x * 3, 0, 0);
+        right = new Vector3(right.x * 3, 0, 0);
+        Debug.Log("コントロールが上がった");
     }
     public void DoubleAcceleration()
     {
-        Acceleration(2);
-        Debug.Log("発射速度が2倍になった");
+        Acceleration(1.6f);
+        Debug.Log("発射速度が上がった");
     }
     public void Grow()
     {
         ChangeScale(1.3f);
-        rb.mass *= 1.5f;
+        rb.mass *= 2f;
         Acceleration(1.5f);
         Debug.Log("ボールが成長した");
     }

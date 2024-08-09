@@ -33,53 +33,52 @@ public class CommandQueue : MonoBehaviour
             switch (cmd)
             {
                 case Ct.Attack:
-                    Debug.Log($"{cmd}攻撃を実行");
+                    //Debug.Log($"{cmd}攻撃を実行");
                     yield return hero.Attack();
                     break;
                 case Ct.Block:
-                    Debug.Log($"{cmd}防御を実行");
+                    //Debug.Log($"{cmd}防御を実行");
                     
                     yield return hero.AddBlock();
                     break;
                 case Ct.Fire:
-                    Debug.Log($"{cmd}を実行");
-                    //FixMe:エフェクト
+                    //Debug.Log($"{cmd}を実行");
                     yield return hero.Fire();
                     break;
                 case Ct.Smash:
-                    Debug.Log($"{cmd}を実行");
+                    //Debug.Log($"{cmd}を実行");
                     yield return hero.Smash();
                     break;
                 case Ct.Protection:
-                    Debug.Log($"{cmd}を実行");
+                    //Debug.Log($"{cmd}を実行");
                     yield return hero.Protection();
                     break;
                 case Ct.CurseATK:
-                    Debug.Log($"{cmd}を実行");
+                    //Debug.Log($"{cmd}を実行");
                     yield return hero.CurseATK();
                     break;
                 case Ct.Penetration:
-                    Debug.Log($"{cmd}を実行");
+                    //Debug.Log($"{cmd}を実行");
                     yield return hero.Penetration();
                     break;
                 case Ct.ExtendATK:
-                    Debug.Log($"{cmd}を実行");
+                    //Debug.Log($"{cmd}を実行");
                     yield return hero.BuffATK(3);
                     break;
                 case Ct.ExtendDEF:
-                    Debug.Log($"{cmd}を実行");
+                    //Debug.Log($"{cmd}を実行");
                     yield return hero.BuffDEF(2);
                     break;
                 case Ct.TwiceAOE:
-                    Debug.Log($"{cmd}を実行");
+                    //Debug.Log($"{cmd}を実行");
                     yield return hero.TwiceAOE();
                     break;
                 case Ct.RandomTripleAttack:
-                    Debug.Log($"{cmd}を実行");
+                    //Debug.Log($"{cmd}を実行");
                     yield return hero.RandomTripleAttack();
                     break;
                 case Ct.OnlyOne:
-                    Debug.Log($"{cmd}を実行");
+                    //Debug.Log($"{cmd}を実行");
                     yield return hero.OnlyOne();
                     break;
             }

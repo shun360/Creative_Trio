@@ -75,10 +75,14 @@ public class PinClass : MonoBehaviour
     {
         if (!sentCommand)
         {
-            GameObject.Find("CommandQueue").GetComponent<CommandQueue>().AddCommand(Type);
-            sentCommand = true;
-            Debug.Log($"{Type}をコマンドキューに送った");
-            Remove();
+            if (GameObject.Find("CommandQueue") != null)
+            {
+                GameObject.Find("CommandQueue").GetComponent<CommandQueue>().AddCommand(Type);
+                sentCommand = true;
+                Debug.Log($"{Type}をコマンドキューに送った");
+                Remove();
+            }
+            
         }
         
     }
@@ -100,12 +104,14 @@ public class PinClass : MonoBehaviour
         if(isKnockDown && !sentCommand)
         {
             Send();
-            
+            sentCommand = true;
+
         }
         if(transform.position.y < -1 && !sentCommand)
         {
             
             Send();
+            sentCommand = true;
         }
         
     }
