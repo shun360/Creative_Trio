@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    private Coroutine gameCoroutine;
     public int stageNo;
     public bool isPlaying;
     public int turn;
@@ -50,6 +51,14 @@ public class GameManager : MonoBehaviour
         restPin = -1;
         onlyOne = false;
         metal = false;
+    }
+    public void StartGamePlay()
+    {
+        if(gameCoroutine != null)
+        {
+            StopCoroutine(gameCoroutine);
+        }
+        gameCoroutine = StartCoroutine(GamePlay());
     }
     public IEnumerator GamePlay()
     {
@@ -98,7 +107,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("ゲームクリア!!");
         SceneManager.LoadScene("GameClearScene");
         sence = Sence.GameClear;
-
+        Debug.Log("GamePlay()終了");
     }
     IEnumerator TurnPlay()
     {
@@ -151,7 +160,7 @@ public class GameManager : MonoBehaviour
         {
             wall.Spawn();
         }
-        Debug.Log("ボウリングスタート");
+        //Debug.Log("ボウリングスタート");
         ball.Set();
         yield return new WaitForSeconds(1);
         
@@ -174,7 +183,7 @@ public class GameManager : MonoBehaviour
             wall.Delete();
         }
         isPlaying = false;
-        Debug.Log("ボウリング終了");
+        //Debug.Log("ボウリング終了");
         pin.AllRemovePin();
         ball.Set();
         yield return new WaitForSeconds(1);
@@ -196,10 +205,10 @@ public class GameManager : MonoBehaviour
     }
     public void StartButton()
     {
-        
+        Debug.Log("StartButton()");
         SceneManager.LoadScene("SampleScene");
         sence = Sence.Sample;
-        StartCoroutine(GamePlay());
+        StartGamePlay();
     }
     public void GameOver()
     {

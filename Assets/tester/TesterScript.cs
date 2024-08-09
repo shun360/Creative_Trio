@@ -103,10 +103,10 @@ public class TesterScript : MonoBehaviour
         {
             GameManager.Instance.PlayEnd();
         }
-        if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.P))
+        /*if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.P))
         {
             StartCoroutine(GameManager.Instance.GamePlay());
-        }
+        }*/
         //ball
         if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S))
         {

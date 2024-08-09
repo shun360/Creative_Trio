@@ -1,3 +1,4 @@
+using senceName;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,9 +22,9 @@ public class ButtonListener : MonoBehaviour
             Debug.LogError("GameManager.Instance‚ªNull‚Å‚·");
             return;
         }
+        
 
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(GameManager.Instance.StartButton);
+
     }
 
    
