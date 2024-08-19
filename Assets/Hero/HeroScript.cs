@@ -220,7 +220,7 @@ public class HeroScript : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             mons.TakeAOE(nowMagiATK);
             StartCoroutine(fire.ShowFire());
-            yield return new WaitForSeconds(0.8f);//FixMe:魔法エフェクト追加
+            yield return new WaitForSeconds(0.8f);
         }
     }
     public void TakeAttacked(int damage) //攻撃を受ける
@@ -233,7 +233,14 @@ public class HeroScript : MonoBehaviour
         }
         else if (block <= 0)
         {
-            nowHP -= damage;
+            if (nowHP < damage)
+            {
+                nowHP = 0;
+            }
+            else
+            {
+                nowHP -= damage;
+            }
             block = 0;
             KnockBack();
             sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneUp, Ab.Attack);
@@ -243,8 +250,14 @@ public class HeroScript : MonoBehaviour
         {
             int oriDamage = damage;//デバッグ用
             damage -= block;
-            nowHP -= damage;
-            
+            if (nowHP < damage)
+            {
+                nowHP = 0;
+            }
+            else
+            {
+                nowHP -= damage;
+            }
             KnockBack();
             sct.ShowStatusChange(transform.position, $"-{block}", Im.NoneDown, Ab.Block);
             block = 0;

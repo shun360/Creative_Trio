@@ -79,6 +79,13 @@ public class MonsterScript : MonoBehaviour
         }
         yield return null;
     }
+    public void ActScheduleDisp()
+    {
+        for (int i = 0; i < monList.Count; i++)
+        {
+            monList[i].GetComponent<MonsterClass>().ActScheduleSet();
+        }
+    }
     public void TakeAOE(int damage)
     {
         for(int i = 0;i < monList.Count;i++)

@@ -15,10 +15,10 @@ namespace StatusChangeType
     }
     public enum Im
     {
-        NoneUp,
-        NoneDown,
-        Up,
-        Down
+        NoneUp, //–îˆó–³‚µ‚Åã‚Éã‚ª‚é
+        NoneDown, //–îˆó–³‚µ‚Å‰º‚É‰º‚ª‚é
+        Up, //–îˆó‚ ‚è‚Åã‚Éã‚ª‚é
+        Down //–îˆó‚ ‚è‚Å‰º‚É‰º‚ª‚é
     }
 }
 

@@ -91,7 +91,7 @@ public class RewardScript : MonoBehaviour
                     text = "＜プロテクション＞\n防御力の2倍のブロックを得るピン";
                     break;
                 case Re.PinCurseATK:
-                    text = "＜呪い＞\n敵全体の攻撃力を5下げるピン";
+                    text = "＜呪い＞\n敵全体の攻撃力を4下げるピン";
                     break;
                 case Re.PinPenetration:
                     text = "＜風穴＞\n敵のブロックを破壊して攻撃するピン";

@@ -20,19 +20,11 @@ public class MummyClass : MonsterClass
     public override IEnumerator Obstruction()
     {
         MummyStone stone = FindObjectOfType<MummyStone>();
-        if (!stone.active)
-        {
-            stone.active = true;
-            StartCoroutine(ef.ObsEffect(hero.transform.position));
-            Debug.Log("Mummyの妨害！レーンに石が出るようになった");
-            yield return new WaitForSeconds(1);
-        }
-        else
-        {
-            yield return Buff();
-        }
-        yield return null;
-        
+        stone.active = true;
+        StartCoroutine(ef.ObsEffect(hero.transform.position));
+        Debug.Log("Mummyの妨害！レーンに石が出るようになった");
+        actPattern[0] = new List<Mc>{ Mc.Buff, Mc.Block };
+        yield return new WaitForSeconds(1);
     }
 
     protected override List<List<Mc>> ActSet()

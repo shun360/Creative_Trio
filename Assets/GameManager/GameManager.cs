@@ -162,9 +162,8 @@ public class GameManager : MonoBehaviour
         }
         //Debug.Log("ボウリングスタート");
         ball.Set();
+        mons.ActScheduleDisp();
         yield return new WaitForSeconds(1);
-        
-
     }
     public IEnumerator PlayEnd()
     {

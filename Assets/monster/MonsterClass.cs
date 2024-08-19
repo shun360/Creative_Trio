@@ -20,6 +20,7 @@ public class MonsterClass : MonoBehaviour
     protected float scale;
     protected bool shouldMove;
     protected bool isReturning;
+    protected float actUIOffset;
     protected Vector3 originPosition;
     protected Vector3 velocity;
     protected Vector3 targetPosition;
@@ -28,12 +29,17 @@ public class MonsterClass : MonoBehaviour
     protected SpriteRenderer rend;
     protected StatusChangeText sct;
     protected bool isLiving;
+    protected Vector3 actSchePos;
     protected List<List<Mc>> actPattern;
+    [SerializeField] public List<Mc> nextAct;
     public GameObject barPrefab;
     public Slider hpSlider;
     public Slider blockSlider;
     public TextMeshProUGUI hpText;
     public GameObject barIns;
+    public GameObject actSchePrefab;
+    public GameObject actScheIns;
+    
 
     protected virtual void Awake()
     {
@@ -49,6 +55,7 @@ public class MonsterClass : MonoBehaviour
         isReturning = false;
         isLiving = true;
         velocity = Vector3.zero;
+        actSchePos = Vector3.zero;
     }
 
     public virtual void Init()
@@ -69,6 +76,7 @@ public class MonsterClass : MonoBehaviour
         this.oriDEF = def;
         this.nowDEF = def;
 
+        nextAct = actPattern[0];
         barPrefab = (GameObject)Resources.Load("MonHPBar");
         barIns = Instantiate(barPrefab);
         Canvas canvas = FindObjectOfType<Canvas>();
@@ -77,21 +85,19 @@ public class MonsterClass : MonoBehaviour
             Debug.LogError("Canvasが見つかりません");
             return;
         }
-        barIns.transform.SetParent(canvas.transform, false);
-
         if (barIns == null)
         {
             Debug.LogError("barInsが正しく生成されていません。");
             return;
         }
-
+        barIns.transform.SetParent(canvas.transform, false);
         hpSlider = barIns.GetComponent<Slider>();
         if (hpSlider == null)
         {
             Debug.LogError("hpSliderが見つかりません。");
             return;
         }
-
+        
         hpSlider.maxValue = maxHP;
         hpSlider.value = nowHP;
 
@@ -110,7 +116,6 @@ public class MonsterClass : MonoBehaviour
             Debug.LogError("hpTextが見つかりません。");
             return;
         }
-
         UpdateHPBarPosition();
         StartCoroutine(FadeIn());
     }
@@ -138,10 +143,10 @@ public class MonsterClass : MonoBehaviour
 
     public IEnumerator Act()
     {
-        List<Mc> act = actPattern[(GameManager.Instance.turn - 1) % actPattern.Count];
-        for (int i = 0; i < act.Count; i++)
+        Destroy(actScheIns);
+        for (int i = 0; i < nextAct.Count; i++)
         {
-            switch (act[i])
+            switch (nextAct[i])
             {
                 case Mc.Attack:
                     yield return Attack();
@@ -159,15 +164,17 @@ public class MonsterClass : MonoBehaviour
                     yield return Obstruction();
                     break;
             }
+            
         }
+        nextAct = actPattern[GameManager.Instance.turn % actPattern.Count];
+
     }
 
-    void UpdateHPBarPosition()
+    protected void UpdateHPBarPosition()
     {
         // モンスターのワールド座標をスクリーン座標に変換
         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
         screenPos.y -= scale * 5 + 25; // モンスターの下に位置を調整するためにオフセット
-
         // HPバーのキャンバス空間での座標を計算
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             barIns.transform.parent as RectTransform,
@@ -179,7 +186,52 @@ public class MonsterClass : MonoBehaviour
         // 計算した座標をHPバーに適用
         barIns.GetComponent<RectTransform>().localPosition = localPoint;
     }
-
+    protected void ActSchedulePosSet()
+    {
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogError("Canvasが見つかりません");
+            return;
+        }
+        actSchePrefab = (GameObject)Resources.Load("ActDisp");
+        actScheIns = Instantiate(actSchePrefab);
+        if (actScheIns == null)
+        {
+            Debug.LogError("actScheInsが正しく生成されていません。");
+            return;
+        }
+        actScheIns.transform.SetParent(canvas.transform, false);
+        // モンスターのワールド座標をスクリーン座標に変換
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        actUIOffset = CalcActUIOffset();
+        screenPos.y -= actUIOffset; // モンスターの下に位置を調整するためにオフセット
+        // 行動予定表示のキャンバス空間での座標を計算
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            actScheIns.transform.parent as RectTransform,
+            screenPos,
+            Camera.main,
+            out Vector2 localPoint
+        );
+        // 計算した座標を行動予定表示に適用
+        actScheIns.GetComponent<RectTransform>().localPosition = localPoint;
+    }
+    protected virtual float CalcActUIOffset()
+    {
+        return scale * 8 + 65;
+    }
+    public void ActScheduleSet()
+    {
+        ActSchedulePosSet();
+        if (nextAct[0] == Mc.Attack)
+        {
+            actScheIns.GetComponent<ActSchedule>().ActDisp(nextAct[0], nowATK);
+        }
+        else
+        {
+            actScheIns.GetComponent<ActSchedule>().ActDisp(nextAct[0]);
+        }
+    }
     public void BlockZero()
     {
         block = 0;
@@ -296,7 +348,14 @@ public class MonsterClass : MonoBehaviour
         }
         else if (block <= 0)
         {
-            nowHP -= damage;
+            if(nowHP < damage)
+            {
+                nowHP = 0;
+            }
+            else
+            {
+                nowHP -= damage;
+            }
             block = 0;
             KnockBack();
             sct.ShowStatusChange(transform.position, $"{damage}", Im.NoneUp, Ab.Attack);
@@ -306,7 +365,14 @@ public class MonsterClass : MonoBehaviour
         {
             int oriDamage = damage;
             damage -= block;
-            nowHP -= damage;
+            if (nowHP < damage)
+            {
+                nowHP = 0;
+            }
+            else
+            {
+                nowHP -= damage;
+            }
             KnockBack();
             sct.ShowStatusChange(transform.position, $"-{block}", Im.NoneDown, Ab.Block);
             block = 0;
@@ -327,6 +393,7 @@ public class MonsterClass : MonoBehaviour
         MonsterScript.monList.Remove(this.gameObject);
         yield return FadeOut();
         Destroy(barIns);
+        Destroy(actScheIns);
         Destroy(this.gameObject);
     }
 

@@ -12,6 +12,10 @@ public class GargoyleClass : MonsterClass
         transform.localScale = new Vector3(scale, scale, 1);
         StatusSet(thistype, 500, 42, 25);
     }
+    protected override float CalcActUIOffset()
+    {
+        return 130;
+    }
     public override IEnumerator Buff()
     {
         if(GameManager.Instance.turn < 12)
@@ -34,18 +38,12 @@ public class GargoyleClass : MonsterClass
     public override IEnumerator Obstruction()
     {
         WallScript wall = FindObjectOfType<WallScript>();
-        if (!wall.active)
-        {
-            wall.active = true;
-            StartCoroutine(ef.ObsEffect(hero.transform.position));
-            Debug.Log("Gargoyleの妨害！レーンに動く壁が出るようになった");
-            yield return new WaitForSeconds(1);
-        }
-        else
-        {
-           yield return Attack();
-        }
-        yield return null;
+        wall.active = true;
+        StartCoroutine(ef.ObsEffect(hero.transform.position));
+        Debug.Log("Gargoyleの妨害！レーンに動く壁が出るようになった");
+
+        actPattern[0] = new List<Mc> { Mc.Attack };
+        yield return new WaitForSeconds(1);
     }
     
     protected override List<List<Mc>> ActSet()

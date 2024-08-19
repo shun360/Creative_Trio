@@ -164,7 +164,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 10828565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4d1397bcabfd84b95cf5e36ddb7b8e, type: 3}
+  m_Script: {fileID: 11500000, guid: 785a37e99cc943d4aa17587c79027f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &73298993
@@ -1783,6 +1783,7 @@ MonoBehaviour:
   restPin: 0
   onlyOne: 0
   metal: 0
+  sence: 0
   disp: {fileID: 0}
 --- !u!1 &1225733791
 GameObject:
@@ -2530,7 +2531,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1790711259
 RectTransform:
