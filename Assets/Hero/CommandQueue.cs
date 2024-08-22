@@ -6,12 +6,18 @@ using CommandType;
 public class CommandQueue : MonoBehaviour
 {
     private HeroScript hero;
+    private QueueDisplay QueueDisp;
     public List<Ct> commandQueue;
-    public void AddCommand(Ct cmd) {  commandQueue.Add(cmd); }
+    public void AddCommand(Ct cmd) 
+    {  
+        commandQueue.Add(cmd);
+        QueueDisp.AddIcon(cmd);
+    }
     public Ct DequeueCommand() 
     {
         Ct c = commandQueue[0];
         commandQueue.RemoveAt(0);
+        QueueDisp.Dequeue();
         return c; 
     }
     public IEnumerator AllCommandsExe()
@@ -94,11 +100,16 @@ public class CommandQueue : MonoBehaviour
         
     }
 
-    public void ClearCommand() { commandQueue.Clear(); }
+    public void ClearCommand()
+    { 
+        commandQueue.Clear(); 
+        QueueDisp.DeleteIcons();
+    }
     private void Awake()
     {
         commandQueue = new List<Ct>();
         hero = FindObjectOfType<HeroScript>();
+        QueueDisp = FindObjectOfType<QueueDisplay>();
 
     }
     

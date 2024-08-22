@@ -167,12 +167,8 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator PlayEnd()
     {
-        restPin = pin.RestPins();
-        if(restPin == 0 && !onlyOne)
-        {
-            Debug.Log("ストライク！！ ボーナス：ファイアーボール追加");
-            queue.AddCommand(Ct.Fire);
-        }
+
+        restPin = PinScript.pinYetSentList.Count;
         if (stone.active)
         {
             stone.Delete();
@@ -186,6 +182,17 @@ public class GameManager : MonoBehaviour
         pin.AllRemovePin();
         ball.Set();
         yield return new WaitForSeconds(1);
+
+    }
+    public void StrikeEffect()
+    {
+        if (!onlyOne)
+        {
+            Debug.Log("ストライク！！ ボーナス：ファイアーボール追加");
+            queue.AddCommand(Ct.Fire);
+            //FixMe:演出
+        }
+
 
     }
     

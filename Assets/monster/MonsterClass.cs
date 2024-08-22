@@ -79,7 +79,7 @@ public class MonsterClass : MonoBehaviour
         nextAct = actPattern[0];
         barPrefab = (GameObject)Resources.Load("MonHPBar");
         barIns = Instantiate(barPrefab);
-        Canvas canvas = FindObjectOfType<Canvas>();
+        GameObject canvas = GameObject.Find("Canvas");
         if (canvas == null)
         {
             Debug.LogError("Canvas‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
@@ -188,7 +188,7 @@ public class MonsterClass : MonoBehaviour
     }
     protected void ActSchedulePosSet()
     {
-        Canvas canvas = FindObjectOfType<Canvas>();
+        GameObject canvas = GameObject.Find("Canvas");
         if (canvas == null)
         {
             Debug.LogError("Canvas‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
@@ -262,6 +262,7 @@ public class MonsterClass : MonoBehaviour
         }
         nowATK -= amount;
         sct.ShowStatusChange(transform.position, $"-{amount}", Im.Down, Ab.Attack);
+        actScheIns.GetComponent<ActSchedule>().AmountUpdate(nowATK);
         Debug.Log($"{thistype}‚ÌUŒ‚—Í‚ª{amount}‰º‚ª‚Á‚ÄA{nowATK}‚É‚È‚è‚Ü‚µ‚½");
         yield return new WaitForSeconds(1);
     }

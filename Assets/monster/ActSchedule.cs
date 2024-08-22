@@ -7,44 +7,53 @@ using TMPro;
 
 public class ActSchedule : MonoBehaviour
 {
+    GameObject textObj;
+    string text = "";
     public void ActDisp(Mc mc, int amount = -1)
     {
-        GameObject textObj = transform.Find("AmountText").gameObject;
+        textObj = transform.Find("AmountText").gameObject;
         if (amount >= 0)
         {
             GetComponent<RectTransform>().position += new Vector3(-6, 0, 0);
             textObj.GetComponent<RectTransform>().position += new Vector3(1, 0, 0);
-            textObj.GetComponent<TextMeshProUGUI>().text = amount.ToString();
+            text = amount.ToString();
+            textObj.GetComponent<TextMeshProUGUI>().text = text;
         }
         else
         {
             textObj.GetComponent<TextMeshProUGUI>().text = "";
         }
-        string prefabName = "NoneMonster";
+        string prefabName = "None";
         switch (mc)
         {
             case Mc.Attack:
-                prefabName = "AttackPlan";
+                prefabName = "AttackIcon";
                 break;
             case Mc.Block:
-                prefabName = "BlockPlan";
+                prefabName = "BlockIcon";
                 break;
             case Mc.Buff:
-                prefabName = "BuffPlan";
+                prefabName = "BuffIcon";
                 break;
             case Mc.Debuff:
-                prefabName = "DebuffPlan";
+                prefabName = "DebuffIcon";
                 break;
             case Mc.Obstruction:
-                prefabName = "ObstructionPlan";
+                prefabName = "SoulIcon";
                 break;
         }
         GameObject prefab = (GameObject)Resources.Load($"{prefabName}");
         GameObject obj = Instantiate(prefab, this.transform.position, Quaternion.identity);
         obj.transform.parent = this.transform;
 
-        //Todo:mc‚ÌŽí—Þ‚ð‚à‚Æ‚É•\Ž¦
     }
-
+    public void AmountUpdate(int amount)
+    {
+        if(text != "")
+        {
+            textObj.GetComponent<TextMeshProUGUI>().text = amount.ToString();
+        }
+        
+    }
 
 }
