@@ -15,7 +15,7 @@ public class Effects : MonoBehaviour
     {
         sword = (GameObject)Resources.Load("SwordEffect");
         shield = (GameObject)Resources.Load("ShieldEffect");
-        soul = (GameObject)Resources.Load("SoulEffect");
+        soul = (GameObject)Resources.Load("SoulIcon");
         sct = FindAnyObjectByType<StatusChangeText>();
     }
     public IEnumerator ObsEffect(Vector3 pos)

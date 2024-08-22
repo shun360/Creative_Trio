@@ -62,10 +62,6 @@ public class PinScript : MonoBehaviour
         
         Debug.Log("‚·‚×‚Ä‚Ìƒsƒ“‚ğíœ‚µ‚Ü‚µ‚½");
     }
-    public int RestPins()
-    {
-        return pinYetSentList.Count;
-    }
 
     private void Awake()
     {

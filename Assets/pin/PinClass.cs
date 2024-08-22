@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CommandType;
+using UnityEditor.Search;
 
 public class PinClass : MonoBehaviour
 {
@@ -88,10 +89,16 @@ public class PinClass : MonoBehaviour
     }
     public void Remove()
     {
-        if(PinScript.pinYetSentList.Contains(gameObject)) 
+        List<GameObject> lst = PinScript.pinYetSentList;
+        if(lst.Contains(gameObject)) 
         {
-            PinScript.pinYetSentList.Remove(gameObject);
+            lst.Remove(gameObject);
         }
+        if(lst.Count == 0)
+        {
+            GameManager.Instance.StrikeEffect();
+        }
+        
     }
 
     // Update is called once per frame
