@@ -262,6 +262,7 @@ public class MonsterClass : MonoBehaviour
         }
         nowATK -= amount;
         sct.ShowStatusChange(transform.position, $"-{amount}", Im.Down, Ab.Attack);
+        actScheIns.GetComponent<ActSchedule>().AmountUpdate(nowATK);
         Debug.Log($"{thistype}‚ÌUŒ‚—Í‚ª{amount}‰º‚ª‚Á‚ÄA{nowATK}‚É‚È‚è‚Ü‚µ‚½");
         yield return new WaitForSeconds(1);
     }

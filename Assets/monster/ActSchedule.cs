@@ -7,14 +7,17 @@ using TMPro;
 
 public class ActSchedule : MonoBehaviour
 {
+    GameObject textObj;
+    string text = "";
     public void ActDisp(Mc mc, int amount = -1)
     {
-        GameObject textObj = transform.Find("AmountText").gameObject;
+        textObj = transform.Find("AmountText").gameObject;
         if (amount >= 0)
         {
             GetComponent<RectTransform>().position += new Vector3(-6, 0, 0);
             textObj.GetComponent<RectTransform>().position += new Vector3(1, 0, 0);
-            textObj.GetComponent<TextMeshProUGUI>().text = amount.ToString();
+            text = amount.ToString();
+            textObj.GetComponent<TextMeshProUGUI>().text = text;
         }
         else
         {
@@ -44,6 +47,13 @@ public class ActSchedule : MonoBehaviour
         obj.transform.parent = this.transform;
 
     }
-
+    public void AmountUpdate(int amount)
+    {
+        if(text != "")
+        {
+            textObj.GetComponent<TextMeshProUGUI>().text = amount.ToString();
+        }
+        
+    }
 
 }
