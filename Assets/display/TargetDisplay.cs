@@ -33,6 +33,11 @@ public class TargetDisplay : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             for (float i = 1; i >= 0; i -= 0.01f)
             {
+                if(MonsterScript.monList.Count == 0)
+                {
+                    rend.color = new(1, 1, 1, 0);
+                    break;
+                }
                 yield return new WaitForSeconds(0.01f);
                 rend.color = new(1, 1, 1, i);
             }

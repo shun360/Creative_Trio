@@ -38,7 +38,7 @@ public class QueueIconClass : MonoBehaviour
                 ghostPrefabName = "DebuffIcon";
                 break;
             case Ct.Penetration:
-                prefabName = "";
+                prefabName = "Penetration";
                 break;
             case Ct.ExtendATK:
                 prefabName = "AttackIcon";

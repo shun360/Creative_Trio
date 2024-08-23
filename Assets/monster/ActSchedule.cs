@@ -53,7 +53,6 @@ public class ActSchedule : MonoBehaviour
         {
             textObj.GetComponent<TextMeshProUGUI>().text = amount.ToString();
         }
-        
     }
 
 }

@@ -44,7 +44,7 @@ public class HeroScript : MonoBehaviour
     protected virtual void Awake()
     {
         Init();
-        originPosition = new Vector3(15, 15, 1);
+        originPosition = new Vector3(18, 15, 1);
         transform.position = originPosition;
         shouldMove = false;
         isReturning = false;
@@ -147,15 +147,18 @@ public class HeroScript : MonoBehaviour
             block += oriDEF;
             Debug.Log($"{oriDEF}ブロック追加して、{block}ブロックになりました");
         }
+        if(ef != null)
+        {
+            StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF));
+        }
         
-        StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF));
         yield return new WaitForSeconds(1);
     }
     public IEnumerator Protection()
     {
         block += nowDEF * 2;
         Debug.Log($"プロテクションで{nowDEF * 2}を獲得し、、{block}ブロックになりました");
-        StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF * 2, 20));
+        StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF * 2, 2.8f));
         yield return new WaitForSeconds(1);
     }
     public IEnumerator CurseATK()

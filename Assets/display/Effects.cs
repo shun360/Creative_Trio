@@ -39,7 +39,7 @@ public class Effects : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         sct.ShowStatusChange(pos, $"-{block}", Im.NoneDown, Ab.Block);
         GameObject effect = Instantiate(shield, pos, Quaternion.identity);
-        effect.transform.localScale = new Vector3(15, 15, 1);
+        effect.transform.localScale = new Vector3(2, 2, 1);
         effect.transform.Translate(new Vector3(0, 0, -1));
         SpriteRenderer rend = effect.GetComponent<SpriteRenderer>();
         rend.color = new(1, 1, 1, 0.7f);
@@ -52,7 +52,7 @@ public class Effects : MonoBehaviour
         Destroy(effect);
         yield return null;
     }
-    public IEnumerator AddBlockEffect(Vector3 pos, int amount, float scale = 15)
+    public IEnumerator AddBlockEffect(Vector3 pos, int amount, float scale = 2)
     {
         sct.ShowStatusChange(pos, $"+{amount}", Im.NoneUp, Ab.Block);
         GameObject effect = Instantiate(shield, pos, Quaternion.identity);

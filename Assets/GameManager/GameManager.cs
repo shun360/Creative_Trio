@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     private MummyStone stone;
     private WallScript wall;
     private RewardScript reward;
+    private StrikeDisp strike;
 
     public void GameReset()
     {
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour
         wall = FindObjectOfType<WallScript>();
         reward = FindObjectOfType<RewardScript>();
         disp = FindObjectOfType<Display>();
+        strike = FindObjectOfType<StrikeDisp>();
         if (disp == null)
         {
             Debug.LogError("Display オブジェクトが見つかりませんでした。");
@@ -96,10 +98,9 @@ public class GameManager : MonoBehaviour
             while (stageNo < i)
             {
                 yield return TurnPlay();
-                if(MonsterScript.monList.Count == 0)
+                if(MonsterScript.monList.Count == 0 && hero.nowHP > 0)
                 {
                     yield return StageClear();
-                    
                 }
             }
         }
@@ -146,11 +147,14 @@ public class GameManager : MonoBehaviour
         
         throwStart = false;
         throwEnd = false;
-        if (metal)
+        if (metal && hero != null)
         {
             StartCoroutine(hero.AddBlock(now: false));
         }
-        pin.ArrangePins();
+        if(hero.nowHP > 0)
+        {
+            pin.ArrangePins();
+        }
         isPlaying = true;
         if (stone.active)
         {
@@ -190,7 +194,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("ストライク！！ ボーナス：ファイアーボール追加");
             queue.AddCommand(Ct.Fire);
-            //FixMe:演出
+            StartCoroutine(strike.Show());
         }
 
 
@@ -219,6 +223,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         SceneManager.LoadScene("GameOverScene");
+        mons.DeleteMonsters();
         sence = Sence.GameOver;
     }
 

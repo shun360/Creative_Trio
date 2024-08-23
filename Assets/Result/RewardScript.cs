@@ -85,10 +85,10 @@ public class RewardScript : MonoBehaviour
                     text = "＜旋風＞\n攻撃力で全体に2回攻撃するピン";
                     break;
                 case Re.PinSmash:
-                    text = "＜スマッシュ＞\n攻撃力の2.5倍で攻撃するピン";
+                    text = "＜スマッシュ＞\n攻撃力の250%で攻撃するピン";
                     break;
                 case Re.PinProtection:
-                    text = "＜プロテクション＞\n防御力の2倍のブロックを得るピン";
+                    text = "＜プロテクション＞\n防御力の200%のブロックを得るピン";
                     break;
                 case Re.PinCurseATK:
                     text = "＜呪い＞\n敵全体の攻撃力を4下げるピン";
@@ -110,10 +110,10 @@ public class RewardScript : MonoBehaviour
                     text = "＜成長＞\nボールが成長する";
                     break;
                 case Re.BallAcce:
-                    text = "＜ロケットスタート＞\nボールの発射速度が1.6倍になる";
+                    text = "＜ロケットスタート＞\nボールの発射速度が60%上昇する";
                     break;
                 case Re.BallCont:
-                    text = "＜念力＞\nボールを投げた後の左右コントロールが3倍になる";
+                    text = "＜念力＞\nボールを投げた後の左右コントロールが200%上昇する";
                     break;
                 case Re.HeroGrowATK:
                     text = "＜鍛錬＞\n元の攻撃力が5上がる";

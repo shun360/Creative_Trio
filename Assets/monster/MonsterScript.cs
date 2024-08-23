@@ -83,7 +83,7 @@ public class MonsterScript : MonoBehaviour
     {
         for (int i = 0; i < monList.Count; i++)
         {
-            monList[i].GetComponent<MonsterClass>().ActScheduleSet();
+                monList[i].GetComponent<MonsterClass>().ActScheduleSet();
         }
     }
     public void TakeAOE(int damage)

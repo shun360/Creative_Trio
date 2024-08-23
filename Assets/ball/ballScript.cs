@@ -12,6 +12,8 @@ public class BallScript : MonoBehaviour
     private bool wentRight;
     private Rigidbody rb;
     private Vector3 startPos;
+    private PressZ z;
+    private bool zMassage;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -21,6 +23,8 @@ public class BallScript : MonoBehaviour
         acce = new(0, 0, 30000);
         left = new(-50, 0, 0);
         right = new(50, 0 , 0);
+        zMassage = false;
+        z = FindObjectOfType<PressZ>();
     }
     void Start()
     {
@@ -44,6 +48,12 @@ public class BallScript : MonoBehaviour
                 Debug.Log("“Š‚°‚é‘O‚Å‚·");
             }
         }
+        if((transform.position.z > 65 || transform.position.y < 0) && !zMassage)
+        {
+            Debug.Log("zMassage = true");
+            zMassage = true;
+            StartCoroutine(PleaseZ());
+        }
 
     }
     void FixedUpdate()
@@ -58,10 +68,17 @@ public class BallScript : MonoBehaviour
             CurveRight();
         }
     }
-    public IEnumerable ThrowEnd()
+    
+    public IEnumerator PleaseZ()
     {
-        yield return new WaitForSeconds(2);
-        GameManager.Instance.throwEnd = true;
+        yield return new WaitForSeconds(6);
+        if (!GameManager.Instance.throwEnd)
+        {
+            z.Show();
+            yield return new WaitUntil(() => GameManager.Instance.throwEnd);
+            z.Hide();
+        }
+
     }
     public void Set()
     {
@@ -71,6 +88,7 @@ public class BallScript : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             transform.eulerAngles = Vector3.zero;
+            zMassage = false;
         }
         
     }
