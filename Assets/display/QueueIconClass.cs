@@ -28,10 +28,10 @@ public class QueueIconClass : MonoBehaviour
                 prefabName = "Fire";
                 break;
             case Ct.Smash:
-                prefabName = "";
+                prefabName = "Smash";
                 break;
             case Ct.Protection:
-                prefabName = "";
+                prefabName = "Protection";
                 break;
             case Ct.CurseATK:
                 prefabName = "AttackIcon";
@@ -49,13 +49,13 @@ public class QueueIconClass : MonoBehaviour
                 ghostPrefabName = "BuffIcon";
                 break;
             case Ct.TwiceAOE:
-                prefabName = "";
+                prefabName = "TwiceAOE";
                 break;
             case Ct.RandomTripleAttack:
-                prefabName = "";
+                prefabName = "RandomTripleAttack";
                 break;
             case Ct.OnlyOne:
-                prefabName = "";
+                prefabName = "OnlyOne";
                 break;
         }
         if(prefabName == "")

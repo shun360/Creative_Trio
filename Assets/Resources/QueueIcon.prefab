@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1800040624614614205}
   - component: {fileID: 8600235529609689338}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: QueueIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
