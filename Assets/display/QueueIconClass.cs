@@ -34,7 +34,7 @@ public class QueueIconClass : MonoBehaviour
                 prefabName = "Protection";
                 break;
             case Ct.CurseATK:
-                prefabName = "AttackIcon";
+                prefabName = "CurseSword";
                 ghostPrefabName = "DebuffIcon";
                 break;
             case Ct.Penetration:

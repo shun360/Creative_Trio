@@ -59,13 +59,41 @@ public class TesterScript : MonoBehaviour
         {
             PinDeck.Shuffle();
         }
-        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.R))
         {
             PinDeck.AddPinDeck(Ct.RandomTripleAttack);
         }
-        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.W))
         {
             PinDeck.AddPinDeck(Ct.TwiceAOE);
+        }
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.N))
+        {
+            PinDeck.AddPinDeck(Ct.Penetration);
+        }
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.H))
+        {
+            PinDeck.AddPinDeck(Ct.Smash);
+        }
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.O))
+        {
+            PinDeck.AddPinDeck(Ct.Protection);
+        }
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            FindObjectOfType<PinDeck>().AddOnlyOne();
+        }
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.C))
+        {
+            PinDeck.AddPinDeck(Ct.CurseATK);
+        }
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.U))
+        {
+            PinDeck.AddPinDeck(Ct.ExtendATK);
+        }
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.E))
+        {
+            PinDeck.AddPinDeck(Ct.ExtendDEF);
         }
         //Hero
         if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.D))
