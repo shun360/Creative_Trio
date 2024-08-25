@@ -140,17 +140,22 @@ public class HeroScript : MonoBehaviour
         if (now)
         {
             block += nowDEF;
+            if (ef != null)
+            {
+                StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF));
+            }
             Debug.Log($"{nowDEF}ブロック追加して、{block}ブロックになりました");
         }
         else
         {
             block += oriDEF;
+            if (ef != null)
+            {
+                StartCoroutine(ef.AddBlockEffect(transform.position, oriDEF));
+            }
             Debug.Log($"{oriDEF}ブロック追加して、{block}ブロックになりました");
         }
-        if(ef != null)
-        {
-            StartCoroutine(ef.AddBlockEffect(transform.position, nowDEF));
-        }
+        
         
         yield return new WaitForSeconds(1);
     }

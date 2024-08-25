@@ -218,7 +218,7 @@ public class MonsterClass : MonoBehaviour
     }
     protected virtual float CalcActUIOffset()
     {
-        return scale * 8 + 68;
+        return scale * 8 + 70;
     }
     public void ActScheduleSet()
     {
