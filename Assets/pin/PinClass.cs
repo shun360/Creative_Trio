@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CommandType;
-using UnityEditor.Search;
 
 public class PinClass : MonoBehaviour
 {
