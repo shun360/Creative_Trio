@@ -14,7 +14,7 @@ public class GargoyleClass : MonsterClass
     }
     protected override float CalcActUIOffset()
     {
-        return 130;
+        return 140;
     }
     public override IEnumerator Buff()
     {
