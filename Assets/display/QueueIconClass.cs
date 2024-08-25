@@ -25,7 +25,7 @@ public class QueueIconClass : MonoBehaviour
                 prefabName = "BlockIcon";
                 break;
             case Ct.Fire:
-                prefabName = "Fire";
+                prefabName = "Fire2";
                 break;
             case Ct.Smash:
                 prefabName = "Smash";

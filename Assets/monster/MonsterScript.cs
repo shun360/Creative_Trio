@@ -6,7 +6,7 @@ using MonsterSet;
 public class MonsterScript : MonoBehaviour
 {
     public GameObject monPrefab;
-    public static List<GameObject> monList;
+    [SerializeField] public static List<GameObject> monList;
     private static readonly Vector3 p = new(65, 75, 0);
     private static readonly Vector3[] positions =
     {

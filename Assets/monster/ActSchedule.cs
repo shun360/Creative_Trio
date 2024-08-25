@@ -33,10 +33,10 @@ public class ActSchedule : MonoBehaviour
                 prefabName = "BlockIcon";
                 break;
             case Mc.Buff:
-                prefabName = "BuffIcon";
+                prefabName = "UpMonster";
                 break;
             case Mc.Debuff:
-                prefabName = "DebuffIcon";
+                prefabName = "DownMonster";
                 break;
             case Mc.Obstruction:
                 prefabName = "SoulIcon";
@@ -45,7 +45,6 @@ public class ActSchedule : MonoBehaviour
         GameObject prefab = (GameObject)Resources.Load($"{prefabName}");
         GameObject obj = Instantiate(prefab, this.transform.position, Quaternion.identity);
         obj.transform.parent = this.transform;
-
     }
     public void AmountUpdate(int amount)
     {

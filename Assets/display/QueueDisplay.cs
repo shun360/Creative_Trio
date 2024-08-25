@@ -5,7 +5,7 @@ using CommandType;
 
 public class QueueDisplay : MonoBehaviour
 {
-    private Vector3 pos = new Vector3(-354, -10.5f, 0);
+    private Vector3 pos = new Vector3(-355, -10.5f, 0);
     private float dist = 7.5f;
     private List<Coroutine> coroutineList = new List<Coroutine>(); 
     public List<GameObject> iconList;

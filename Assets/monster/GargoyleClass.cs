@@ -32,8 +32,8 @@ public class GargoyleClass : MonsterClass
     public override IEnumerator Debuff()
     {
         HeroScript hero = FindObjectOfType<HeroScript>();
-        yield return hero.DebuffATK(hero.nowATK / 3);
-        yield return hero.DebuffDEF(hero.nowDEF / 3);
+        yield return hero.DebuffATK(3);
+        yield return hero.DebuffDEF(3);
     }
     public override IEnumerator Obstruction()
     {

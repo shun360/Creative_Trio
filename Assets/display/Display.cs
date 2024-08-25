@@ -37,7 +37,15 @@ public class Display : MonoBehaviour
         field.transform.localPosition = Vector3.zero;
         Image img = field.GetComponent<Image>();
         TextMeshProUGUI text = field.GetComponentInChildren<TextMeshProUGUI>();
-        text.SetText($"STAGE {GameManager.Instance.stageNo}");
+        int stage = GameManager.Instance.stageNo;
+        if (stage < 5)
+        {
+            text.SetText($"STAGE {GameManager.Instance.stageNo}");
+        }
+        else
+        {
+            text.SetText("BOSS STAGE");
+        }
         img.color = new Color(0.75f, 0.75f, 0.75f, 0.6f);
         text.color = new Color(1, 1, 1, 1);
         

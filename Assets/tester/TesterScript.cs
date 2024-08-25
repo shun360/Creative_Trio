@@ -11,7 +11,7 @@ public class TesterScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if(hero == null)
+        if (hero == null)
         {
             hero = FindObjectOfType<HeroScript>();
         }
@@ -38,10 +38,10 @@ public class TesterScript : MonoBehaviour
                     Debug.Log("デッキ" + i + "番目:" + pin);
                 }
             }
-            
+
         }
         //Deck
-        if(Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.A))
         {
             PinDeck.AddPinDeck(Ct.Attack);
         }
@@ -100,30 +100,30 @@ public class TesterScript : MonoBehaviour
         {
             hero.TakeAttacked(50);
         }
-        
-        if(Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.L))
+
+        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.L))
         {
             StartCoroutine(hero.LevelUp());
         }
-        if(Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.S))
         {
             Debug.Log($"現在のステータスはHPは{hero.nowHP}、攻撃力は{hero.nowATK}、防御力は{hero.nowDEF}です");
         }
-        if(Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.R))
         {
             hero.FullHeal();
         }
         //Pin
-        if(Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.A))
         {
             GameObject.Find("Super Pin").GetComponent<PinScript>().ArrangePins();
         }
-        if(Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.R))
         {
             FindObjectOfType<PinScript>().AllRemovePin();
         }
         //GameManager
-        if(Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.S))
         {
             GameManager.Instance.PlayStart();
         }
@@ -136,17 +136,17 @@ public class TesterScript : MonoBehaviour
             GameManager.Instance.StartGamePlay();
         }
         //ball
-        if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S))
         {
             FindObjectOfType<BallScript>().Set();
         }
 
-        if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.A))
         {
             ball.DoubleAcceleration();
         }
-        
-        
+
+
         //Queue
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -162,7 +162,7 @@ public class TesterScript : MonoBehaviour
                     Debug.Log($"コマンドキューの{i}番目：{cmds[i]}");
                 }
             }
-            
+
         }
         //Monster
         if (Input.GetKey(KeyCode.M) && Input.GetKeyDown(KeyCode.D))
@@ -170,8 +170,9 @@ public class TesterScript : MonoBehaviour
             FindAnyObjectByType<MonsterScript>().DeleteMonsters();
         }
         //Reward
-        if(Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.LeftShift)){
-            
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+
         }
     }
 }

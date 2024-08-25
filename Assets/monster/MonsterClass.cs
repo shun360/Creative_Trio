@@ -387,11 +387,8 @@ public class MonsterClass : MonoBehaviour
     public IEnumerator Dead()
     {
         isLiving = false;
-        if (MonsterScript.monList[hero.targetNumber] == this.gameObject)
-        {
-            StartCoroutine(hero.ResetTarget());
-        }
         MonsterScript.monList.Remove(this.gameObject);
+        StartCoroutine(hero.ResetTarget());
         yield return FadeOut();
         Destroy(barIns);
         Destroy(actScheIns);
