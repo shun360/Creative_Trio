@@ -149,7 +149,7 @@ RectTransform:
   m_GameObject: {fileID: 501996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.4142, y: 2.4142, z: 2.4142}
+  m_LocalScale: {x: 1, y: 1, z: 2.4142}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 216369518}
@@ -1238,8 +1238,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: 1ce5cd3568b0377488946244a3651fff, type: 3}
     - target: {fileID: 6968011216574056337, guid: 256ea3e39447f2445a93f44580b10c56, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6968011216574056337, guid: 256ea3e39447f2445a93f44580b10c56, type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8971184027876509185, guid: 256ea3e39447f2445a93f44580b10c56, type: 3}
       propertyPath: m_Pivot.x
@@ -1267,11 +1271,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8971184027876509185, guid: 256ea3e39447f2445a93f44580b10c56, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 389
+      value: 220
       objectReference: {fileID: 0}
     - target: {fileID: 8971184027876509185, guid: 256ea3e39447f2445a93f44580b10c56, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8971184027876509185, guid: 256ea3e39447f2445a93f44580b10c56, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1307,7 +1311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8971184027876509185, guid: 256ea3e39447f2445a93f44580b10c56, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -35
+      value: -93
       objectReference: {fileID: 0}
     - target: {fileID: 8971184027876509185, guid: 256ea3e39447f2445a93f44580b10c56, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
