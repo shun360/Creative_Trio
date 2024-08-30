@@ -114,10 +114,6 @@ public class TesterScript : MonoBehaviour
             hero.FullHeal();
         }
         //Pin
-        if (Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.A))
-        {
-            GameObject.Find("Super Pin").GetComponent<PinScript>().ArrangePins();
-        }
         if (Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.R))
         {
             FindObjectOfType<PinScript>().AllRemovePin();
