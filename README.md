@@ -13,7 +13,7 @@ cd Creative_Trio
 ```
 
 ### 2. Unityのインストール
-1. Unity Hubのインストール: https://unity.com/ja/downloa
+1. Unity Hubのインストール: https://unity.com/ja/download
 2. Unity Hubを開き、メインメニューでインストールをクリック
 3. エディターをインストールをクリック
 4. Unityバージョン2022.3.28f1をインストール
