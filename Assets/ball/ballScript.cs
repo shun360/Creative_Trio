@@ -12,7 +12,7 @@ public class BallScript : MonoBehaviour
     private bool wentRight;
     private Rigidbody rb;
     private Vector3 startPos;
-    private PressZ z;
+    private PressSpace spa;
     private bool zMassage;
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class BallScript : MonoBehaviour
         left = new(-50, 0, 0);
         right = new(50, 0 , 0);
         zMassage = false;
-        z = FindObjectOfType<PressZ>();
+        spa = FindObjectOfType<PressSpace>();
     }
     void Start()
     {
@@ -33,11 +33,11 @@ public class BallScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             Ahead();
         }
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if(transform.position.z > 6 || transform.position.y < -1)
             {
@@ -59,11 +59,11 @@ public class BallScript : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             CurveLeft();
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             CurveRight();
         }
@@ -74,9 +74,9 @@ public class BallScript : MonoBehaviour
         yield return new WaitForSeconds(6);
         if (!GameManager.Instance.throwEnd)
         {
-            z.Show();
+            spa.Show();
             yield return new WaitUntil(() => GameManager.Instance.throwEnd);
-            z.Hide();
+            spa.Hide();
         }
 
     }

@@ -437,7 +437,7 @@ public class HeroScript : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             ChangeTarget();
         }

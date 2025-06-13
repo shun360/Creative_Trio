@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PressZ : MonoBehaviour
+public class PressSpace : MonoBehaviour
 {
     TextMeshProUGUI tmpro;
     private void Awake()

@@ -7,10 +7,15 @@ public class QueueIconClass : MonoBehaviour
 {
     private QueueDisplay queueDisp;
     private Vector3 velocity;
+    float seconds;
+    float freq;
     public void Awake()
     {
         velocity = Vector3.zero;
         queueDisp = FindObjectOfType<QueueDisplay>();
+        seconds = 0.5f;
+        freq = 0.01f;
+        
     }
     public void IconSet(Ct ct)
     {
@@ -80,18 +85,16 @@ public class QueueIconClass : MonoBehaviour
     {
         Vector3 target = new Vector3(transform.position.x + dist , transform.position.y, transform.position.z);
         
-        for(float i = 0.5f; i >= 0; i -= 0.01f)
+        for(float i = seconds; i >= 0; i -= freq)
         {
             if (this == null || transform == null)
             {
                 yield break;
             }
-            transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, i);
-            yield return new WaitForSeconds(0.01f);
+            float xTrans = dist / (seconds / freq);
+            transform.Translate(xTrans, 0, 0);
+            yield return new WaitForSeconds(freq);
         }
-        if (this != null && transform != null)
-        {
-            transform.position = target;
-        }
+        
     }
 }

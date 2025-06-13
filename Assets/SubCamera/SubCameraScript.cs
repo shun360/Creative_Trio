@@ -19,7 +19,7 @@ public class SubCameraScript : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.LeftControl))
+        if(Input.GetKey(KeyCode.Q))
         {
             transform.position = center;
             transform.LookAt(dot.transform.position);

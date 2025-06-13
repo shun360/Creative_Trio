@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     private Coroutine gameCoroutine;
+    public bool timeMulti;
     public int stageNo;
     public bool isPlaying;
     public int turn;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     public int restPin;
     public bool onlyOne;
     public bool metal;
+
     public Sence sence;
     public Display disp;
     private HeroScript hero;
@@ -212,6 +214,22 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        timeMulti = false;
+        
+    }
+    private void Update()
+    {
+        if((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && !timeMulti)
+        {
+            timeMulti = true;
+            Time.timeScale = 5;
+        }
+        else if (timeMulti) 
+        {
+            timeMulti = false;
+            Time.timeScale = 1;
+        }
+
     }
     public void StartButton()
     {

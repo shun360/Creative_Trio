@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CommandType;
@@ -96,20 +96,11 @@ public class TesterScript : MonoBehaviour
             PinDeck.AddPinDeck(Ct.ExtendDEF);
         }
         //Hero
-        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.D))
         {
-            hero.TakeAttacked(50);
+            hero.TakeAttacked(20);
         }
-
-        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.L))
-        {
-            StartCoroutine(hero.LevelUp());
-        }
-        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log($"現在のステータスはHPは{hero.nowHP}、攻撃力は{hero.nowATK}、防御力は{hero.nowDEF}です");
-        }
-        if (Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.H))
         {
             hero.FullHeal();
         }
@@ -119,32 +110,19 @@ public class TesterScript : MonoBehaviour
             FindObjectOfType<PinScript>().AllRemovePin();
         }
         //GameManager
-        if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.S))
-        {
-            GameManager.Instance.PlayStart();
-        }
-        if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.E))
-        {
-            GameManager.Instance.PlayEnd();
-        }
-        if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Z))
         {
             GameManager.Instance.StartGamePlay();
         }
         //ball
-        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S))
-        {
-            FindObjectOfType<BallScript>().Set();
-        }
-
-        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.B))
         {
             ball.DoubleAcceleration();
         }
 
 
         //Queue
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Q))
         {
             List<Ct> cmds = GameObject.Find("CommandQueue").GetComponent<CommandQueue>().commandQueue;
             if (cmds.Count == 0)
@@ -170,6 +148,6 @@ public class TesterScript : MonoBehaviour
         {
 
         }
+        
     }
 }
-*/

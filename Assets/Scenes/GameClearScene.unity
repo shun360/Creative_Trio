@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4336439062694548224, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
       propertyPath: HmacKey
-      value: +bAMEIJTUQKrRS9q9PiAo0oqT0wnAbbr9NA9W9meWz/V1g6eh6YMgkv3mQQ0HnGcWm8NQ1Ytt7tXcFMf27kIQ==
+      value: DQZ/KShd9nJYsiNfSCYh0Pygl64OqQ5V0dA+MMnUnywsthzmyZ/PbDdEsLUYNtl6QcmPUb2NsWEDlHhAKnoYJA==
       objectReference: {fileID: 0}
     - target: {fileID: 5323818951622561360, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
       propertyPath: m_Name
@@ -928,12 +928,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1ce5cd3568b0377488946244a3651fff, type: 3}
-    m_FontSize: 14
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MinSize: 0
+    m_MaxSize: 72
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
